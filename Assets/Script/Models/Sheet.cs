@@ -5,6 +5,13 @@ using UnityEngine.Video;
 namespace NoR2252.Models {
     [System.Serializable]
     public class SheetNote {
+        public SheetNote (float startTime, float endTime, int type, int id, int nextId = 0) {
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.type = type;
+            this.id = id;
+            this.nextId = nextId;
+        }
         public int type;
         public int id;
         public int nextId;
@@ -14,7 +21,6 @@ namespace NoR2252.Models {
         public Vector3 endPos;
         public float Duration { get { return endTime - startTime; } }
     }
-
 
     [System.Serializable]
     public class Sheet {

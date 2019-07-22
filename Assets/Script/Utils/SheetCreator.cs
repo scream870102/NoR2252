@@ -7,6 +7,7 @@ using UnityEditor;
 
 using UnityEngine;
 namespace NoR2252.Utils {
+    /// <summary>this is a easy component to create a sheet with aegisub</summary>
     public class SheetCreator : MonoBehaviour {
         [SerializeField] NoR2252.Models.Sheet t;
         [SerializeField] [Multiline] string testString;

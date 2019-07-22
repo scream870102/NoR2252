@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 
 using UnityEngine;
-namespace NoR2252.Utils {
+namespace Eccentric.Utils {
     public class GetInstanceID : MonoBehaviour {
         [SerializeField] Object _object;
         public void GetID ( ) {

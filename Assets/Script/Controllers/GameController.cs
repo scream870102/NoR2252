@@ -11,84 +11,98 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 public class GameController : MonoBehaviour {
-    #region TEST 
-    [SerializeField] ObjectPool testNotes;
-    #endregion TEST
-    [SerializeField] List<GameNote> gameNotes = new List<GameNote> ( );
-    Queue<SheetNote> queueNotes = new Queue<SheetNote> ( );
-    Sheet currentSheet = null;
-    [SerializeField] VideoPlayer video;
-    [SerializeField] AnimationEventHandler uiAnimHandler;
-    [SerializeField] AnimationClip uiFadeClip;
+    //-----------UI REF
     [SerializeField] Text title;
     [SerializeField] Text author;
     [SerializeField] RawImage cover;
     [SerializeField] Text scoreText;
     [SerializeField] Text comboText;
     [SerializeField] Text resultText;
+    [SerializeField] VideoPlayer video;
+    //---------Animation REF
+    //use this to get the animation on canvas
+    [SerializeField] AnimationEventHandler uiAnimHandler;
+    //ref for uiFadeClip when this clip play finished start the game
+    [SerializeField] AnimationClip uiFadeClip;
+    //---------Property
+    /// <summary>save the fingerIndex when there is a finger touch the slide key=fingerID value=the next id of this slide should touch</summary>
+    public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
+    /// <summary>save the prePos of slideNote key=next slide-child id value = current slideNote position</summary>
+    public Dictionary<int, Vector3> SlidePos { get { return slidePos; } }
+    /// <summary>return the preload before note Start time for this sheet</summary>
+    public float PreLoad { get { return currentSheet.notePreload; } }
+    //---------field
+    [SerializeField] ObjectPool notePool;
+    //save all the gameNote on the scene
+    List<GameNote> gameNotes = new List<GameNote> ( );
+    //save the note information should be set into gameNote
+    Queue<SheetNote> queueNotes = new Queue<SheetNote> ( );
+    Sheet currentSheet = null;
+    bool bComboing;
     int combo;
-    [SerializeField] bool bComboing;
     int score;
     Dictionary<int, int> slideFinger = new Dictionary<int, int> ( );
-    public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
+    Dictionary<int, Vector3> slidePos = new Dictionary<int, Vector3> ( );
     void Awake ( ) {
-        //初始化變數
+        //Init some value
         video.clip = null;
         bComboing = false;
         combo = 0;
         score = 0;
-        //註冊Lean Touch 事件    
+        //subscribe for leanTouch events
         LeanTouch.OnFingerUp += FingerUp;
         LeanTouch.OnFingerSet += FingerSet;
         LeanTouch.OnFingerDown += FingerDown;
         LeanTouch.OnFingerSwipe += FingerSwipe;
         LeanTouch.OnFingerTap += FingerTap;
-        //尋找相關參照
-        uiAnimHandler.OnAnimationFinished += OnAnimationFinished;
-        //生成所有Note的物件池
-        List<IObjectPoolAble> tmp = new List<IObjectPoolAble> (testNotes.Init ( ));
+        //subscribe the animation evenet on canvas which define the scene animation
+        uiAnimHandler.OnAnimationFinClip += OnAnimationFinished;
+        //init for objectpooling
+        List<IObjectPoolAble> tmp = new List<IObjectPoolAble> (notePool.Init ( ));
         foreach (IObjectPoolAble item in tmp) gameNotes.Add (item as GameNote);
     }
     void Start ( ) {
-        //載入Sheet
+        //Load the sheet 
         currentSheet = NoR2252Application.CurrentSheet;
         foreach (SheetNote note in currentSheet.notes) queueNotes.Enqueue (note);
         video.clip = currentSheet.music;
         title.text = currentSheet.name;
         author.text = currentSheet.author;
         cover.texture = currentSheet.cover;
-        //根據Page載入Note到Note 並且透過物件池生成
+        //Set all the noteInfo to objectPooling
         SetNoteToObjectPool ( );
-        //播放入場動畫
+        //play the fade animation
         uiAnimHandler.Animation.Play (uiFadeClip.name);
 
     }
     void Update ( ) {
-        //不停的更新Video Time
+        //Keep update the video time
         NoR2252Application.VideoTime = (float) video.time;
-        //持續加入新的SheetNote給GameNotes
+        //Keep adding sheetNote to gameNote if objectPooling is available
         SetNoteToObjectPool ( );
-        //更新所有GameNotes
+        //Update all the game note and ui elements
         UpdateAllGameNote ( );
         UpdateUI ( );
     }
-    //根據手指觸碰的位置請note判定
+
     //FingerUp
+    //Only react with the gameNote which type is HOLD
     void FingerUp (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && note.Info.type == (int) ENoteType.HOLD && note.IsCollide (pos))
-                CountScore (note.Touch (pos, EFingerAction.UP, finger.Index));
+                CountScore (note.OnTouch (EFingerAction.UP, finger.Index));
         }
     }
     //FingerSet
+    //react with the gameNote which type is HOLD or SLIDE-CHILD
     void FingerSet (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && (note.Info.type == (int) ENoteType.SLIDE_CHILD || note.Info.type == (int) ENoteType.HOLD) && note.IsCollide (pos)) {
-                ENoteGrade grade = note.Touch (pos, EFingerAction.SET, finger.Index);
+                ENoteGrade grade = note.OnTouch (EFingerAction.SET, finger.Index);
                 CountScore (grade);
-                //如果是SLIDE-CHILD
+                //if type is SLIDE-CHILD update the fingerIndex information 
                 if (note.Info.type == (int) ENoteType.SLIDE_CHILD) {
                     if ((int) grade <= (int) ENoteGrade.GOOD)
                         slideFinger [finger.Index] = note.Info.nextId;
@@ -99,44 +113,55 @@ public class GameController : MonoBehaviour {
             }
         }
     }
+
     //FingerDown
+    //react with the gameNote which type is SLIDE-HEAD or HOLD
     void FingerDown (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && (note.Info.type == (int) ENoteType.SLIDE_HEAD || note.Info.type == (int) ENoteType.HOLD) && note.IsCollide (pos)) {
-                ENoteGrade grade = note.Touch (pos, EFingerAction.DOWN, finger.Index);
+                ENoteGrade grade = note.OnTouch (EFingerAction.DOWN, finger.Index);
                 CountScore (grade);
-                //如果Head有成功加入finger跟下一個人的ID表示成功
-                //若Finger存在ID 為零表示前面失敗
+                //if successful add fingerID and nextID 
+                //if nextID equals to zero means got failed on SLIDE-HEAD
                 if (note.Info.type == (int) ENoteType.SLIDE_HEAD) {
                     if ((int) grade <= (int) ENoteGrade.GOOD)
-                        slideFinger.Add (finger.Index, note.Info.nextId);
+                        if (!slideFinger.ContainsKey (finger.Index))
+                            slideFinger.Add (finger.Index, note.Info.nextId);
+                        else
+                            slideFinger [finger.Index] = note.Info.nextId;
                     else if ((int) grade > (int) ENoteGrade.GOOD && grade != ENoteGrade.UNKNOWN)
-                        slideFinger.Add (finger.Index, 0);
-
+                        if (!slideFinger.ContainsKey (finger.Index))
+                            slideFinger.Add (finger.Index, 0);
+                        else
+                            slideFinger [finger.Index] = 0;
                 }
             }
         }
     }
+
     //FingerSwipe
+    //React with FLICK
     void FingerSwipe (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.StartScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && note.Info.type == (int) ENoteType.FLICK && note.IsCollide (pos)) {
-                Debug.Log ("有Flick了");
-                CountScore (note.Touch (pos, EFingerAction.SWIPE, finger.Index));
+                CountScore (note.OnTouch (EFingerAction.SWIPE, finger.Index));
             }
         }
     }
+
     //FingerTap
+    //React with tap
     void FingerTap (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && note.Info.type == (int) ENoteType.TAP && note.IsCollide (pos)) {
-                CountScore (note.Touch (pos, EFingerAction.TAP, finger.Index));
+                CountScore (note.OnTouch (EFingerAction.TAP, finger.Index));
             }
         }
     }
+
     //Animation Event Callback
     void OnAnimationFinished (AnimationClip anim) {
         if (anim.name == uiFadeClip.name) {
@@ -144,26 +169,33 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    //if animation already finished start to play video
     void UILoadFinished ( ) {
         video.Play ( );
     }
 
+    //keep check if notePool is availabe
+    //if true set a sheetNote to gameNote
     void SetNoteToObjectPool ( ) {
-        if (testNotes.IsAvailable && queueNotes.Count != 0) {
-            GameNote note = testNotes.GetPooledObject<SheetNote> (queueNotes.Dequeue ( )) as GameNote;
+        if (notePool.IsAvailable && queueNotes.Count != 0) {
+            GameNote note = notePool.GetPooledObject<SheetNote> (queueNotes.Dequeue ( )) as GameNote;
             Vector3 tmp = Camera.main.ScreenToWorldPoint (note.Info.pos);
             tmp.z = 0f;
             tmp.y = -tmp.y;
             note.transform.position = tmp;
+            //if current note is slideNote save next id and its position to slidePos
+            if (note.Info.type == (int) ENoteType.SLIDE_HEAD || note.Info.type == (int) ENoteType.SLIDE_CHILD) {
+                if (note.Info.nextId != 0)
+                    slidePos.Add (note.Info.nextId, tmp);
+            }
         }
     }
 
     void UpdateAllGameNote ( ) {
         foreach (GameNote note in gameNotes) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
-            //當超過時間沒有產生任何觸碰會回傳miss
-            if (note.IsUsing) grade = note.Tick (currentSheet.notePreload);
-            //如果miss的話
+            //if the note is over its life time will return MISS
+            if (note.IsUsing) grade = note.Tick ( );
             if (grade == ENoteGrade.MISS) CountScore (grade);
         }
     }
@@ -171,7 +203,7 @@ public class GameController : MonoBehaviour {
     void CountScore (ENoteGrade grade) {
         resultText.text = grade.ToString ( );
         if (grade != ENoteGrade.UNKNOWN) {
-            score += GameManager.Instance.Data.Points [(int) grade];
+            score += NoR2252Data.Instance.Points [(int) grade];
             combo++;
         }
         if (grade == ENoteGrade.BAD || grade == ENoteGrade.MISS) {
@@ -180,8 +212,14 @@ public class GameController : MonoBehaviour {
         }
 
     }
+    /// <summary>Call this method to get more point</summary>
+    /// <remarks>its for hold finished</remarks>
+    public void PlusPoint (ENoteGrade grade) {
+        CountScore (grade);
+    }
     void UpdateUI ( ) {
         scoreText.text = score.ToString ( );
         comboText.text = combo.ToString ( );
     }
+
 }

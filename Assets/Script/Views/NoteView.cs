@@ -12,14 +12,14 @@ namespace NoR2252.View.Note {
         protected Color color;
         bool bRendering = false;
         Vector3 initScale = new Vector3 ( );
-        public NoteView (GameNote note) {
+        public NoteView (GameNote note, SpriteRenderer renderer, Animation animation) {
             this.Note = note;
-            renderer = note.gameObject.GetComponent<SpriteRenderer> ( );
+            this.renderer = renderer;
             renderer.enabled = false;
-            animation = note.gameObject.GetComponent<Animation> ( );
+            this.animation = animation;
             initScale = note.transform.localScale;
         }
-        public virtual void SetNote (GameNote note) {
+        public void SetNote (GameNote note) {
             this.Note = note;
         }
         public virtual void OnSpawn ( ) {
@@ -37,12 +37,12 @@ namespace NoR2252.View.Note {
             if (bRendering) {
                 Vector3 newScale = new Vector3 (Note.transform.localScale.x - Time.deltaTime * .01f, Note.transform.localScale.y - Time.deltaTime * .01f, initScale.z);
                 Note.transform.localScale = newScale;
-                if (Note.Info.endTime - GameManager.Instance.Data.Time_Grade [(int) ENoteGrade.MISS] <= NoR2252Application.VideoTime)
+                if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] <= NoR2252Application.VideoTime)
                     renderer.color = Color.green;
-                if (Note.Info.endTime - GameManager.Instance.Data.Time_Grade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) {
+                if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) {
                     renderer.color = Color.white;
                 }
-                if (Note.Info.endTime + GameManager.Instance.Data.Time_Grade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) {
+                if (Note.Info.endTime + NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) {
                     renderer.color = Color.red;
                 }
             }

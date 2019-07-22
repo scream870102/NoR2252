@@ -228,23 +228,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b8333f50ab6ea418e4cadcbd2ab4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testNotes:
-    pooledObject: {fileID: 925778131280014616, guid: 60ca44d5bf8128243b8ac9524ef3e2ba,
-      type: 3}
-    poolParent: {fileID: 0}
-    pooledAmount: 15
-    IsGrow: 0
-  gameNotes: []
-  video: {fileID: 273247572}
-  uiAnimHandler: {fileID: 1030256020}
-  uiFadeClip: {fileID: 7400000, guid: 78470cfa9ca4cff41841efbf514404ed, type: 2}
   title: {fileID: 1363075399}
   author: {fileID: 1610959000}
   cover: {fileID: 695730494}
   scoreText: {fileID: 1723731773}
   comboText: {fileID: 11341615}
   resultText: {fileID: 197564072}
-  bComboing: 0
+  video: {fileID: 273247572}
+  uiAnimHandler: {fileID: 1030256020}
+  uiFadeClip: {fileID: 7400000, guid: 78470cfa9ca4cff41841efbf514404ed, type: 2}
+  notePool:
+    pooledObject: {fileID: 925778131280014616, guid: 60ca44d5bf8128243b8ac9524ef3e2ba,
+      type: 3}
+    poolParent: {fileID: 0}
+    pooledAmount: 20
+    IsGrow: 0
 --- !u!4 &16417349
 Transform:
   m_ObjectHideFlags: 0
@@ -1244,6 +1242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1546362428}
   - component: {fileID: 1546362427}
+  - component: {fileID: 1546362429}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1263,22 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d637a2045d79bed448694a67afee1023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sheet: {fileID: 4900000, guid: 6f5bf04287cffb64ea4e28fa573b491c, type: 3}
-  data:
-    PrepareTime: 0
-    Points: 64000000500000003c0000001400000000000000
-    Time_Grade:
-    - 0.1
-    - 0.2
-    - 0.5
-    - 0.8
-    - 1
-    NoteColor:
-    - {r: 0.8962264, g: 0.5368903, b: 0.5368903, a: 1}
-    - {r: 0.9716981, g: 0.81257993, b: 0.34376112, a: 1}
-    - {r: 0.65398353, g: 0.5137255, b: 0.9137255, a: 1}
-    - {r: 0.45710218, g: 0.6811614, b: 0.9056604, a: 1}
-    - {r: 0.9433962, g: 0.4761481, b: 0.9307262, a: 1}
+  Sheet: {fileID: 4900000, guid: 8fb2c70447355fb48acf48c949aa6368, type: 3}
 --- !u!4 &1546362428
 Transform:
   m_ObjectHideFlags: 0
@@ -1293,6 +1277,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546362429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546362426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fb42386d1e3944ea4193d754f9af7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Points: 64000000500000003c0000001400000000000000
+  TimeGrade:
+  - 0.2
+  - 0.3
+  - 0.5
+  - 0.6
+  - 0.8
+  NoteColor:
+  - {r: 0.9254902, g: 0.38823524, b: 0.40418008, a: 1}
+  - {r: 0.9254902, g: 0.644044, b: 0.38823524, a: 1}
+  - {r: 0.7049775, g: 0.38823524, b: 0.9254902, a: 1}
+  - {r: 0.38823524, g: 0.45897433, b: 0.9254902, a: 1}
+  - {r: 0.38823524, g: 0.9254902, b: 0.9211986, a: 1}
 --- !u!1 &1610958998
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ namespace NoR2252.View.Note {
     [RequireComponent (typeof (SpriteRenderer))]
     [System.Serializable]
     public class NoteView {
+        protected readonly float CLEAR_TIME = .17f;
         public GameNote Note;
         protected NG.RefObject refS;
         protected NG.NoteColorAndSprite cAs;

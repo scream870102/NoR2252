@@ -27,7 +27,6 @@ namespace NoR2252.View.Action {
             this.transVelo = TransitionVelocity;
             this.biggest = BiggestScale;
             init = Transform.localScale;
-            this.biggest -= init.x;
         }
 
         public void Tick ( ) {

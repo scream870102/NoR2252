@@ -12,12 +12,11 @@ namespace NoR2252.View.Note {
         Vector3 initScale;
         RotationAction rotAction;
         PingPongScale ppScale;
-        readonly float CLEAR_TIME = .17f;
         readonly float IN_ZOOM_OUT_VELO = 0.95f;
         readonly float OUT_ZOOM_OUT_VELO = 0.75f;
         readonly float IN_ROT_VELO = 300f;
-        readonly float BIGGEST_OUTLINE_SCALE = 0.05f;
-        readonly float OUTLINE_TRANS_VELO = 0.1f;
+        readonly float BIGGEST_OUTLINE_SCALE = 0.3f;
+        readonly float OUTLINE_TRANS_VELO = 0.5f;
 
         public TapNoteView (GameNote note, NG.RefObject refs) : base (note, refs) {
             //set color and sprite

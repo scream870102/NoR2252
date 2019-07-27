@@ -9,8 +9,7 @@ namespace NoR2252.Models {
     [RequireComponent (typeof (Collider2D))]
     public class GameNote : MonoBehaviour, IObjectPoolAble {
         //-------Ref
-        new AudioSource audio;
-        NG.RefObject gRef = new NG.RefObject ( );
+        [SerializeField]NG.RefObject gRef = new NG.RefObject ( );
         //-------Field
         [SerializeField] SheetNote info;
         //define how this note Update and react with touch
@@ -29,11 +28,9 @@ namespace NoR2252.Models {
         public GameController Controller { get { return controller; } }
         public bool IsUsing { get { return bUsing; } }
         public bool IsRendering { get { return bRendering; } set { bRendering = value; } }
-        public AudioSource Audio { get { return audio; } }
         void Awake ( ) {
             col = GetComponent<Collider2D> ( );
             controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
-            audio = GetComponent<AudioSource> ( );
             gRef.MainTf = this.transform;
             gRef.LineTf = gRef.MainTf.Find ("Line");
             gRef.LineBGTf = gRef.MainTf.Find ("LineBackground");
@@ -145,7 +142,7 @@ namespace NoR2252.Models {
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             //decide to show according to the video time and note start time
-            if (!Note.IsRendering && Note.Info.startTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] - NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
+            if (!Note.IsRendering && Note.Info.startTime - NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
                 Note.IsRendering = true;
                 Note.View.OnSpawn ( );
             }
@@ -166,7 +163,6 @@ namespace NoR2252.Models {
             }
             float offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
             grade = GetGrade (offset);
-            Note.Audio.Play ( );
             GetResult (grade);
             return grade;
         }
@@ -179,7 +175,7 @@ namespace NoR2252.Models {
         }
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
-            if (!Note.IsRendering && Note.Info.startTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] - NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
+            if (!Note.IsRendering && Note.Info.startTime -  NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
                 Note.IsRendering = true;
                 Note.View.OnSpawn ( );
             }
@@ -208,7 +204,6 @@ namespace NoR2252.Models {
             if (action == EFingerAction.DOWN) {
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.startTime);
                 grade = GetGrade (offset);
-                Note.Audio.Play ( );
                 //if grade is miss or bad just return the result and recycle self
                 if (grade == ENoteGrade.BAD || grade == ENoteGrade.MISS) {
                     GetResult (grade);
@@ -225,7 +220,6 @@ namespace NoR2252.Models {
                 bHolding = false;
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
                 grade = GetGrade (offset);
-                Note.Audio.Play ( );
             }
             //if player keep holding return UNKNOWN
             else {
@@ -253,7 +247,6 @@ namespace NoR2252.Models {
             }
             //if its a new finger got miss grade
             else grade = ENoteGrade.MISS;
-            Note.Audio.Play ( );
             GetResult (grade);
             return grade;
         }

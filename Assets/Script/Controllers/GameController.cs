@@ -24,6 +24,8 @@ public class GameController : MonoBehaviour {
     [SerializeField] AnimationEventHandler uiAnimHandler;
     //ref for uiFadeClip when this clip play finished start the game
     [SerializeField] AnimationClip uiFadeClip;
+    //----------Ref
+    new AudioSource audio;
     //---------Property
     /// <summary>save the fingerIndex when there is a finger touch the slide key=fingerID value=the next id of this slide should touch</summary>
     public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
@@ -49,6 +51,7 @@ public class GameController : MonoBehaviour {
         bComboing = false;
         combo = 0;
         score = 0;
+        audio = GetComponent<AudioSource> ( );
         //subscribe for leanTouch events
         LeanTouch.OnFingerUp += FingerUp;
         LeanTouch.OnFingerSet += FingerSet;
@@ -93,8 +96,11 @@ public class GameController : MonoBehaviour {
     void FingerUp (LeanFinger finger) {
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
-            if (note.IsRendering && note.Info.type == (int) ENoteType.HOLD && note.IsCollide (pos))
-                CountScore (note.OnTouch (EFingerAction.UP, finger.Index));
+            if (note.IsRendering && note.Info.type == (int) ENoteType.HOLD && note.IsCollide (pos)) {
+                ENoteGrade grade = note.OnTouch (EFingerAction.UP, finger.Index);
+                CountScore (grade);
+                if (grade != ENoteGrade.UNKNOWN) audio.Play ( );
+            }
         }
     }
     //FingerSet
@@ -107,10 +113,14 @@ public class GameController : MonoBehaviour {
                 CountScore (grade);
                 //if type is SLIDE-CHILD update the fingerIndex information 
                 if (note.Info.type == (int) ENoteType.SLIDE_CHILD) {
-                    if ((int) grade <= (int) ENoteGrade.GOOD)
+                    if ((int) grade <= (int) ENoteGrade.GOOD) {
+                        audio.Play ( );
                         slideFinger [finger.Index] = note.Info.nextId;
-                    else if ((int) grade > (int) ENoteGrade.GOOD && grade != ENoteGrade.UNKNOWN)
+                    }
+                    else if ((int) grade > (int) ENoteGrade.GOOD && grade != ENoteGrade.UNKNOWN) {
+                        audio.Play ( );
                         slideFinger [finger.Index] = 0;
+                    }
 
                 }
             }
@@ -124,6 +134,7 @@ public class GameController : MonoBehaviour {
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && (note.Info.type == (int) ENoteType.SLIDE_HEAD || note.Info.type == (int) ENoteType.HOLD) && note.IsCollide (pos)) {
                 ENoteGrade grade = note.OnTouch (EFingerAction.DOWN, finger.Index);
+                if (grade != ENoteGrade.UNKNOWN) audio.Play ( );
                 CountScore (grade);
                 //if successful add fingerID and nextID 
                 //if nextID equals to zero means got failed on SLIDE-HEAD
@@ -146,6 +157,7 @@ public class GameController : MonoBehaviour {
     //FingerSwipe
     //React with FLICK
     void FingerSwipe (LeanFinger finger) {
+        audio.Play ( );
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.StartScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && note.Info.type == (int) ENoteType.FLICK && note.IsCollide (pos)) {
@@ -157,6 +169,7 @@ public class GameController : MonoBehaviour {
     //FingerTap
     //React with tap
     void FingerTap (LeanFinger finger) {
+        audio.Play ( );
         Vector2 pos = Camera.main.ScreenToWorldPoint (finger.ScreenPosition);
         foreach (GameNote note in gameNotes) {
             if (note.IsRendering && note.Info.type == (int) ENoteType.TAP && note.IsCollide (pos)) {

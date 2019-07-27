@@ -2,19 +2,22 @@ using Eccentric;
 using EU = Eccentric.Utils;
 using NoR2252.Models;
 using NG = NoR2252.Models.Graphics;
+using NoR2252.View.Action;
+
 using UnityEngine;
 namespace NoR2252.View.Note {
     [System.Serializable]
     public class TapNoteView : NoteView {
-        bool bClockWise;
         Vector3 initOutlineScale;
         Vector3 initScale;
-        readonly float clearTime = .2f;
-        readonly float inZoomOutVelo = 0.95f;
-        readonly float outZoomOutVelo = 0.75f;
-        readonly float inRotVelo = 300f;
-        readonly float biggestOutlineScale = 0.05f;
-        readonly float outLineTransVelo = 0.1f;
+        RotationAction rotAction;
+        PingPongScale ppScale;
+        readonly float CLEAR_TIME = .17f;
+        readonly float IN_ZOOM_OUT_VELO = 0.95f;
+        readonly float OUT_ZOOM_OUT_VELO = 0.75f;
+        readonly float IN_ROT_VELO = 300f;
+        readonly float BIGGEST_OUTLINE_SCALE = 0.05f;
+        readonly float OUTLINE_TRANS_VELO = 0.1f;
 
         public TapNoteView (GameNote note, NG.RefObject refs) : base (note, refs) {
             //set color and sprite
@@ -26,23 +29,18 @@ namespace NoR2252.View.Note {
             refs.OutLine.sprite = cAs.OutlineS;
             refs.OutLine.color = cAs.OutLineC;
             //set other var
-            bClockWise = Math.RandomBool ( );
             initOutlineScale = refs.OutLineTf.localScale;
             initScale = new Vector3 (NoR2252Application.Size, NoR2252Application.Size, 1f);
-
+            //init action
+            rotAction = new RotationAction (Math.RandomBool ( ), IN_ROT_VELO, ref refs.MainTf);
+            ppScale = new PingPongScale (OUTLINE_TRANS_VELO, BIGGEST_OUTLINE_SCALE, ref refs.OutLineTf);
         }
         public override void Render ( ) {
             if (IsRendering) {
                 // note inside
-                Vector3 insideRot = refS.MainTf.rotation.eulerAngles;
-                if (bClockWise) insideRot.z += inRotVelo * Time.deltaTime;
-                else insideRot.z -= inRotVelo * Time.deltaTime;
-                refS.MainTf.rotation = Quaternion.Euler (insideRot);
+                rotAction.Tick ( );
                 //note outside
-                Vector3 outsideScale = initOutlineScale;
-                outsideScale.x = Mathf.PingPong (Time.time * outLineTransVelo, biggestOutlineScale) + initOutlineScale.x;
-                outsideScale.y = Mathf.PingPong (Time.time * outLineTransVelo, biggestOutlineScale) + initOutlineScale.y;
-                refS.OutLineTf.localScale = outsideScale;
+                ppScale.Tick ( );
                 //about color
                 if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) {
                     Color c = cAs.MainC;
@@ -57,18 +55,14 @@ namespace NoR2252.View.Note {
                     refS.MainTf.localScale = initScale;
                 }
                 else {
-                    Color c = cAs.MainC;
-                    c.a = c.a / 2f;
-                    refS.Main.color = c;
-                    Color co = cAs.OutLineC;
-                    co.a = co.a / 2f;
-                    refS.OutLine.color = co;
-                    refS.MainTf.localScale = initScale * Math.InverseProbability ((Note.Info.startTime - NoR2252Application.VideoTime) / (NoR2252Application.PreLoad + NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]));
+                    refS.Main.color = EU.Color.SetAlphaHalf (cAs.MainC);
+                    refS.OutLine.color = EU.Color.SetAlphaHalf (cAs.OutLineC);
+                    refS.MainTf.localScale = initScale * Math.InverseProbability ((Note.Info.startTime - NoR2252Application.VideoTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]) / (NoR2252Application.PreLoad - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]));
                 }
                 if (bClearing) {
-                    Vector3 tmpScale = refS.OutLineTf.localScale * inZoomOutVelo;
+                    Vector3 tmpScale = refS.OutLineTf.localScale * IN_ZOOM_OUT_VELO;
                     refS.OutLineTf.localScale = tmpScale;
-                    Vector3 tpScale = refS.MainTf.localScale * outZoomOutVelo;
+                    Vector3 tpScale = refS.MainTf.localScale * OUT_ZOOM_OUT_VELO;
                     refS.MainTf.localScale = tpScale;
 
                     if (timer.IsFinished)
@@ -81,7 +75,7 @@ namespace NoR2252.View.Note {
         public override void OnClear (ENoteGrade grade) {
             if (grade != ENoteGrade.UNKNOWN && !bClearing) {
                 bClearing = true;
-                timer.Reset (clearTime);
+                timer.Reset (CLEAR_TIME);
                 if (grade == ENoteGrade.PERFECT || grade == ENoteGrade.GREAT) {
                     refS.Ptc.Play ( );
                 }

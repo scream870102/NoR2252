@@ -9,9 +9,14 @@ namespace Eccentric.Utils {
         public static UnityEngine.Color HSV2RGB (Vector3 hsv) {
             return UnityEngine.Color.HSVToRGB (hsv.x, hsv.y, hsv.z);
         }
-        public static void SetAlpha (ref UnityEngine.Color rgb, float alpha) {
+        public static UnityEngine.Color SetAlpha (UnityEngine.Color rgb, float alpha) {
             float a = alpha / 255f;
             rgb.a = a;
+            return rgb;
+        }
+        public static UnityEngine.Color SetAlphaHalf(UnityEngine.Color rgb){
+            rgb.a=rgb.a/2f;
+            return rgb;
         }
     }
 }

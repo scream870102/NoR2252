@@ -3,7 +3,6 @@ using EU = Eccentric.Utils;
 using NoR2252.Models;
 using NG = NoR2252.Models.Graphics;
 using UnityEngine;
-using UnityEngine.UI;
 namespace NoR2252.View.Note {
     [RequireComponent (typeof (Animation))]
     [RequireComponent (typeof (SpriteRenderer))]
@@ -11,7 +10,7 @@ namespace NoR2252.View.Note {
     public class NoteView {
         public GameNote Note;
         protected NG.RefObject refS;
-        protected NoR2252Data.NoteColorAndSprite cAs;
+        protected NG.NoteColorAndSprite cAs;
         bool bRendering = false;
         Vector3 initScale = new Vector3 ( );
         protected bool bClearing = false;

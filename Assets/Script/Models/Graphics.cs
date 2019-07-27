@@ -1,5 +1,6 @@
 using UnityEngine;
 namespace NoR2252.Models.Graphics {
+    [System.Serializable]
     public class RefObject {
         public Transform MainTf;
         public Transform LineTf;
@@ -31,5 +32,17 @@ namespace NoR2252.Models.Graphics {
 
         }
 
+    }
+
+    [System.Serializable]
+    public class NoteColorAndSprite {
+        public Sprite MainS;
+        public Sprite LineS;
+        public Sprite OutlineS;
+        public Color MainC;
+        public Color OutLineC;
+        public Color LineC;
+        public Color LineBGC;
+        public Color PtcC;
     }
 }

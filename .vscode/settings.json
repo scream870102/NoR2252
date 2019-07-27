@@ -54,6 +54,7 @@
         "Temp/":true
     },
     "cSpell.ignoreWords": [
-        "aegisub"
+        "aegisub",
+        "velo"
     ]
 }

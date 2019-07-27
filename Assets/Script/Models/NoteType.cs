@@ -1,5 +1,5 @@
 namespace NoR2252.Models {
-    enum ENoteType {
+    public enum ENoteType {
         TAP,
         FLICK,
         SLIDE_HEAD,

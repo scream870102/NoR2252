@@ -23,7 +23,16 @@ namespace NoR2252.Models {
     }
 
     [System.Serializable]
-    public class Sheet {
+    public class GameSheet {
+        public GameSheet (string name, string author, float bpm, List<SheetNote> notes, double musicOffset, float size, float notePreload) {
+            this.name = name;
+            this.author = author;
+            this.bpm = bpm;
+            this.notes = notes;
+            this.musicOffset = musicOffset;
+            this.size = size;
+            this.notePreload = notePreload;
+        }
         public string name;
         public string author;
         public VideoClip music;
@@ -31,8 +40,21 @@ namespace NoR2252.Models {
         public float bpm;
         public List<SheetNote> notes;
         public double musicOffset = 0f;
-        public float size = 10f;
-        public float notePreload = 0.3f;
+        public float size = 2.0f;
+        public float notePreload = 2.0f;
+    }
+
+    [System.Serializable]
+    public class Sheet {
+        public string name;
+        public string author;
+        public string music;
+        public string cover;
+        public float bpm;
+        public List<SheetNote> notes;
+        public double musicOffset = 0f;
+        public float size = 2.0f;
+        public float notePreload = 2.0f;
     }
 
 }

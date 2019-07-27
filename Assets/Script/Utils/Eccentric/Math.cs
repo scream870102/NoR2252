@@ -57,5 +57,14 @@ namespace Eccentric {
         public static float ChooseRandomNum (float number) {
             return UnityEngine.Random.Range (0f, number);
         }
+
+        public static bool RandomBool ( ) {
+            return UnityEngine.Random.Range (0, 2) % 2 == 0;
+        }
+
+        public static float InverseProbability (float origin) {
+            float tmp=UnityEngine.Mathf.Clamp01 (origin);
+            return 1f - tmp;
+        }
     }
 }

@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
     List<GameNote> gameNotes = new List<GameNote> ( );
     //save the note information should be set into gameNote
     Queue<SheetNote> queueNotes = new Queue<SheetNote> ( );
-    Sheet currentSheet = null;
+    GameSheet currentSheet = null;
     bool bComboing;
     int combo;
     int score;
@@ -69,6 +69,8 @@ public class GameController : MonoBehaviour {
         title.text = currentSheet.name;
         author.text = currentSheet.author;
         cover.texture = currentSheet.cover;
+        NoR2252Application.PreLoad = currentSheet.notePreload;
+        NoR2252Application.Size = currentSheet.size;
         //Set all the noteInfo to objectPooling
         SetNoteToObjectPool ( );
         //play the fade animation
@@ -77,7 +79,8 @@ public class GameController : MonoBehaviour {
     }
     void Update ( ) {
         //Keep update the video time
-        NoR2252Application.VideoTime = (float) video.time;
+        NoR2252Application.VideoTime = (float) video.time + NoR2252Application.Offset;
+        NoR2252Application.RawVideoTime = (float) video.time;
         //Keep adding sheetNote to gameNote if objectPooling is available
         SetNoteToObjectPool ( );
         //Update all the game note and ui elements

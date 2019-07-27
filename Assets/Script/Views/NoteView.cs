@@ -1,6 +1,9 @@
+using EU = Eccentric.Utils;
+
 using NoR2252.Models;
 
 using UnityEngine;
+using UnityEngine.UI;
 namespace NoR2252.View.Note {
     [RequireComponent (typeof (Animation))]
     [RequireComponent (typeof (SpriteRenderer))]
@@ -9,14 +12,34 @@ namespace NoR2252.View.Note {
         public GameNote Note;
         protected SpriteRenderer renderer;
         protected Animation animation;
+        protected SpriteRenderer secondRenderer;
+        protected LineRenderer lineRenderer;
+        protected ParticleSystem particle;
+        protected Transform tf;
+        protected Transform secondTf;
+        protected Transform lineTf;
         protected Color color;
+
         bool bRendering = false;
         Vector3 initScale = new Vector3 ( );
-        public NoteView (GameNote note, SpriteRenderer renderer, Animation animation) {
+        protected bool bClearing = false;
+        public bool IsRendering { get { return bRendering; } }
+        protected EU.CountdownTimer timer = new EU.CountdownTimer ( );
+        protected ResultTextController.TextAndAnim resultText = null;
+        public NoteView (GameNote note, SpriteRenderer renderer, Animation animation, SpriteRenderer secondRend, LineRenderer lineRenderer, ParticleSystem particle, Transform tf, Transform secondTf, Transform lineTf) {
             this.Note = note;
             this.renderer = renderer;
-            renderer.enabled = false;
             this.animation = animation;
+            this.secondRenderer = secondRend;
+            this.lineRenderer = lineRenderer;
+            this.particle = particle;
+            this.tf = tf;
+            this.secondTf = secondTf;
+            this.lineTf = lineTf;
+            this.renderer.sprite = NoR2252Data.Instance.NoteSprite [note.Info.type];
+            renderer.enabled = false;
+            lineRenderer.enabled = false;
+            secondRend.enabled = false;
             initScale = note.transform.localScale;
         }
         public void SetNote (GameNote note) {
@@ -26,12 +49,18 @@ namespace NoR2252.View.Note {
             renderer.color = color;
             renderer.enabled = true;
             bRendering = true;
+            bClearing = false;
         }
         public virtual void OnClear (ENoteGrade grade) {
-            if (grade == ENoteGrade.UNKNOWN) return;
+        }
+
+        protected virtual void OnCleared ( ) {
             renderer.enabled = false;
+            
             bRendering = false;
+            bClearing = false;
             Note.transform.localScale = initScale;
+            Note.Recycle ( );
         }
         public virtual void Render ( ) {
             if (bRendering) {

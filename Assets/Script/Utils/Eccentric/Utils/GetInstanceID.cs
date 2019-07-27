@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 
 using UnityEngine;
+#if (UNITY_EDITOR) 
 namespace Eccentric.Utils {
     public class GetInstanceID : MonoBehaviour {
         [SerializeField] Object _object;
@@ -22,3 +23,4 @@ namespace Eccentric.Utils {
     }
 
 }
+#endif

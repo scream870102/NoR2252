@@ -1,4 +1,5 @@
 using Eccentric.Collections;
+using NG = NoR2252.Models.Graphics;
 
 using NoR2252.Models;
 using NoR2252.View.Note;
@@ -9,14 +10,7 @@ namespace NoR2252.Models {
     public class GameNote : MonoBehaviour, IObjectPoolAble {
         //-------Ref
         new AudioSource audio;
-        new SpriteRenderer renderer;
-        new Animation animation;
-        LineRenderer lineRenderer;
-        SpriteRenderer secondRenderer;
-        ParticleSystem particle;
-        Transform tf;
-        Transform secondTf;
-        Transform lineTf;
+        NG.RefObject gRef = new NG.RefObject ( );
         //-------Field
         [SerializeField] SheetNote info;
         //define how this note Update and react with touch
@@ -39,15 +33,19 @@ namespace NoR2252.Models {
         void Awake ( ) {
             col = GetComponent<Collider2D> ( );
             controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
-            tf = transform;
-            animation = GetComponent<Animation> ( );
-            renderer = GetComponent<SpriteRenderer> ( );
-            lineTf = tf.Find ("LineObject");
-            lineRenderer = lineTf.GetComponent<LineRenderer> ( );
-            secondTf = tf.Find ("SecondRenderer");
-            secondRenderer = secondTf.GetComponent<SpriteRenderer> ( );
-            particle = transform.Find ("Ptc").GetComponent<ParticleSystem> ( );
             audio = GetComponent<AudioSource> ( );
+            gRef.MainTf = this.transform;
+            gRef.LineTf = gRef.MainTf.Find ("Line");
+            gRef.LineBGTf = gRef.MainTf.Find ("LineBackground");
+            gRef.OutLineTf = gRef.MainTf.Find ("Outline");
+            gRef.MaskTf = gRef.MainTf.Find ("Mask");
+            gRef.PtcTf = gRef.MainTf.Find ("Ptc");
+            gRef.Main = GetComponent<SpriteRenderer> ( );
+            gRef.Line = gRef.LineTf.GetComponent<SpriteRenderer> ( );
+            gRef.LingBG = gRef.LineBGTf.GetComponent<SpriteRenderer> ( );
+            gRef.OutLine = gRef.OutLineTf.GetComponent<SpriteRenderer> ( );
+            gRef.Mask = gRef.MaskTf.GetComponent<SpriteMask> ( );
+            gRef.Ptc = gRef.PtcTf.GetComponent<ParticleSystem> ( );
         }
         public void Recycle ( ) {
             IsRendering = false;
@@ -60,23 +58,23 @@ namespace NoR2252.Models {
             //according to the type choose different strategy and view
             switch (info.type) {
                 case (int) ENoteType.TAP:
-                    view = new TapNoteView (this, renderer, animation, secondRenderer, lineRenderer, particle, tf, secondTf, lineTf);
+                    view = new TapNoteView (this, gRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.FLICK:
-                    view = new FlickNoteView (this, renderer, animation, secondRenderer, lineRenderer, particle, tf, secondTf, lineTf);
+                    view = new FlickNoteView (this, gRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.HOLD:
-                    view = new HoldNoteView (this, renderer, animation, secondRenderer, lineRenderer, particle, tf, secondTf, lineTf);
+                    view = new HoldNoteView (this, gRef);
                     strategy = new HoldStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_HEAD:
-                    view = new SlideHeadNoteView (this, renderer, animation, secondRenderer, lineRenderer, particle, tf, secondTf, lineTf);
+                    view = new SlideHeadNoteView (this, gRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_CHILD:
-                    view = new SlideChildNoteView (this, renderer, animation, secondRenderer, lineRenderer, particle, tf, secondTf, lineTf);
+                    view = new SlideChildNoteView (this, gRef);
                     strategy = new SlideChildStrategy (this);
                     break;
             }

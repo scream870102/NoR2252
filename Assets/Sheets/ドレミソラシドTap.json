@@ -1,1 +1,220 @@
-{"name":"ドレミソラシドTap","author":"日向坂46 feat.Eccentric","music":"MusicVideo/日向坂46 『ドレミソラシド』","cover":"Cover/ドレミソラシド","bpm":0.0,"notes":[{"type":0,"id":0,"nextId":0,"startTime":1.5,"endTime":1.5,"pos":{"x":0.0,"y":0.0,"z":0.0},"endPos":{"x":0.0,"y":0.0,"z":0.0}},{"type":0,"id":1,"nextId":0,"startTime":2.5,"endTime":2.5,"pos":{"x":50.0,"y":50.0,"z":0.0},"endPos":{"x":50.0,"y":50.0,"z":0.0}},{"type":0,"id":2,"nextId":0,"startTime":3.5,"endTime":3.5,"pos":{"x":100.0,"y":100.0,"z":0.0},"endPos":{"x":100.0,"y":100.0,"z":0.0}},{"type":0,"id":3,"nextId":0,"startTime":4.5,"endTime":4.5,"pos":{"x":200.0,"y":200.0,"z":0.0},"endPos":{"x":200.0,"y":200.0,"z":0.0}},{"type":0,"id":4,"nextId":0,"startTime":5.5,"endTime":5.5,"pos":{"x":300.0,"y":300.0,"z":0.0},"endPos":{"x":300.0,"y":300.0,"z":0.0}},{"type":0,"id":5,"nextId":0,"startTime":6.5,"endTime":6.5,"pos":{"x":400.0,"y":400.0,"z":0.0},"endPos":{"x":400.0,"y":400.0,"z":0.0}},{"type":0,"id":6,"nextId":0,"startTime":7.5,"endTime":7.5,"pos":{"x":500.0,"y":500.0,"z":0.0},"endPos":{"x":500.0,"y":500.0,"z":0.0}},{"type":0,"id":7,"nextId":0,"startTime":8.5,"endTime":8.5,"pos":{"x":600.0,"y":600.0,"z":0.0},"endPos":{"x":600.0,"y":600.0,"z":0.0}},{"type":0,"id":8,"nextId":0,"startTime":9.5,"endTime":9.5,"pos":{"x":700.0,"y":700.0,"z":0.0},"endPos":{"x":700.0,"y":700.0,"z":0.0}},{"type":0,"id":9,"nextId":0,"startTime":10.5,"endTime":10.5,"pos":{"x":800.0,"y":800.0,"z":0.0},"endPos":{"x":800.0,"y":800.0,"z":0.0}},{"type":0,"id":10,"nextId":0,"startTime":11.5,"endTime":11.5,"pos":{"x":960.0,"y":540.0,"z":0.0},"endPos":{"x":960.0,"y":540.0,"z":0.0}},{"type":0,"id":11,"nextId":0,"startTime":12.5,"endTime":12.5,"pos":{"x":1920.0,"y":1080.0,"z":0.0},"endPos":{"x":1920.0,"y":1080.0,"z":0.0}}],"musicOffset":0.0,"size":10.0,"notePreload":0.800000011920929}
+{
+    "name": "ドレミソラシドTap",
+    "author": "日向坂46 feat.Eccentric",
+    "music": "MusicVideo/日向坂46 『ドレミソラシド』",
+    "cover": "Cover/ドレミソラシド",
+    "bpm": 0.0,
+    "notes": [
+        {
+            "type": 0,
+            "id": 0,
+            "nextId": 0,
+            "startTime": 1.5,
+            "endTime": 1.5,
+            "pos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 1,
+            "nextId": 0,
+            "startTime": 2.5,
+            "endTime": 2.5,
+            "pos": {
+                "x": 50.0,
+                "y": 50.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 50.0,
+                "y": 50.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 2,
+            "nextId": 0,
+            "startTime": 3.5,
+            "endTime": 3.5,
+            "pos": {
+                "x": 100.0,
+                "y": 100.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 100.0,
+                "y": 100.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 3,
+            "nextId": 0,
+            "startTime": 4.5,
+            "endTime": 4.5,
+            "pos": {
+                "x": 200.0,
+                "y": 200.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 200.0,
+                "y": 200.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 4,
+            "nextId": 0,
+            "startTime": 5.5,
+            "endTime": 5.5,
+            "pos": {
+                "x": 300.0,
+                "y": 300.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 300.0,
+                "y": 300.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 5,
+            "nextId": 0,
+            "startTime": 6.5,
+            "endTime": 6.5,
+            "pos": {
+                "x": 400.0,
+                "y": 400.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 400.0,
+                "y": 400.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 6,
+            "nextId": 0,
+            "startTime": 7.5,
+            "endTime": 7.5,
+            "pos": {
+                "x": 500.0,
+                "y": 500.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 500.0,
+                "y": 500.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 7,
+            "nextId": 0,
+            "startTime": 8.5,
+            "endTime": 8.5,
+            "pos": {
+                "x": 600.0,
+                "y": 600.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 600.0,
+                "y": 600.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 8,
+            "nextId": 0,
+            "startTime": 9.5,
+            "endTime": 9.5,
+            "pos": {
+                "x": 700.0,
+                "y": 700.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 700.0,
+                "y": 700.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 9,
+            "nextId": 0,
+            "startTime": 10.5,
+            "endTime": 10.5,
+            "pos": {
+                "x": 800.0,
+                "y": 800.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 800.0,
+                "y": 800.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 10,
+            "nextId": 0,
+            "startTime": 11.5,
+            "endTime": 11.5,
+            "pos": {
+                "x": 960.0,
+                "y": 540.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 960.0,
+                "y": 540.0,
+                "z": 0.0
+            }
+        },
+        {
+            "type": 0,
+            "id": 11,
+            "nextId": 0,
+            "startTime": 12.5,
+            "endTime": 12.5,
+            "pos": {
+                "x": 1920.0,
+                "y": 1080.0,
+                "z": 0.0
+            },
+            "endPos": {
+                "x": 1920.0,
+                "y": 1080.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "musicOffset": 0.0,
+    "size": 10.0,
+    "notePreload": 0.800000011920929,
+    "screenSize": {
+        "x": 1920.0,
+        "y": 1080.0
+    }
+}

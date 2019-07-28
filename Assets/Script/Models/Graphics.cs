@@ -11,7 +11,7 @@ namespace NoR2252.Models.Graphics {
         public SpriteRenderer Main;
         public SpriteRenderer Line;
         public SpriteRenderer OutLine;
-        public SpriteRenderer LingBG;
+        public SpriteRenderer LineBG;
         public ParticleSystem Ptc;
         public SpriteMask Mask;
         protected bool bAllEnable = true;
@@ -24,9 +24,10 @@ namespace NoR2252.Models.Graphics {
                 Main.enabled = value;
                 Line.enabled = value;
                 OutLine.enabled = value;
-                LingBG.enabled = value;
-                if (value == false)
+                LineBG.enabled = value;
+                if (value == false){
                     Ptc.Stop ( );
+                }
                 Mask.enabled = value;
             }
 

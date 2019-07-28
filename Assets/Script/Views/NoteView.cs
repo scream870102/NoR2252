@@ -13,7 +13,7 @@ namespace NoR2252.View.Note {
         protected NG.RefObject refS;
         protected NG.NoteColorAndSprite cAs;
         bool bRendering = false;
-        Vector3 initScale = new Vector3 ( );
+        protected Vector3 initScale = new Vector3 ( );
         protected bool bClearing = false;
         public bool IsRendering { get { return bRendering; } }
         protected EU.CountdownTimer timer = new EU.CountdownTimer ( );

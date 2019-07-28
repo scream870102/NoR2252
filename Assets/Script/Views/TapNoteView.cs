@@ -9,7 +9,6 @@ namespace NoR2252.View.Note {
     [System.Serializable]
     public class TapNoteView : NoteView {
         Vector3 initOutlineScale;
-        Vector3 initScale;
         RotationAction rotAction;
         PingPongScale ppScale;
         readonly float IN_ZOOM_OUT_VELO = 0.95f;
@@ -29,7 +28,6 @@ namespace NoR2252.View.Note {
             refs.OutLine.color = cAs.OutLineC;
             //set other var
             initOutlineScale = refs.OutLineTf.localScale;
-            initScale = new Vector3 (NoR2252Application.Size, NoR2252Application.Size, 1f);
             //init action
             rotAction = new RotationAction (Math.RandomBool ( ), IN_ROT_VELO, ref refs.MainTf);
             ppScale = new PingPongScale (OUTLINE_TRANS_VELO, BIGGEST_OUTLINE_SCALE, ref refs.OutLineTf);
@@ -37,7 +35,7 @@ namespace NoR2252.View.Note {
         public override void Render ( ) {
             if (IsRendering) {
                 // note inside
-                rotAction.Tick ( );
+                rotAction.TickZ ( );
                 //note outside
                 ppScale.Tick ( );
                 //about color

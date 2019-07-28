@@ -9,7 +9,7 @@ namespace NoR2252.Models {
     [RequireComponent (typeof (Collider2D))]
     public class GameNote : MonoBehaviour, IObjectPoolAble {
         //-------Ref
-        [SerializeField]NG.RefObject gRef = new NG.RefObject ( );
+        [SerializeField] NG.RefObject gRef = new NG.RefObject ( );
         //-------Field
         [SerializeField] SheetNote info;
         //define how this note Update and react with touch
@@ -22,6 +22,7 @@ namespace NoR2252.Models {
         GameController controller;
         bool bRendering = false;
         //-------Property
+        public AGameNoteStrategy Strategy { get { return strategy; } }
         public SheetNote Info { get { return info; } }
         public ObjectPool Pool { get; set; }
         public NoteView View { get { return view; } }
@@ -39,7 +40,7 @@ namespace NoR2252.Models {
             gRef.PtcTf = gRef.MainTf.Find ("Ptc");
             gRef.Main = GetComponent<SpriteRenderer> ( );
             gRef.Line = gRef.LineTf.GetComponent<SpriteRenderer> ( );
-            gRef.LingBG = gRef.LineBGTf.GetComponent<SpriteRenderer> ( );
+            gRef.LineBG = gRef.LineBGTf.GetComponent<SpriteRenderer> ( );
             gRef.OutLine = gRef.OutLineTf.GetComponent<SpriteRenderer> ( );
             gRef.Mask = gRef.MaskTf.GetComponent<SpriteMask> ( );
             gRef.Ptc = gRef.PtcTf.GetComponent<ParticleSystem> ( );
@@ -101,7 +102,7 @@ namespace NoR2252.Models {
             return col.OverlapPoint (fingerPos);
         }
     }
-    abstract class AGameNoteStrategy {
+    public abstract class AGameNoteStrategy {
         //save the ref for GameNote
         protected GameNote Note;
         protected bool bOnRecycle = false;
@@ -137,7 +138,7 @@ namespace NoR2252.Models {
     }
 
     //define the action for TAP FLICK SLIDE-HEAD
-    class BasicStrategy : AGameNoteStrategy {
+    public class BasicStrategy : AGameNoteStrategy {
         public BasicStrategy (GameNote parent) : base (parent) { }
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
@@ -168,37 +169,37 @@ namespace NoR2252.Models {
         }
     }
     //define the action for HOLD
-    class HoldStrategy : AGameNoteStrategy {
+    public class HoldStrategy : AGameNoteStrategy {
         bool bHolding;
+        public bool IsHolding { get { return bHolding; } }
         public HoldStrategy (GameNote parent) : base (parent) {
             bHolding = false;
         }
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
-            if (!Note.IsRendering && Note.Info.startTime -  NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
+            if (!Note.IsRendering && Note.Info.startTime - NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
                 Note.IsRendering = true;
                 Note.View.OnSpawn ( );
             }
             Note.View.Render ( );
 
             //if not being touch and time is over the startTime then recycle self and set grade to miss
-            if (!bHolding && NoR2252Application.VideoTime >= Note.Info.startTime + NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]) {
+            if (!bHolding && NoR2252Application.VideoTime >= Note.Info.startTime + NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] && !bGetResult) {
                 grade = ENoteGrade.MISS;
                 GetResult (grade);
             }
             //if player keep hold this note until note end time recycle it and plus a perfect point by call PlusPoint
-            if (NoR2252Application.VideoTime >= Note.Info.endTime) {
+            if (!bGetResult && NoR2252Application.VideoTime >= Note.Info.endTime) {
                 grade = bHolding?ENoteGrade.PERFECT : ENoteGrade.MISS;
-                GetResult (grade);
                 Note.Controller.PlusPoint (grade);
+                GetResult (grade);
             }
             return grade;
         }
 
         public override ENoteGrade OnTouch (EFingerAction action, int fingerId) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
-            float offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
-            grade = GetGrade (offset);
+            float offset = 0f;
 
             //if action is down check its grade
             if (action == EFingerAction.DOWN) {
@@ -220,19 +221,21 @@ namespace NoR2252.Models {
                 bHolding = false;
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
                 grade = GetGrade (offset);
+                GetResult (grade);
             }
             //if player keep holding return UNKNOWN
-            else {
-                if (bHolding)
+            else if (action == EFingerAction.SET) {
+                if (!bGetResult && bHolding)
                     grade = ENoteGrade.UNKNOWN;
             }
             return grade;
         }
     }
 
-    class SlideChildStrategy : BasicStrategy {
+    public class SlideChildStrategy : BasicStrategy {
         public SlideChildStrategy (GameNote parent) : base (parent) { }
         public override ENoteGrade OnTouch (EFingerAction action, int fingerId) {
+            if (bGetResult) return ENoteGrade.UNKNOWN;
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             if (NoR2252Application.VideoTime <= Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]) {
                 return grade;

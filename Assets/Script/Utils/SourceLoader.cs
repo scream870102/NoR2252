@@ -12,7 +12,7 @@ namespace NoR2252.Utils {
         public static GameSheet LoadSheet (TextAsset textAsset) {
             string content = textAsset.text;
             Sheet s = JsonUtility.FromJson<Sheet> (content);
-            GameSheet sheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload);
+            GameSheet sheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
             sheet.music = Resources.Load<VideoClip> (s.music);
             sheet.cover = Resources.Load<Texture2D> (s.cover);
             return sheet;

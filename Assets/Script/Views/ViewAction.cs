@@ -9,10 +9,22 @@ namespace NoR2252.View.Action {
             this.velocity = Velocity;
             this.transform = Transform;
         }
-        public void Tick ( ) {
+        public void TickZ ( ) {
             Vector3 rotation = transform.rotation.eulerAngles;
             if (bClockWise) rotation.z += velocity * Time.deltaTime;
             else rotation.z -= velocity * Time.deltaTime;
+            transform.rotation = Quaternion.Euler (rotation);
+        }
+        public void TickY ( ) {
+            Vector3 rotation = transform.rotation.eulerAngles;
+            if (bClockWise) rotation.y += velocity * Time.deltaTime;
+            else rotation.y -= velocity * Time.deltaTime;
+            transform.rotation = Quaternion.Euler (rotation);
+        }
+        public void TickX ( ) {
+            Vector3 rotation = transform.rotation.eulerAngles;
+            if (bClockWise) rotation.x += velocity * Time.deltaTime;
+            else rotation.x -= velocity * Time.deltaTime;
             transform.rotation = Quaternion.Euler (rotation);
         }
     }

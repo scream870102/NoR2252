@@ -68,7 +68,7 @@ namespace NoR2252.Utils {
             index = 0;
             foreach (Match match in matches1) {
                 GroupCollection g = match.Groups;
-                notes [index].pos = new Vector3 (float.Parse (g ["x"].Value), float.Parse (g ["y"].Value), 0f);
+                notes [index].pos = new Vector3 (float.Parse (g ["x"].Value), t.screenSize.y - float.Parse (g ["y"].Value), 0f);
                 notes [index].endPos = notes [index].pos;
                 index++;
             }
@@ -83,7 +83,8 @@ namespace NoR2252.Utils {
         }
         public void LoadSheet ( ) {
             t = SourceLoader.LoadSheetToInspector (SheetToLoad);
-
+            t.cover = t.cover.Split ('/') [1];
+            t.music = t.cover.Split ('/') [1];
             Debug.Log ("Load successful");
         }
 

@@ -195,9 +195,9 @@ public class GameController : MonoBehaviour {
     void SetNoteToObjectPool ( ) {
         if (notePool.IsAvailable && queueNotes.Count != 0) {
             GameNote note = notePool.GetPooledObject<SheetNote> (queueNotes.Dequeue ( )) as GameNote;
+            //參考解析度為1920*1080
             Vector3 tmp = Camera.main.ScreenToWorldPoint (note.Info.pos);
             tmp.z = 0f;
-            tmp.y = -tmp.y;
             note.transform.position = tmp;
             //if current note is slideNote save next id and its position to slidePos
             if (note.Info.type == (int) ENoteType.SLIDE_HEAD || note.Info.type == (int) ENoteType.SLIDE_CHILD) {
@@ -217,8 +217,8 @@ public class GameController : MonoBehaviour {
     }
 
     void CountScore (ENoteGrade grade) {
-        resultText.text = grade.ToString ( );
         if (grade != ENoteGrade.UNKNOWN) {
+            resultText.text = grade.ToString ( );
             score += NoR2252Data.Instance.Points [(int) grade];
             combo++;
         }

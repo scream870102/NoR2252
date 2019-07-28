@@ -14,8 +14,12 @@ namespace Eccentric.Utils {
             rgb.a = a;
             return rgb;
         }
-        public static UnityEngine.Color SetAlphaHalf(UnityEngine.Color rgb){
-            rgb.a=rgb.a/2f;
+        public static UnityEngine.Color SetAlpha01 (UnityEngine.Color rgb, float alpha) {
+            rgb.a = alpha;
+            return rgb;
+        }
+        public static UnityEngine.Color SetAlphaHalf (UnityEngine.Color rgb) {
+            rgb.a = rgb.a / 2f;
             return rgb;
         }
     }

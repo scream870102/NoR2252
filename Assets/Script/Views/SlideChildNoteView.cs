@@ -63,7 +63,7 @@ namespace NoR2252.View.Note {
                 if (grade == ENoteGrade.PERFECT || grade == ENoteGrade.GREAT) {
                     refS.Ptc.Play ( );
                 }
-                resultText = ResultTextController.Instance.SetResult (grade, Note.transform.position);
+                resultText = Note.ResultTextController.SetResult (grade, Note.transform.position);
             }
         }
         void SetLine (float fOffset) {

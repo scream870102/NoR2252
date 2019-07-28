@@ -34,12 +34,12 @@ namespace NoR2252.View.Note {
         }
         public virtual void OnClear (ENoteGrade grade) {
             if (grade != ENoteGrade.UNKNOWN && !bClearing) {
-                resultText = ResultTextController.Instance.SetResult (grade, Note.transform.position);
+                resultText = Note.ResultTextController.SetResult (grade, Note.transform.position);
             }
         }
 
         protected virtual void OnCleared ( ) {
-            ResultTextController.Instance.Recycle (resultText);
+            Note.ResultTextController.Recycle (resultText);
             resultText = null;
             refS.IsAllEnable = false;
             bRendering = false;

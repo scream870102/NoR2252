@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour {
     [SerializeField] AnimationClip uiFadeClip;
     //----------Ref
     new AudioSource audio;
+    ResultTextController resultTextController;
     //---------Property
     /// <summary>save the fingerIndex when there is a finger touch the slide key=fingerID value=the next id of this slide should touch</summary>
     public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
@@ -33,6 +34,7 @@ public class GameController : MonoBehaviour {
     public Dictionary<int, Vector3> SlidePos { get { return slidePos; } }
     /// <summary>return the preload before note Start time for this sheet</summary>
     public float PreLoad { get { return currentSheet.notePreload; } }
+    public ResultTextController ResultTextController { get { return resultTextController; } }
     //---------field
     [SerializeField] ObjectPool notePool;
     //save all the gameNote on the scene
@@ -52,12 +54,8 @@ public class GameController : MonoBehaviour {
         combo = 0;
         score = 0;
         audio = GetComponent<AudioSource> ( );
-        //subscribe for leanTouch events
-        LeanTouch.OnFingerUp += FingerUp;
-        LeanTouch.OnFingerSet += FingerSet;
-        LeanTouch.OnFingerDown += FingerDown;
-        LeanTouch.OnFingerSwipe += FingerSwipe;
-        LeanTouch.OnFingerTap += FingerTap;
+        resultTextController = GetComponent<ResultTextController> ( );
+
         //subscribe the animation evenet on canvas which define the scene animation
         uiAnimHandler.OnAnimationFinClip += OnAnimationFinished;
         //init for objectpooling
@@ -236,6 +234,20 @@ public class GameController : MonoBehaviour {
     void UpdateUI ( ) {
         scoreText.text = score.ToString ( );
         comboText.text = combo.ToString ( );
+    }
+    void OnEnable ( ) {
+        LeanTouch.OnFingerUp += FingerUp;
+        LeanTouch.OnFingerSet += FingerSet;
+        LeanTouch.OnFingerDown += FingerDown;
+        LeanTouch.OnFingerSwipe += FingerSwipe;
+        LeanTouch.OnFingerTap += FingerTap;
+    }
+    void OnDisable ( ) {
+        LeanTouch.OnFingerUp -= FingerUp;
+        LeanTouch.OnFingerSet -= FingerSet;
+        LeanTouch.OnFingerDown -= FingerDown;
+        LeanTouch.OnFingerSwipe -= FingerSwipe;
+        LeanTouch.OnFingerTap -= FingerTap;
     }
 
 }

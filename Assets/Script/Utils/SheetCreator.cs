@@ -87,6 +87,9 @@ namespace NoR2252.Utils {
             t.music = t.cover.Split ('/') [1];
             Debug.Log ("Load successful");
         }
+        public void LoadAllSheetTest ( ) {
+            SourceLoader.LoadAllSheets ( );
+        }
 
         [CustomEditor (typeof (SheetCreator))]
         public class SheetCreatorEditor : Editor {
@@ -95,6 +98,9 @@ namespace NoR2252.Utils {
                 SheetCreator myScript = (SheetCreator) target;
                 if (GUILayout.Button ("Load Sheet")) {
                     myScript.LoadSheet ( );
+                }
+                if (GUILayout.Button ("Load All Sheet")) {
+                    myScript.LoadAllSheetTest ( );
                 }
                 if (GUILayout.Button ("Convert string to notes")) {
                     myScript.ConverString ( );

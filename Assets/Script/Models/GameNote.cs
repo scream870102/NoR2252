@@ -27,6 +27,7 @@ namespace NoR2252.Models {
         public ObjectPool Pool { get; set; }
         public NoteView View { get { return view; } }
         public GameController Controller { get { return controller; } }
+        public ResultTextController ResultTextController { get { return controller.ResultTextController; } }
         public bool IsUsing { get { return bUsing; } }
         public bool IsRendering { get { return bRendering; } set { bRendering = value; } }
         void Awake ( ) {

@@ -12,14 +12,20 @@ namespace Eccentric.Utils {
         public event System.Action<AnimationClip> OnAnimationFinClip;
         /// <summary>this callback will return a string</summary>
         public event System.Action<String> OnAnimationFinString;
-        void AnimationFinished (AnimationClip anim) {
+        public event System.Action OnAnimationFinVoid;
+        void AnimationFinishedAnim (AnimationClip anim) {
             if (OnAnimationFinClip != null)
                 OnAnimationFinClip (anim);
         }
 
-        void AnimationFinished (string value) {
+        void AnimationFinishedString (string value) {
             if (OnAnimationFinString != null)
                 OnAnimationFinString (value);
+        }
+
+        void AnimationFinishedVoid(){
+            if(OnAnimationFinVoid!=null)
+                OnAnimationFinVoid();
         }
 
         void Awake ( ) {

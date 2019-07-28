@@ -4,7 +4,7 @@ using NoR2252.Models;
 
 using UnityEngine;
 using UnityEngine.UI;
-public class ResultTextController : Eccentric.Utils.TSingletonMonoBehavior<ResultTextController> {
+public class ResultTextController : MonoBehaviour {
     [SerializeField] List<GameObject> resultObjects;
     [SerializeField] List<TextAndAnim> texts = new List<TextAndAnim> ( );
     Camera main;

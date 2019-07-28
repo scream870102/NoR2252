@@ -6,7 +6,7 @@ public class GameManager : Eccentric.Utils.TSingletonMonoBehavior<GameManager> {
     [SerializeField] TextAsset Sheet;
     GameSheet SheetToPlay;
     void Start ( ) {
-        SheetToPlay = SourceLoader.LoadSheet (Sheet);
-        NoR2252Application.CurrentSheet = SheetToPlay;
+        // SheetToPlay = SourceLoader.LoadSheet (Sheet);
+        // NoR2252Application.CurrentSheet = SheetToPlay;
     }
 }

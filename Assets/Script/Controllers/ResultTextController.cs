@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class ResultTextController : MonoBehaviour {
     [SerializeField] List<GameObject> resultObjects;
     [SerializeField] List<TextAndAnim> texts = new List<TextAndAnim> ( );
+    [SerializeField] CanvasScaler scaler;
     Camera main;
     private void Start ( ) {
         main = Camera.main;
+        scaler.referenceResolution = new Vector2 (Screen.width, Screen.height);
         foreach (GameObject t in resultObjects) {
             TextAndAnim ta = new TextAndAnim (t.GetComponent<Text> ( ), t.GetComponent<Animation> ( ));
             texts.Add (ta);
@@ -23,6 +25,7 @@ public class ResultTextController : MonoBehaviour {
             if (!t.IsActive) {
                 t.text.text = grade.ToString ( );
                 Vector2 p = main.WorldToScreenPoint (pos);
+                Debug.Log (pos + " " + p);
                 t.text.rectTransform.anchoredPosition = p;
                 t.IsActive = true;
                 t.animation.Play ( );

@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 
 using Eccentric.Utils;
 
@@ -21,21 +21,20 @@ public class SelectController : MonoBehaviour {
     new AudioSource audio;
 
     void Awake ( ) {
-        GetPermission ( );
+        Eccentric.Utils.AndroidAskRuntimePermission permission = new AndroidAskRuntimePermission ( );
         audio = GetComponent<AudioSource> ( );
 
-    }
-    void GetPermission ( ) {
-        AndroidRuntimePermissions.Permission result = AndroidRuntimePermissions.RequestPermission ("android.permission.ACCESS_FINE_LOCATION");
-        if (result == AndroidRuntimePermissions.Permission.Granted)
-            Debug.Log ("We have permission to access external storage!");
-        else
-            Debug.Log ("Permission state: " + result);
     }
 
     // Start is called before the first frame update
     void Start ( ) {
         AllSheet.AddRange (SourceLoader.LoadAllSheets ( ));
+        string path = Application.persistentDataPath + "/Sheet/bug.json";
+        FileStream fs = new FileStream (path, FileMode.Create);
+        string fileContext = title.text + "  " + AllSheet [0].name + " " + AllSheet.Count;
+        StreamWriter file = new StreamWriter (fs);
+        file.Write (fileContext);
+        file.Close ( );
         animation.OnAnimationFinVoid += AnimFin;
         for (int i = 0; i < sprites.Count; i++) {
             spriteAndCover.Add (i, i);
@@ -44,10 +43,14 @@ public class SelectController : MonoBehaviour {
             }
         }
         SetUI ( );
+
     }
     void Swipe (LeanFinger finger) {
-        animation.Animation.Play ( );
+        //animation.Animation.Play ( );
         audio.Play ( );
+        GetNext ( );
+        SetUI ( );
+        title.text = "Het I change the title";
     }
     void Tap (LeanFinger finger) {
         audio.Play ( );

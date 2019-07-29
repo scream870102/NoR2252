@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour {
     //----------Ref
     new AudioSource audio;
     ResultTextController resultTextController;
+    new Camera camera;
     //---------Property
     /// <summary>save the fingerIndex when there is a finger touch the slide key=fingerID value=the next id of this slide should touch</summary>
     public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour {
         score = 0;
         audio = GetComponent<AudioSource> ( );
         resultTextController = GetComponent<ResultTextController> ( );
-
+        camera = Camera.main;
         //subscribe the animation evenet on canvas which define the scene animation
         uiAnimHandler.OnAnimationFinClip += OnAnimationFinished;
         //init for objectpooling
@@ -194,7 +195,11 @@ public class GameController : MonoBehaviour {
         if (notePool.IsAvailable && queueNotes.Count != 0) {
             GameNote note = notePool.GetPooledObject<SheetNote> (queueNotes.Dequeue ( )) as GameNote;
             //參考解析度為1920*1080
-            Vector3 tmp = Camera.main.ScreenToWorldPoint (note.Info.pos);
+            Vector3 toViewPort = note.Info.pos;
+            toViewPort.x = toViewPort.x / NoR2252Application.CurrentSheet.screenSize.x;
+            toViewPort.y = toViewPort.y / NoR2252Application.CurrentSheet.screenSize.y;
+            toViewPort.z = 0f;
+            Vector3 tmp = camera.ViewportToWorldPoint (toViewPort);
             tmp.z = 0f;
             note.transform.position = tmp;
             //if current note is slideNote save next id and its position to slidePos

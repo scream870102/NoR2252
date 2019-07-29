@@ -678,15 +678,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapThreshold: 0.2
-  SwipeThreshold: 100
-  ReferenceDpi: 200
+  SwipeThreshold: 50
+  ReferenceDpi: 360
   GuiLayers:
     serializedVersion: 2
     m_Bits: 4294967291
-  RecordFingers: 1
+  RecordFingers: 0
   RecordThreshold: 5
   RecordLimit: 10
-  SimulateMultiFingers: 1
+  SimulateMultiFingers: 0
   PinchTwistKey: 306
   MovePivotKey: 308
   MultiDragKey: 308
@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 1100489594}
   - component: {fileID: 1100489595}
   m_Layer: 0
-  m_Name: Select
+  m_Name: SelectController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1196,16 +1196,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: d54323c94c164de478170d5e7d0273be, type: 3}
     m_FontSize: 80
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 95
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4E8C\u4EBA\u30BB\u30BE\u30F3"
+  m_Text: Titletiletiletile
 --- !u!222 &1653220717
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1491,16 +1491,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: d54323c94c164de478170d5e7d0273be, type: 3}
     m_FontSize: 54
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 95
+    m_MaxSize: 54
     m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6B05\u574246"
+  m_Text: authoerauthor
 --- !u!222 &2041830500
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -25,7 +25,6 @@ public class ResultTextController : MonoBehaviour {
             if (!t.IsActive) {
                 t.text.text = grade.ToString ( );
                 Vector2 p = main.WorldToScreenPoint (pos);
-                Debug.Log (pos + " " + p);
                 t.text.rectTransform.anchoredPosition = p;
                 t.IsActive = true;
                 t.animation.Play ( );

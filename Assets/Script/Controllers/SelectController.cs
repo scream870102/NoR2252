@@ -17,45 +17,42 @@ public class SelectController : MonoBehaviour {
     [SerializeField] new AnimationEventHandler animation;
     [SerializeField] Text title;
     [SerializeField] Text author;
-    Dictionary<int, int> spriteAndCover = new Dictionary<int, int> ( );
+    [SerializeField] Texture2D errorTex;
+    [SerializeField] Button backBtn;
+    List<int> cAs = new List<int> ( );
     new AudioSource audio;
+    bool bBackClicked = false;
 
     void Awake ( ) {
-        Eccentric.Utils.AndroidAskRuntimePermission permission = new AndroidAskRuntimePermission ( );
         audio = GetComponent<AudioSource> ( );
-
     }
 
     // Start is called before the first frame update
     void Start ( ) {
+        backBtn.onClick.AddListener (OnBackClicked);
         AllSheet.AddRange (SourceLoader.LoadAllSheets ( ));
-        string path = Application.persistentDataPath + "/Sheet/bug.json";
-        FileStream fs = new FileStream (path, FileMode.Create);
-        string fileContext = title.text + "  " + AllSheet [0].name + " " + AllSheet.Count;
-        StreamWriter file = new StreamWriter (fs);
-        file.Write (fileContext);
-        file.Close ( );
         animation.OnAnimationFinVoid += AnimFin;
         for (int i = 0; i < sprites.Count; i++) {
-            spriteAndCover.Add (i, i);
-            if (AllSheet [i] != null) {
+            cAs.Add (i);
+            if (i < AllSheet.Count) {
                 sprites [i].texture = AllSheet [i].cover;
+            }
+            else {
+                cAs [i] = -1;
             }
         }
         SetUI ( );
 
     }
     void Swipe (LeanFinger finger) {
-        //animation.Animation.Play ( );
+        animation.Animation.Play ( );
         audio.Play ( );
-        GetNext ( );
-        SetUI ( );
-        title.text = "Het I change the title";
     }
     void Tap (LeanFinger finger) {
         audio.Play ( );
-        NoR2252Application.CurrentSheet = AllSheet [spriteAndCover [0]];
-        SceneManager.LoadSceneAsync ("Game");
+        NoR2252Application.CurrentSheet = AllSheet [cAs [0]];
+        if (!bBackClicked)
+            SceneManager.LoadSceneAsync ("Game");
     }
 
     void AnimFin ( ) {
@@ -63,19 +60,32 @@ public class SelectController : MonoBehaviour {
         SetUI ( );
     }
     void SetUI ( ) {
-        title.text = AllSheet [spriteAndCover [0]].name;
-        author.text = AllSheet [spriteAndCover [0]].author;
-        for (int i = 0; i < sprites.Count; i++)
-            sprites [i].texture = AllSheet [spriteAndCover [i]].cover;
+        if (cAs [0] == -1) {
+            title.text = "Can't get the song";
+            author.text = "Error No2252X00";
+        }
+        else {
+            title.text = AllSheet [cAs [0]].name;
+            author.text = AllSheet [cAs [0]].author;
+        }
+        for (int i = 0; i < sprites.Count; i++) {
+            Texture2D tex = errorTex;
+            if (cAs [i] != -1) tex = AllSheet [cAs [i]].cover;
+            sprites [i].texture = tex;
+        }
     }
 
     void GetNext ( ) {
         for (int i = 0; i < sprites.Count; i++) {
-            if (spriteAndCover [i] - 1 > -1)
-                spriteAndCover [i] -= 1;
+            if (cAs [i] - 1 > -1)
+                cAs [i] -= 1;
             else
-                spriteAndCover [i] = AllSheet.Count - 1;
+                cAs [i] = AllSheet.Count - 1;
         }
+    }
+    void OnBackClicked ( ) {
+        bBackClicked = true;
+        SceneManager.LoadScene ("Start");
     }
     void OnDisable ( ) {
         LeanTouch.OnFingerTap -= Tap;

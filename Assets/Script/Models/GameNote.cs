@@ -121,17 +121,17 @@ namespace NoR2252.Models {
             Note.View.OnClear (grade);
         }
         /// <summary>return the grade due to the time offset</summary>
-        protected ENoteGrade GetGrade (float timeOffset) {
+        protected ENoteGrade GetGrade (float timeOffset, float factor = 1f) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
-            if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.PERFECT])
+            if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.PERFECT] * factor)
                 grade = ENoteGrade.PERFECT;
-            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GREAT])
+            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GREAT] * factor)
                 grade = ENoteGrade.GREAT;
-            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD])
+            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] * factor)
                 grade = ENoteGrade.GOOD;
-            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.BAD])
+            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.BAD] * factor)
                 grade = ENoteGrade.BAD;
-            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS])
+            else if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] * factor)
                 grade = ENoteGrade.MISS;
             return grade;
         }
@@ -242,7 +242,7 @@ namespace NoR2252.Models {
                 return grade;
             }
             float offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
-            grade = GetGrade (offset);
+            grade = GetGrade (offset, NoR2252Data.Instance.SlideChildGradeFactor);
             //if fingerID exist check if the same finger with pre note of slide
             if (Note.Controller.SlideFinger.ContainsKey (fingerId)) {
                 if (Note.Controller.SlideFinger [fingerId] != Note.Info.id) {

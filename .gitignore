@@ -4,8 +4,9 @@
 [Bb]uild/
 [Bb]uilds/
 Assets/AssetStoreTools*
-Assets/Movies/
-Assets/Covers/
+Assets/Sprite/
+Assets/Sheets/
+Assets/UIElement/
 Assets/Fonts/
 Assets/Resources/
 SheetMaker/

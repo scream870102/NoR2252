@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sheet: {fileID: 4900000, guid: 11fddf978e09de14dae301ec1718acd2, type: 3}
+  IsTest: 0
 --- !u!114 &5942393727281156935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,43 +66,44 @@ MonoBehaviour:
   - 0.45
   - 0.5
   ColorsAndSprites:
-  - MainS: {fileID: 21300000, guid: b1252b48ce90e36458d8f7d31cbceec4, type: 3}
+  - MainS: {fileID: 21300000, guid: db1393e4642f716409e03596ac10d270, type: 3}
     LineS: {fileID: 0}
-    OutlineS: {fileID: 21300000, guid: 0d4cfd73553c9354d9d8321eb46183c2, type: 3}
+    OutlineS: {fileID: 21300000, guid: 4efce4d863c4c0f4e9b61eb5c89061b5, type: 3}
     MainC: {r: 0.90588236, g: 0.3529412, b: 0.4862745, a: 1}
     OutLineC: {r: 0.9764706, g: 0.6509804, b: 0.45882353, a: 1}
     LineC: {r: 0, g: 0, b: 0, a: 0}
     LineBGC: {r: 0, g: 0, b: 0, a: 0}
     PtcC: {r: 1, g: 0.9529412, b: 0.46666667, a: 1}
-  - MainS: {fileID: 21300000, guid: c8ecf3e364c53bc4881c84c2c7becbcb, type: 3}
+  - MainS: {fileID: 21300000, guid: 039dd9efb05a6ac47bfd1cadc7c26a0d, type: 3}
     LineS: {fileID: 0}
-    OutlineS: {fileID: 21300000, guid: 06728fb2e42ba2f47805f70d5ef794e9, type: 3}
+    OutlineS: {fileID: 21300000, guid: 13044fe04023e6f418a127138727102f, type: 3}
     MainC: {r: 0.5254902, g: 0.73333335, b: 0.84705883, a: 1}
     OutLineC: {r: 0.90588236, g: 0.8980392, b: 0.8980392, a: 1}
     LineC: {r: 0, g: 0, b: 0, a: 0}
     LineBGC: {r: 0, g: 0, b: 0, a: 0}
     PtcC: {r: 0.6745098, g: 0.9882353, b: 0.8509804, a: 1}
-  - MainS: {fileID: 21300000, guid: b1252b48ce90e36458d8f7d31cbceec4, type: 3}
+  - MainS: {fileID: 21300000, guid: db1393e4642f716409e03596ac10d270, type: 3}
     LineS: {fileID: 0}
-    OutlineS: {fileID: 21300000, guid: 0d4cfd73553c9354d9d8321eb46183c2, type: 3}
+    OutlineS: {fileID: 21300000, guid: 4efce4d863c4c0f4e9b61eb5c89061b5, type: 3}
     MainC: {r: 1, g: 0.93333334, b: 0.5764706, a: 1}
     OutLineC: {r: 1, g: 0.7529412, b: 0.62352943, a: 1}
     LineC: {r: 0, g: 0, b: 0, a: 0}
     LineBGC: {r: 0, g: 0, b: 0, a: 0}
     PtcC: {r: 0.7372549, g: 0.95686275, b: 0.9607843, a: 1}
-  - MainS: {fileID: 21300000, guid: d0e19669dae660748be19ea4006bdcca, type: 3}
+  - MainS: {fileID: 0}
     LineS: {fileID: 21300000, guid: 67138697ef797f84a81e7bb4e78809c3, type: 3}
-    OutlineS: {fileID: 21300000, guid: d0e19669dae660748be19ea4006bdcca, type: 3}
+    OutlineS: {fileID: 21300000, guid: 6efb816f9f21eda4583f0cb15c0a9d51, type: 3}
     MainC: {r: 1, g: 0.9333334, b: 0.5764706, a: 1}
     OutLineC: {r: 1, g: 0.9333334, b: 0.5764706, a: 1}
     LineC: {r: 1, g: 0.75294125, b: 0.62352943, a: 1}
     LineBGC: {r: 0.6143645, g: 0.73371774, b: 0.735849, a: 1}
     PtcC: {r: 0.7372549, g: 0.9568628, b: 0.9607844, a: 1}
-  - MainS: {fileID: 21300000, guid: b1252b48ce90e36458d8f7d31cbceec4, type: 3}
+  - MainS: {fileID: 21300000, guid: db1393e4642f716409e03596ac10d270, type: 3}
     LineS: {fileID: 21300000, guid: b696d15376b3bf14e9961c8027d4600f, type: 3}
-    OutlineS: {fileID: 21300000, guid: 0d4cfd73553c9354d9d8321eb46183c2, type: 3}
+    OutlineS: {fileID: 21300000, guid: 4efce4d863c4c0f4e9b61eb5c89061b5, type: 3}
     MainC: {r: 0.93333334, g: 0.69411767, b: 0.8352941, a: 1}
     OutLineC: {r: 0.9333334, g: 0.69411767, b: 0.8352942, a: 1}
     LineC: {r: 1, g: 0.4, b: 0.70980394, a: 1}
     LineBGC: {r: 0.9372549, g: 0.78039217, b: 0.8980392, a: 1}
     PtcC: {r: 0.8784314, g: 0.9372549, b: 0.85490197, a: 1}
+  SlideChildGradeFactor: 1.5

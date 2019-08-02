@@ -99,7 +99,6 @@ public class GameController : MonoBehaviour {
         NoR2252Application.Size = currentSheet.size;
         clipLength = (float) video.clip.length;
         for (int i = 0; i < video.audioTrackCount; i++) {
-            Debug.Log ("i" + NoR2252Application.Option.Volume);
             video.SetDirectAudioVolume ((ushort) i, NoR2252Application.Option.Volume);
         }
         //Set all the noteInfo to objectPooling
@@ -242,6 +241,10 @@ public class GameController : MonoBehaviour {
             toViewPort.y = toViewPort.y / NoR2252Application.CurrentSheet.screenSize.y;
             toViewPort.z = 0f;
             Vector3 tmp = camera.ViewportToWorldPoint (toViewPort);
+            // #region SafeArea
+            // tmp.x = tmp.x * NoR2252Data.Instance.SafeArea.x;
+            // tmp.y = tmp.y * NoR2252Data.Instance.SafeArea.y;
+            // #endregion
             tmp.z = 0f;
             note.transform.position = tmp;
             //if current note is slideNote save next id and its position to slidePos
@@ -290,7 +293,7 @@ public class GameController : MonoBehaviour {
         CountScore (grade);
     }
     void GameEnd ( ) {
-        if (video.time + 0.1f >= video.clip.length) {
+        if (video.time + 1f >= video.clip.length) {
             NoR2252Application.Score = score;
             SceneManager.LoadScene ("Result");
         }

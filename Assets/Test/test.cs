@@ -12,7 +12,8 @@ using UnityEngine;
 #if (UNITY_EDITOR) 
 public class test : MonoBehaviour {
     public BestScore pair;
-    void Start ( ) { }
+    void Start ( ) { 
+    }
     void Update ( ) { }
     void Best ( ) {
         string path = Application.persistentDataPath + "/Option/bestscore.json";

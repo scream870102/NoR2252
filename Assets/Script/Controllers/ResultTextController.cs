@@ -32,7 +32,9 @@ public class ResultTextController : MonoBehaviour {
             }
             break;
         }
+#if (UNITY_EDITOR) 
         Debug.Log ("can't get result text");
+#endif
         return null;
     }
 

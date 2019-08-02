@@ -45,7 +45,7 @@ namespace NoR2252.Utils {
             file.Write (fileContext);
             file.Close ( );
         }
-        
+
         //check directory if exist
         public static void CheckDirectory (string path) {
             // Check if directory exists, if not create it
@@ -67,6 +67,65 @@ namespace NoR2252.Utils {
         public static string ConvertFileToString (string path) {
             if (File.Exists (path)) return File.ReadAllText (path);
             else return " ";
+        }
+
+        public static Option LoadOption ( ) {
+            string path = Application.persistentDataPath + "/Option";
+            SourceLoader.CheckDirectory (path);
+            path = Application.persistentDataPath + "/Option/option.json";
+            //option no
+            if (!File.Exists (path)) {
+                FileStream fs = new FileStream (path, FileMode.Create);
+                string fileContext = JsonUtility.ToJson (new Option ( ));
+                Debug.Log ("Try to create" + fileContext);
+                StreamWriter file = new StreamWriter (fs);
+                file.Write (fileContext);
+                file.Close ( );
+            }
+            return JsonUtility.FromJson<Option> (File.ReadAllText (path));
+
+        }
+
+        public static void SaveOption ( ) {
+            string path = Application.persistentDataPath + "/Option/option.json";
+            if (!File.Exists (path)) {
+                Debug.Log ("None Option Exist");
+                return;
+            }
+            FileStream fs = new FileStream (path, FileMode.Create);
+            string fileContext = JsonUtility.ToJson (NoR2252Application.Option);
+            StreamWriter file = new StreamWriter (fs);
+            file.Write (fileContext);
+            file.Close ( );
+        }
+
+        public static BestScore LoadScoreBoard ( ) {
+            string path = Application.persistentDataPath + "/Option";
+            SourceLoader.CheckDirectory (path);
+            path = Application.persistentDataPath + "/Option/scoreBoard.json";
+            //option no
+            if (!File.Exists (path)) {
+                FileStream fs = new FileStream (path, FileMode.Create);
+                string fileContext = JsonUtility.ToJson (new BestScore ( ));
+                Debug.Log ("Try to create" + fileContext);
+                StreamWriter file = new StreamWriter (fs);
+                file.Write (fileContext);
+                file.Close ( );
+            }
+            return JsonUtility.FromJson<BestScore> (File.ReadAllText (path));
+        }
+
+        public static void SaveScoreBoard ( ) {
+            string path = Application.persistentDataPath + "/Option/scoreBoard.json";
+            if (!File.Exists (path)) {
+                Debug.Log ("None scoreBoard Exist");
+                return;
+            }
+            FileStream fs = new FileStream (path, FileMode.Create);
+            string fileContext = JsonUtility.ToJson (NoR2252Application.ScoreBoard);
+            StreamWriter file = new StreamWriter (fs);
+            file.Write (fileContext);
+            file.Close ( );
         }
     }
 }

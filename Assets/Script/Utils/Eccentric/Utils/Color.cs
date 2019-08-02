@@ -22,5 +22,6 @@ namespace Eccentric.Utils {
             rgb.a = rgb.a / 2f;
             return rgb;
         }
+
     }
 }

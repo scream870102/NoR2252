@@ -91,8 +91,10 @@ namespace NoR2252.Models {
         /// <param name="action">which kind of touch action on this note</param>
         /// <param name="fingerId">the fingerIndex of this touch</param>
         public ENoteGrade OnTouch (EFingerAction action, int fingerId) {
-            if (strategy != null)
-                return strategy.OnTouch (action, fingerId);
+            if (strategy != null) {
+                ENoteGrade result = strategy.OnTouch (action, fingerId);
+                return result;
+            }
             else
                 return ENoteGrade.UNKNOWN;
         }
@@ -172,9 +174,11 @@ namespace NoR2252.Models {
     //define the action for HOLD
     public class HoldStrategy : AGameNoteStrategy {
         bool bHolding;
+        bool bJudging;
         public bool IsHolding { get { return bHolding; } }
         public HoldStrategy (GameNote parent) : base (parent) {
             bHolding = false;
+            bJudging = false;
         }
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
@@ -203,25 +207,29 @@ namespace NoR2252.Models {
             float offset = 0f;
 
             //if action is down check its grade
-            if (action == EFingerAction.DOWN) {
+            if (action == EFingerAction.DOWN && !bJudging) {
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.startTime);
                 grade = GetGrade (offset);
                 //if grade is miss or bad just return the result and recycle self
                 if (grade == ENoteGrade.BAD || grade == ENoteGrade.MISS) {
+                    bJudging = true;
                     GetResult (grade);
                 }
                 //if grade not equal to UNKNOWN MISS BAD then start holding this note
                 else if (grade != ENoteGrade.UNKNOWN) {
                     bHolding = true;
+                    bJudging = true;
                 }
             }
 
             //if player release finger before note end time
             //give it a grade
-            else if (action == EFingerAction.UP) {
+            else if (action == EFingerAction.UP && bJudging && bHolding && !bGetResult) {
+                bGetResult = true;
                 bHolding = false;
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
                 grade = GetGrade (offset);
+                if (grade == ENoteGrade.UNKNOWN) grade = ENoteGrade.MISS;
                 GetResult (grade);
             }
             //if player keep holding return UNKNOWN

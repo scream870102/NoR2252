@@ -1867,8 +1867,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf7f5b9715657047bb24507d449e165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pair:
-    bestScores: []
+  player: {fileID: 181394540}
+  bundles: []
+  sheets: []
 --- !u!4 &1224543283
 Transform:
   m_ObjectHideFlags: 0

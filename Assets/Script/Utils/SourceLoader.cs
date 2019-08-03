@@ -9,6 +9,66 @@ using UnityEngine.Video;
 
 namespace NoR2252.Utils {
     public static class SourceLoader {
+        #region ASSET_BUNDLE
+        public static Sheet LoadSheetFromBundle (TextAsset textAsset) {
+            string content = textAsset.text;
+            Sheet s = JsonUtility.FromJson<Sheet> (content);
+            return s;
+        }
+        public static List<AssetBundle> LoadAllAssetBundle ( ) {
+            List<AssetBundle> bundles = new List<AssetBundle> ( );
+            string path = Application.persistentDataPath + "/Bundle";
+            string [ ] allfile = Directory.GetFiles (path);
+            foreach (string file in allfile) {
+                //沒有副檔名是我們要讀取的file
+                if (!Path.HasExtension (file)) {
+                    AssetBundle SheetBundle = AssetBundle.LoadFromFile (Path.Combine (path, Path.GetFileNameWithoutExtension (file)));
+                    if (SheetBundle == null) {
+                        Debug.Log ("Failed to load AssetBundle!");
+                        return null;
+                    }
+                    else
+                        bundles.Add (SheetBundle);
+                }
+            }
+            return bundles;
+        }
+
+        public static GameSheet ConvertBundleToGameSheet (AssetBundle bundle) {
+            TextAsset sheetFile = bundle.LoadAsset<TextAsset> (bundle.name);
+            Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
+            GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
+            if (s != null) {
+                Texture2D tex = bundle.LoadAsset<Texture2D> (s.cover);
+                VideoClip clip = bundle.LoadAsset<VideoClip> (s.music);
+                gameSheet.music = clip;
+                gameSheet.cover = tex;
+            }
+            return gameSheet;
+        }
+        public static List<GameSheet> LoadAllSheets ( ) {
+            List<AssetBundle> bundles = new List<AssetBundle> ( );
+            List<GameSheet> sheets = new List<GameSheet> ( );
+            bundles.AddRange (LoadAllAssetBundle ( ));
+            foreach (AssetBundle bundle in bundles) {
+                sheets.Add (ConvertBundleToGameSheet (bundle));
+            }
+            return sheets;
+        }
+        #endregion
+        #region CREATE_SHEET
+        public static void CreateSheet (Sheet sheet) {
+            sheet.music = "MusicVideo/" + sheet.music;
+            sheet.cover = "Cover/" + sheet.cover;
+            string path = Application.persistentDataPath + "/Sheet/" + sheet.name + ".json";
+            FileStream fs = new FileStream (path, FileMode.Create);
+            string fileContext = JsonUtility.ToJson (sheet);
+            StreamWriter file = new StreamWriter (fs);
+            file.Write (fileContext);
+            file.Close ( );
+        }
+        #endregion
+        #region OLD_VER
         public static GameSheet LoadSheet (TextAsset textAsset) {
             string content = textAsset.text;
             Sheet s = JsonUtility.FromJson<Sheet> (content);
@@ -17,6 +77,7 @@ namespace NoR2252.Utils {
             sheet.cover = Resources.Load<Texture2D> (s.cover);
             return sheet;
         }
+
         public static GameSheet LoadSheet (string content) {
             Sheet s = JsonUtility.FromJson<Sheet> (content);
             GameSheet sheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
@@ -34,18 +95,22 @@ namespace NoR2252.Utils {
             s.cover = cover [1];
             return s;
         }
-
-        public static void CreateSheet (Sheet sheet) {
-            sheet.music = "MusicVideo/" + sheet.music;
-            sheet.cover = "Cover/" + sheet.cover;
-            string path = Application.persistentDataPath + "/Sheet/" + sheet.name + ".json";
-            FileStream fs = new FileStream (path, FileMode.Create);
-            string fileContext = JsonUtility.ToJson (sheet);
-            StreamWriter file = new StreamWriter (fs);
-            file.Write (fileContext);
-            file.Close ( );
+        // public static List<GameSheet> LoadAllSheets ( ) {
+        //     List<GameSheet> allSheets = new List<GameSheet> ( );
+        //     string path = Application.persistentDataPath + "/Sheet";
+        //     SourceLoader.CheckDirectory (path);
+        //     // Check Save Path
+        //     foreach (string fileFullPath in Directory.GetFiles (path)) {
+        //         allSheets.Add (LoadSheet (ConvertFileToString (fileFullPath)));
+        //     }
+        //     return allSheets;
+        // }
+        public static string ConvertFileToString (string path) {
+            if (File.Exists (path)) return File.ReadAllText (path);
+            else return " ";
         }
-
+        #endregion
+        #region Utils
         //check directory if exist
         public static void CheckDirectory (string path) {
             // Check if directory exists, if not create it
@@ -53,22 +118,8 @@ namespace NoR2252.Utils {
                 Directory.CreateDirectory (path);
             }
         }
-        public static List<GameSheet> LoadAllSheets ( ) {
-            List<GameSheet> allSheets = new List<GameSheet> ( );
-            string path = Application.persistentDataPath + "/Sheet";
-            SourceLoader.CheckDirectory (path);
-            // Check Save Path
-            foreach (string fileFullPath in Directory.GetFiles (path)) {
-                allSheets.Add (LoadSheet (ConvertFileToString (fileFullPath)));
-            }
-            return allSheets;
-        }
-
-        public static string ConvertFileToString (string path) {
-            if (File.Exists (path)) return File.ReadAllText (path);
-            else return " ";
-        }
-
+        #endregion
+        #region OPTION
         public static Option LoadOption ( ) {
             string path = Application.persistentDataPath + "/Option";
             SourceLoader.CheckDirectory (path);
@@ -98,7 +149,8 @@ namespace NoR2252.Utils {
             file.Write (fileContext);
             file.Close ( );
         }
-
+        #endregion
+        #region SCORE_BOARD
         public static BestScore LoadScoreBoard ( ) {
             string path = Application.persistentDataPath + "/Option";
             SourceLoader.CheckDirectory (path);
@@ -127,5 +179,7 @@ namespace NoR2252.Utils {
             file.Write (fileContext);
             file.Close ( );
         }
+        #endregion
+
     }
 }

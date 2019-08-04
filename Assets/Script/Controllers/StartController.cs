@@ -22,6 +22,7 @@ public class StartController : MonoBehaviour {
     bool bOptionClicked = false;
     [SerializeField]Option options = null;
     void Awake ( ) {
+        Debug.Log("In awake");
         bOptionClicked = false;
         touch.enabled = false;
         OptionBtn.onClick.AddListener (OnOptionClicked);
@@ -31,7 +32,9 @@ public class StartController : MonoBehaviour {
         OffsetSlider.onValueChanged.AddListener (OnOffsetValueChanged);
     }
     void Start ( ) {
+        Debug.Log("In start before option load");
         NoR2252Application.Option = SourceLoader.LoadOption ( );
+        Debug.Log("In start after option load");
         OptionMenu.SetActive (false);
     }
     void OnOptionClicked ( ) {

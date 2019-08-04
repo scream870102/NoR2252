@@ -12,7 +12,7 @@ namespace NoR2252.Utils {
     public class SheetCreator : MonoBehaviour {
         [SerializeField] NoR2252.Models.Sheet t;
         [SerializeField] [Multiline] string NoteString;
-        [SerializeField] TextAsset SheetToLoad;
+        //[SerializeField] TextAsset SheetToLoad;
         public void Create ( ) {
             SourceLoader.CreateSheet (t);
             Debug.Log (t.name + " save successfully");
@@ -81,21 +81,21 @@ namespace NoR2252.Utils {
             t.notes = notes;
             Debug.Log ("Convert finished");
         }
-        public void LoadSheet ( ) {
-            t = SourceLoader.LoadSheetToInspector (SheetToLoad);
-            t.cover = t.cover.Split ('/') [1];
-            t.music = t.cover.Split ('/') [1];
-            Debug.Log ("Load successful");
-        }
+        // public void LoadSheet ( ) {
+        //     t = SourceLoader.LoadSheetToInspector (SheetToLoad);
+        //     t.cover = t.cover.Split ('/') [1];
+        //     t.music = t.cover.Split ('/') [1];
+        //     Debug.Log ("Load successful");
+        // }
 
         [CustomEditor (typeof (SheetCreator))]
         public class SheetCreatorEditor : Editor {
             public override void OnInspectorGUI ( ) {
                 DrawDefaultInspector ( );
                 SheetCreator myScript = (SheetCreator) target;
-                if (GUILayout.Button ("Load Sheet")) {
-                    myScript.LoadSheet ( );
-                }
+                // if (GUILayout.Button ("Load Sheet")) {
+                //     myScript.LoadSheet ( );
+                // }
                 if (GUILayout.Button ("Convert string to notes")) {
                     myScript.ConverString ( );
                 }

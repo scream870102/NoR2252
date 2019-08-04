@@ -18,30 +18,6 @@ public class test : MonoBehaviour {
     public List<GameSheet> sheets = new List<GameSheet> ( );
     void LoadAllAssetBundle ( ) {
         bundles.AddRange (SourceLoader.LoadAllAssetBundle ( ));
-        // string path = Application.persistentDataPath + "/Bundle";
-        // string [ ] allfile = Directory.GetFiles (path);
-        // foreach (string file in allfile) {
-        //     //沒有副檔名是我們要讀取的file
-        //     if (!Path.HasExtension (file)) {
-        //         AssetBundle SheetBundle = AssetBundle.LoadFromFile (Path.Combine (path, Path.GetFileNameWithoutExtension (file)));
-        //         if (SheetBundle == null) {
-        //             Debug.Log ("Failed to load AssetBundle!");
-        //             return;
-        //         }
-        //         TextAsset sheetFile = SheetBundle.LoadAsset<TextAsset> (Path.GetFileNameWithoutExtension (file));
-        //         Sheet sheet = SourceLoader.LoadSheetFromBundle (sheetFile);
-        //         if (sheet != null) {
-        //             s = sheet;
-        //             Texture2D tex = SheetBundle.LoadAsset<Texture2D> (s.cover);
-        //             texture = tex;
-        //             VideoClip clip = SheetBundle.LoadAsset<VideoClip> (s.music);
-        //             video = clip;
-        //             Debug.Log("Finish");
-
-        //         }
-
-        //     }
-        // }
     }
     void LoadAllSheetFromBundles ( ) {
         foreach (AssetBundle bundle in bundles) {
@@ -55,7 +31,26 @@ public class test : MonoBehaviour {
     }
 
     void PlayVideo ( ) {
-        player.Play ( );
+        Debug.Log(sheets [0].music);
+        player.url = sheets [0].music;
+        //Debug.Log(player.url+player.clip.length+player.clip.name);
+        if (player.isPrepared) {
+            Debug.Log ("ready");
+            player.Play ( );
+        }
+        else {
+            Debug.Log ("Not ready");
+            player.Prepare ( );
+            player.prepareCompleted+=Prepared;
+        }
+    }
+    void Prepared(UnityEngine.Video.VideoPlayer vPlayer) {
+        Debug.Log("End reached!");
+        vPlayer.Play();
+    }
+
+    void StopVideo ( ) {
+        player.Stop ( );
     }
 
     [CustomEditor (typeof (test))]
@@ -72,8 +67,11 @@ public class test : MonoBehaviour {
             if (GUILayout.Button ("Unload All AssetBundle")) {
                 myScript.UnLoadAllBundle ( );
             }
-            if (GUILayout.Button ("Play Vidoe")) {
+            if (GUILayout.Button ("Play Video")) {
                 myScript.PlayVideo ( );
+            }
+            if (GUILayout.Button ("Stop Video")) {
+                myScript.StopVideo ( );
             }
 
         }

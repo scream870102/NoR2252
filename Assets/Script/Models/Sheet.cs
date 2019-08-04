@@ -36,7 +36,7 @@ namespace NoR2252.Models {
         }
         public string name;
         public string author;
-        public VideoClip music;
+        public string music;
         public Texture2D cover;
         public float bpm;
         public List<SheetNote> notes;

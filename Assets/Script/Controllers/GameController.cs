@@ -62,11 +62,13 @@ public class GameController : MonoBehaviour {
     Dictionary<int, Vector3> slidePos = new Dictionary<int, Vector3> ( );
     float clipLength;
     bool bPausing = false;
+    bool bAnimFin = false;
     void Awake ( ) {
         //Init some value
         video.clip = null;
         bComboing = false;
         bPausing = false;
+        bAnimFin = false;
         combo = 0;
         score = 0;
         audio = GetComponent<AudioSource> ( );
@@ -89,7 +91,7 @@ public class GameController : MonoBehaviour {
         currentSheet = NoR2252Application.CurrentSheet;
         InitRecord ( );
         foreach (SheetNote note in currentSheet.notes) queueNotes.Enqueue (note);
-        video.clip = currentSheet.music;
+        video.url = currentSheet.music;
         title.text = currentSheet.name;
         author.text = currentSheet.author;
         cover.texture = currentSheet.cover;
@@ -97,15 +99,21 @@ public class GameController : MonoBehaviour {
         pauseAuthor.text = currentSheet.author;
         NoR2252Application.PreLoad = currentSheet.notePreload;
         NoR2252Application.Size = currentSheet.size;
-        clipLength = (float) video.clip.length;
-        for (int i = 0; i < video.audioTrackCount; i++) {
-            video.SetDirectAudioVolume ((ushort) i, NoR2252Application.Option.Volume);
-        }
+        video.prepareCompleted += OnPrepared;
+        clipLength = Mathf.Infinity;
         //Set all the noteInfo to objectPooling
         SetNoteToObjectPool ( );
         //play the fade animation
         uiAnimHandler.Animation.Play (uiFadeClip.name);
 
+    }
+    void OnPrepared (UnityEngine.Video.VideoPlayer vPlayer) {
+        Debug.Log ("End reached!");
+        clipLength = (float) video.length;
+        for (int i = 0; i < video.audioTrackCount; i++) {
+            video.SetDirectAudioVolume ((ushort) i, NoR2252Application.Option.Volume);
+        }
+        vPlayer.Play ( );
     }
     void InitRecord ( ) {
         NoR2252Application.TotalCombo = 0;
@@ -227,7 +235,8 @@ public class GameController : MonoBehaviour {
 
     //if animation already finished start to play video
     void UILoadFinished ( ) {
-        video.Play ( );
+        bAnimFin = true;
+        video.Prepare ( );
     }
 
     //keep check if notePool is availabe
@@ -293,7 +302,7 @@ public class GameController : MonoBehaviour {
         CountScore (grade);
     }
     void GameEnd ( ) {
-        if (video.time + 1f >= video.clip.length) {
+        if (video.time + 1f >= clipLength) {
             NoR2252Application.Score = score;
             SceneManager.LoadScene ("Result");
         }

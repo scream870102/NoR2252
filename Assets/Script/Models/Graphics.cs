@@ -1,5 +1,6 @@
 using UnityEngine;
 namespace NoR2252.Models.Graphics {
+    /// <summary>save all the component reference one game note need</summary>
     [System.Serializable]
     public class RefObject {
         public Transform MainTf;

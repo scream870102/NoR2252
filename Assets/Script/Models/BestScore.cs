@@ -13,9 +13,12 @@ namespace NoR2252.Models {
                 if (item.Title == title) return item;
             return null;
         }
+        /// <summary>Call this method to add a new record to the score board</summary>
         public void Add (string title, int score = 0) {
             bestScores.Add (new BestScorePair (title, score));
         }
+
+        /// <summary>call this method to update the score</summary>
         public void Modify (string title, int score) {
             BestScorePair tmp = this.Find (title);
             if (tmp.Score < score) {

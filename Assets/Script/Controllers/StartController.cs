@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class StartController : MonoBehaviour {
+    //UI REF
     [SerializeField] GameObject OptionMenu;
     [SerializeField] Button CheckBtn;
     [SerializeField] Button BackBtn;
@@ -20,9 +21,9 @@ public class StartController : MonoBehaviour {
     [SerializeField] Text OffsetText;
     [SerializeField] Text VolumeText;
     bool bOptionClicked = false;
-    [SerializeField]Option options = null;
+    Option options = null;
     void Awake ( ) {
-        Debug.Log("In awake");
+        //subscribe ui event
         bOptionClicked = false;
         touch.enabled = false;
         OptionBtn.onClick.AddListener (OnOptionClicked);
@@ -32,23 +33,25 @@ public class StartController : MonoBehaviour {
         OffsetSlider.onValueChanged.AddListener (OnOffsetValueChanged);
     }
     void Start ( ) {
-        Debug.Log("In start before option load");
         NoR2252Application.Option = SourceLoader.LoadOption ( );
-        Debug.Log("In start after option load");
         OptionMenu.SetActive (false);
     }
+
     void OnOptionClicked ( ) {
         bOptionClicked = true;
         options = new Option (NoR2252Application.Option);
         UpdateOptionUI ( );
         OptionMenu.SetActive (true);
     }
+    
+    //update all the ui on the option panel
     void UpdateOptionUI ( ) {
         VolumeSlider.value = options.Volume;
         OffsetSlider.value = options.Offset;
         VolumeText.text = options.Volume.ToString ( );
         OffsetText.text = options.Offset.ToString ( );
     }
+    
     void OnCheckClicked ( ) {
         NoR2252Application.Option = this.options;
         SourceLoader.SaveOption ( );
@@ -73,21 +76,27 @@ public class StartController : MonoBehaviour {
         this.options.Volume = value;
         UpdateOptionUI ( );
     }
+
+    //when first enter this scene clear all the finger remain from other scene
+    //then enable ths scene
     void EnableTouch ( ) {
         LeanTouch.Fingers.Clear ( );
         touch.enabled = true;
     }
 
+    //if option panel is off then load the select scene
     void Tap (LeanFinger finger) {
         if (!bOptionClicked) {
             SceneManager.LoadScene ("Select");
         }
     }
+    
     void OnEnable ( ) {
         LeanTouch.OnFingerTap += Tap;
         EnableTouch ( );
 
     }
+    
     void OnDisable ( ) {
         LeanTouch.OnFingerTap -= Tap;
     }

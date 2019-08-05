@@ -5,21 +5,25 @@ using NoR2252.Models;
 using UnityEngine;
 using UnityEngine.UI;
 public class ResultTextController : MonoBehaviour {
+    //how many result objects have drag from inspector
     [SerializeField] List<GameObject> resultObjects;
-    [SerializeField] List<TextAndAnim> texts = new List<TextAndAnim> ( );
+    List<TextAndAnim> texts = new List<TextAndAnim> ( );
     [SerializeField] CanvasScaler scaler;
     Camera main;
+
     private void Start ( ) {
         main = Camera.main;
+        //change the scaler ref resolution to current device
         scaler.referenceResolution = new Vector2 (Screen.width, Screen.height);
+        // get all then animation and text component due to resultObjects
         foreach (GameObject t in resultObjects) {
             TextAndAnim ta = new TextAndAnim (t.GetComponent<Text> ( ), t.GetComponent<Animation> ( ));
             texts.Add (ta);
             ta.IsActive = false;
         }
     }
-    public TextAndAnim SetResult (ENoteGrade grade, Vector2 pos) {
 
+    public TextAndAnim SetResult (ENoteGrade grade, Vector2 pos) {
         //find not using
         foreach (TextAndAnim t in texts) {
             if (!t.IsActive) {

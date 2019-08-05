@@ -34,7 +34,6 @@ namespace NoR2252.Utils {
                     if (!bLoaded) {
                         AssetBundle SheetBundle = AssetBundle.LoadFromFile (Path.Combine (path, Path.GetFileNameWithoutExtension (file)));
                         if (SheetBundle == null) {
-                            Debug.Log ("Failed to load AssetBundle!");
                             return null;
                         }
                         else
@@ -146,7 +145,6 @@ namespace NoR2252.Utils {
             if (!File.Exists (path)) {
                 FileStream fs = new FileStream (path, FileMode.Create);
                 string fileContext = JsonUtility.ToJson (new Option ( ));
-                Debug.Log ("Try to create" + fileContext);
                 StreamWriter file = new StreamWriter (fs);
                 file.Write (fileContext);
                 file.Close ( );
@@ -158,7 +156,6 @@ namespace NoR2252.Utils {
         public static void SaveOption ( ) {
             string path = Application.persistentDataPath + "/Option/option.json";
             if (!File.Exists (path)) {
-                Debug.Log ("None Option Exist");
                 return;
             }
             FileStream fs = new FileStream (path, FileMode.Create);
@@ -177,7 +174,6 @@ namespace NoR2252.Utils {
             if (!File.Exists (path)) {
                 FileStream fs = new FileStream (path, FileMode.Create);
                 string fileContext = JsonUtility.ToJson (new BestScore ( ));
-                Debug.Log ("Try to create" + fileContext);
                 StreamWriter file = new StreamWriter (fs);
                 file.Write (fileContext);
                 file.Close ( );
@@ -188,7 +184,6 @@ namespace NoR2252.Utils {
         public static void SaveScoreBoard ( ) {
             string path = Application.persistentDataPath + "/Option/scoreBoard.json";
             if (!File.Exists (path)) {
-                Debug.Log ("None scoreBoard Exist");
                 return;
             }
             FileStream fs = new FileStream (path, FileMode.Create);

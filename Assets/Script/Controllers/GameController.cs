@@ -22,10 +22,10 @@ public class GameController : MonoBehaviour {
     [SerializeField] VideoPlayer video;
     [SerializeField] Slider progressBar;
     [SerializeField] Image progressBarUpper;
-    [SerializeField] float colorTransVelocity;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] Text pauseTitle;
     [SerializeField] Text pauseAuthor;
+    [SerializeField] float colorTransVelocity;
     //---------Animation REF
     //use this to get the animation on canvas
     [SerializeField] AnimationEventHandler uiAnimHandler;
@@ -45,8 +45,6 @@ public class GameController : MonoBehaviour {
     public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
     /// <summary>save the prePos of slideNote key=next slide-child id value = current slideNote position</summary>
     public Dictionary<int, Vector3> SlidePos { get { return slidePos; } }
-    /// <summary>return the preload before note Start time for this sheet</summary>
-    public float PreLoad { get { return currentSheet.notePreload; } }
     public ResultTextController ResultTextController { get { return resultTextController; } }
     //---------field
     [SerializeField] ObjectPool notePool;
@@ -58,7 +56,9 @@ public class GameController : MonoBehaviour {
     bool bComboing;
     int combo;
     int score;
+    /// <summary>store current finger slide result key=fingerId value=next note id</summary>
     Dictionary<int, int> slideFinger = new Dictionary<int, int> ( );
+    /// <summary>store slide position key = next note id value = current note position</summary>
     Dictionary<int, Vector3> slidePos = new Dictionary<int, Vector3> ( );
     float clipLength;
     bool bPausing = false;
@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour {
         List<IObjectPoolAble> tmp = new List<IObjectPoolAble> (notePool.Init ( ));
         foreach (IObjectPoolAble item in tmp) gameNotes.Add (item as GameNote);
     }
+    
     void Start ( ) {
         //Load the sheet 
         currentSheet = NoR2252Application.CurrentSheet;
@@ -99,22 +100,26 @@ public class GameController : MonoBehaviour {
         pauseAuthor.text = currentSheet.author;
         NoR2252Application.PreLoad = currentSheet.notePreload;
         NoR2252Application.Size = currentSheet.size;
+        //add listener of video preparecompleted to OnPrepared
+        //when video is ready call OnPrepared
         video.prepareCompleted += OnPrepared;
         clipLength = Mathf.Infinity;
         //Set all the noteInfo to objectPooling
         SetNoteToObjectPool ( );
         //play the fade animation
         uiAnimHandler.Animation.Play (uiFadeClip.name);
-
     }
+
+    //when video is ready set length and volume and then start to play the video
     void OnPrepared (UnityEngine.Video.VideoPlayer vPlayer) {
-        Debug.Log ("End reached!");
         clipLength = (float) video.length;
         for (int i = 0; i < video.audioTrackCount; i++) {
             video.SetDirectAudioVolume ((ushort) i, NoR2252Application.Option.Volume);
         }
         vPlayer.Play ( );
     }
+
+    //reset score count in Nor2253Application 
     void InitRecord ( ) {
         NoR2252Application.TotalCombo = 0;
         NoR2252Application.MaxCombo = 0;
@@ -124,6 +129,7 @@ public class GameController : MonoBehaviour {
         }
         NoR2252Application.TotalScore = 0;
     }
+
     void Update ( ) {
         //Keep update the video time
         NoR2252Application.VideoTime = (float) video.time + NoR2252Application.Option.Offset;
@@ -148,6 +154,7 @@ public class GameController : MonoBehaviour {
             }
         }
     }
+
     //FingerSet
     //react with the gameNote which type is HOLD or SLIDE-CHILD
     void FingerSet (LeanFinger finger) {
@@ -233,7 +240,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    //if animation already finished start to play video
+    //if animation already finished start to prepare video
     void UILoadFinished ( ) {
         bAnimFin = true;
         video.Prepare ( );
@@ -271,16 +278,23 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    //Keep update all gameNote on the scene
+    //if the note is using
     void UpdateAllGameNote ( ) {
         foreach (GameNote note in gameNotes) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             //if the note is over its life time will return MISS
             if (note.IsUsing) grade = note.Tick ( );
+            //transfer the grade and count the score if player doesn't press the note and note type should not be hold
+            //if note type is hold set holding miss the first tap to true
             if (grade == ENoteGrade.MISS && note.Info.type != (int) ENoteType.HOLD) CountScore (grade);
             else if (grade == ENoteGrade.MISS && note.Info.type == (int) ENoteType.HOLD) CountScore (grade, true);
         }
     }
 
+    //calculate the score and combo due to the grade
+    //if bHoldingHeadMiss set to true plus one more miss grade to NoR2252Application
+    //Because if player miss the first tap of Hold note.Player won't get chance to tap the end of hold note
     void CountScore (ENoteGrade grade, bool bHoldingHeadMiss = false) {
         if (grade != ENoteGrade.UNKNOWN) {
             NoR2252Application.NoteGrade [(int) grade]++;
@@ -296,25 +310,39 @@ public class GameController : MonoBehaviour {
             NoR2252Application.MaxCombo = combo;
 
     }
+    
     /// <summary>Call this method to get more point</summary>
     /// <remarks>its for hold finished</remarks>
     public void PlusPoint (ENoteGrade grade) {
         CountScore (grade);
     }
+
+    //if game end set the score to NoR2252Application
+    //and call the result scene
     void GameEnd ( ) {
+        //plus 1 second to prevent the video time won't be larger than cliplength forever
         if (video.time + 1f >= clipLength) {
             NoR2252Application.Score = score;
             SceneManager.LoadScene ("Result");
         }
     }
+    
+    //Update all the game Scene ui due to their value
     void UpdateUI ( ) {
         scoreText.text = score.ToString ( );
         comboText.text = "Combo " + combo.ToString ( );
+        //use rawvideotime instead of video time
         progressBar.value = NoR2252Application.RawVideoTime / clipLength;
+        //keep change progress bar color 
+        //change the hue of progressbar due to colorTransVelocity
         Vector3 hsv = EU.Color.RGB2HSV (progressBarUpper.color);
         hsv.x = Mathf.PingPong (Time.time * colorTransVelocity, 1f);
         progressBarUpper.color = EU.Color.HSV2RGB (hsv);
     }
+
+    //when pause button clicked enable the pausemenu
+    //and pause the video
+    //also disable leantouch
     void OnPauseClicked ( ) {
         bPausing = true;
         pauseMenu.SetActive (true);
@@ -322,10 +350,13 @@ public class GameController : MonoBehaviour {
         touch.enabled = false;
     }
 
+    //when player click retry just re load thi scene 
     void OnRetryClicked ( ) {
         audio.Play ( );
         SceneManager.LoadScene ("Game");
     }
+    
+    //when player click continue resume video and turn off the pause menu
     void OnContinueClicked ( ) {
         bPausing = false;
         pauseMenu.SetActive (false);
@@ -333,10 +364,14 @@ public class GameController : MonoBehaviour {
         touch.enabled = true;
         audio.Play ( );
     }
+    
+    //when menu button clicked load scene Start
     void OnMenuClicked ( ) {
         audio.Play ( );
         SceneManager.LoadSceneAsync ("Start");
     }
+    
+    //subscribe lean touch static event
     void OnEnable ( ) {
         LeanTouch.OnFingerUp += FingerUp;
         LeanTouch.OnFingerSet += FingerSet;
@@ -344,6 +379,8 @@ public class GameController : MonoBehaviour {
         LeanTouch.OnFingerSwipe += FingerSwipe;
         LeanTouch.OnFingerTap += FingerTap;
     }
+    
+    //unsubscribe lean touch static event
     void OnDisable ( ) {
         LeanTouch.OnFingerUp -= FingerUp;
         LeanTouch.OnFingerSet -= FingerSet;

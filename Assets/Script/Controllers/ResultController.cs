@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class ResultController : MonoBehaviour {
+    //UI REF
     [SerializeField] Text title;
     [SerializeField] Text author;
     [SerializeField] Text result;
@@ -19,10 +20,14 @@ public class ResultController : MonoBehaviour {
     [SerializeField] Text combo;
     [SerializeField] Button nextBtn;
     [SerializeField] Button retryBtn;
+
+    //subscribe btn on click event
     void Awake ( ) {
         nextBtn.onClick.AddListener (OnNextBtnClicked);
         retryBtn.onClick.AddListener (OnRetryBtnClicked);
     }
+    
+    //set all the result from NoR2252Application
     void Start ( ) {
         title.text = NoR2252Application.CurrentSheet.name;
         author.text = NoR2252Application.CurrentSheet.author;
@@ -39,17 +44,17 @@ public class ResultController : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
-    void Update ( ) {
-
-    }
+    //when player click next button load select scene
     void OnNextBtnClicked ( ) {
         SceneManager.LoadScene ("Select");
     }
+    
+    //when player click retry btn reload game scene
     void OnRetryBtnClicked ( ) {
         SceneManager.LoadScene ("Game");
     }
 
+    //calculate the result due to the percentage point player get for this sheet
     string GetResult (float result) {
         EGrade grade;
         if (result >= 0.9f)

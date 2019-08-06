@@ -25,23 +25,23 @@ namespace NoR2252.View.Note {
             refs.OutLine.sprite = cAs.OutlineS;
             refs.OutLine.color = cAs.OutLineC;
             //Set the line position
-            Vector3 initLinePos = refS.LineTf.position;
-            Vector3 initLineRot = refS.LineTf.rotation.eulerAngles;
+            Vector3 linePos = refS.LineTf.localPosition;
+            Vector3 lineRot = refS.LineTf.rotation.eulerAngles;
             //if note on the top part of screen
             if (note.Info.pos.y > NoR2252Application.CurrentSheet.screenSize.y / 2f) {
-                initLinePos.y = -Mathf.Abs (initLinePos.y);
-                initLineRot.z = 180f;
+                linePos.y = -Mathf.Abs (linePos.y);
+                lineRot.z = 180f;
             }
             //if note on the bottom part of screen
             else {
-                initLinePos.y = Mathf.Abs (initLinePos.y);
-                initLineRot.z = 0f;
+                linePos.y = Mathf.Abs (linePos.y);
+                lineRot.z = 0f;
             }
             //set the position
-            refS.LineBGTf.position = initLinePos;
-            refs.LineBGTf.rotation = Quaternion.Euler (initLineRot);
-            refS.LineTf.position = initLinePos;
-            refs.LineTf.rotation = Quaternion.Euler (initLineRot);
+            refS.LineBGTf.localPosition = linePos;
+            refs.LineBGTf.rotation = Quaternion.Euler (lineRot);
+            refS.LineTf.localPosition = linePos;
+            refs.LineTf.rotation = Quaternion.Euler (lineRot);
             rot = new RotationAction (Math.RandomBool ( ), ROT_VELO, ref refs.OutLineTf);
         }
         public override void Render ( ) {
@@ -93,7 +93,7 @@ namespace NoR2252.View.Note {
             refS.OutLine.enabled = true;
         }
         protected override void OnCleared ( ) {
-            refS.OutLineTf.rotation = Quaternion.Euler (Vector3.zero);
+            refS.OutLineTf.rotation = Quaternion.identity;
             base.OnCleared ( );
         }
 

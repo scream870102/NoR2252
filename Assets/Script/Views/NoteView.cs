@@ -45,6 +45,17 @@ namespace NoR2252.View.Note {
             bRendering = false;
             bClearing = false;
             Note.transform.localScale = initScale;
+            Note.transform.position = Vector3.zero;
+            Note.transform.rotation=Quaternion.identity;
+            refS.LineTf.localPosition=new Vector3(0f,0.52f,0f);
+            refS.LineTf.localScale=new Vector3(0.5f,0.5f,1f);
+            refS.LineTf.rotation=Quaternion.identity;
+            refS.OutLineTf.localPosition=Vector3.zero;
+            refS.OutLineTf.localScale=new Vector3(1.3f,1.3f,1f);
+            refS.OutLineTf.rotation=Quaternion.identity;
+            refS.LineBGTf.localPosition=new Vector3(0f,0.52f,0f);
+            refS.LineBGTf.localScale=new Vector3(0.5f,0.5f,1f);
+            refS.LineBGTf.rotation=Quaternion.identity;
             Note.Recycle ( );
         }
         public virtual void Render ( ) { }

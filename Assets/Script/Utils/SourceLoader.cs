@@ -159,6 +159,17 @@ namespace NoR2252.Utils {
             file.Close ( );
         }
         #endregion
+        #region FOR_EDITOR_TEST
+        public static GameSheet LoadSheet (TextAsset sheetFile,Texture2D cover) {
+            Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
+            GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
+            if (s != null) {
+                gameSheet.music = "file://" + Application.persistentDataPath + "/Editor/" + s.music + ".mp4";
+                gameSheet.cover = cover;
+            }
+            return gameSheet;
+        }
+        #endregion
         #region OLD_VER
         //     public static void CreateSheet (Sheet sheet) {
         // sheet.music = "MusicVideo/" + sheet.music;

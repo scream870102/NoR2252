@@ -82,7 +82,7 @@ public class SelectController : MonoBehaviour {
         }
         else {
             //try to find the bestscore pair for the sheet in the middle
-            BestScorePair bestPair = null;
+            ScorePair bestPair = null;
             title.text = AllSheet [cAs [2]].name;
             author.text = AllSheet [cAs [2]].author;
             bestPair = NoR2252Application.ScoreBoard.Find (AllSheet [cAs [2]].name);

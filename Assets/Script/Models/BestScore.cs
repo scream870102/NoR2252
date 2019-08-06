@@ -6,21 +6,21 @@ using UnityEngine;
 using UnityEngine.Video;
 namespace NoR2252.Models {
     [System.Serializable]
-    public class BestScore {
-        public List<BestScorePair> bestScores = new List<BestScorePair> ( );
-        public BestScorePair Find (string title) {
-            foreach (BestScorePair item in bestScores)
+    public class ScoreBoard {
+        public List<ScorePair> bestScores = new List<ScorePair> ( );
+        public ScorePair Find (string title) {
+            foreach (ScorePair item in bestScores)
                 if (item.Title == title) return item;
             return null;
         }
         /// <summary>Call this method to add a new record to the score board</summary>
         public void Add (string title, int score = 0) {
-            bestScores.Add (new BestScorePair (title, score));
+            bestScores.Add (new ScorePair (title, score));
         }
 
         /// <summary>call this method to update the score</summary>
         public void Modify (string title, int score) {
-            BestScorePair tmp = this.Find (title);
+            ScorePair tmp = this.Find (title);
             if (tmp.Score < score) {
                 tmp.Score = score;
                 SourceLoader.SaveScoreBoard ( );
@@ -29,8 +29,8 @@ namespace NoR2252.Models {
     }
 
     [System.Serializable]
-    public class BestScorePair {
-        public BestScorePair (string title, int score) {
+    public class ScorePair {
+        public ScorePair (string title, int score) {
             this.Title = title;
             this.Score = score;
         }

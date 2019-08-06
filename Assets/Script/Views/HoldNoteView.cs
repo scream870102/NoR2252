@@ -24,25 +24,24 @@ namespace NoR2252.View.Note {
             refs.Line.size = new Vector2 (1f, 0f);
             refs.OutLine.sprite = cAs.OutlineS;
             refs.OutLine.color = cAs.OutLineC;
-            //判斷長條位置
+            //Set the line position
             Vector3 initLinePos = refS.LineTf.position;
             Vector3 initLineRot = refS.LineTf.rotation.eulerAngles;
-            //Note在上半部
+            //if note on the top part of screen
             if (note.Info.pos.y > NoR2252Application.CurrentSheet.screenSize.y / 2f) {
                 initLinePos.y = -Mathf.Abs (initLinePos.y);
                 initLineRot.z = 180f;
             }
-            //Note在下半部
+            //if note on the bottom part of screen
             else {
                 initLinePos.y = Mathf.Abs (initLinePos.y);
                 initLineRot.z = 0f;
             }
-            //設定位置
+            //set the position
             refS.LineBGTf.position = initLinePos;
             refs.LineBGTf.rotation = Quaternion.Euler (initLineRot);
             refS.LineTf.position = initLinePos;
             refs.LineTf.rotation = Quaternion.Euler (initLineRot);
-            //設定其它
             rot = new RotationAction (Math.RandomBool ( ), ROT_VELO, ref refs.OutLineTf);
         }
         public override void Render ( ) {

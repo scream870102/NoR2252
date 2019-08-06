@@ -32,6 +32,7 @@ namespace Eccentric {
             if (percentage <= probability1) return option1;
             else return option2;
         }
+        
         /// <summary>return true if option1 being choose</summary>
         /// <param name="probability1">probability of option1</param>
         /// <param name="probability2">probability of option2</param>
@@ -49,19 +50,23 @@ namespace Eccentric {
 
         /// <summary>return a random integer from 0 to number-1</summary>
         /// <param name="number">how many options</param>
-        public static int ChooseRandomNum (int number) {
+        public static int RandomNum (int number) {
             return UnityEngine.Random.Range (0, number);
         }
 
         /// <summary>return a random float from 0.0f to number</summary>
-        public static float ChooseRandomNum (float number) {
+        /// <param name="number">the biggest num for this random</param>
+        public static float RandomNum (float number) {
             return UnityEngine.Random.Range (0f, number);
         }
 
+        /// <summary>return a boolean randomly</summary>
         public static bool RandomBool ( ) {
             return UnityEngine.Random.Range (0, 2) % 2 == 0;
         }
 
+        /// <summary>inverst the probability if give 0.3 will return 0.7</summary>
+        /// <param name="origin">the probability you want to inverse</param>
         public static float InverseProbability (float origin) {
             float tmp=UnityEngine.Mathf.Clamp01 (origin);
             return 1f - tmp;

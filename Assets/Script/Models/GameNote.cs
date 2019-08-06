@@ -30,6 +30,8 @@ namespace NoR2252.Models {
         public ResultTextController ResultTextController { get { return controller.ResultTextController; } }
         public bool IsUsing { get { return bUsing; } }
         public bool IsRendering { get { return bRendering; } set { bRendering = value; } }
+
+        //get all the ref on this gameobject
         void Awake ( ) {
             col = GetComponent<Collider2D> ( );
             controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
@@ -46,11 +48,16 @@ namespace NoR2252.Models {
             gRef.Mask = gRef.MaskTf.GetComponent<SpriteMask> ( );
             gRef.Ptc = gRef.PtcTf.GetComponent<ParticleSystem> ( );
         }
+
+        /// <summary>when this note should be recycle call this method</summary>
         public void Recycle ( ) {
             IsRendering = false;
             bUsing = false;
             Pool.RecycleObject (this);
         }
+
+        /// <summary>Init this gamenote due to its type</summary>
+        /// <param name="data">the sheetNote information</param>
         public void Init<T> (T data) {
             this.info = data as SheetNote;
             bUsing = true;
@@ -80,6 +87,7 @@ namespace NoR2252.Models {
             view.SetNote (this);
         }
 
+        //Keep update this note if strategy not equal to null
         public ENoteGrade Tick ( ) {
             if (strategy != null)
                 return strategy.OnTick ( );
@@ -123,6 +131,7 @@ namespace NoR2252.Models {
             Note.View.OnClear (grade);
         }
         /// <summary>return the grade due to the time offset</summary>
+        /// <param name="factor">multiply the factor to TimeGrade if factor less than one the judge is stricker else looser</param>
         protected ENoteGrade GetGrade (float timeOffset, float factor = 1f) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             if (timeOffset < NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.PERFECT] * factor)
@@ -180,6 +189,7 @@ namespace NoR2252.Models {
             bHolding = false;
             bJudging = false;
         }
+
         public override ENoteGrade OnTick ( ) {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             if (!Note.IsRendering && Note.Info.startTime - NoR2252Application.PreLoad <= NoR2252Application.VideoTime) {
@@ -206,7 +216,8 @@ namespace NoR2252.Models {
             ENoteGrade grade = ENoteGrade.UNKNOWN;
             float offset = 0f;
 
-            //if action is down check its grade
+            //if action is down check its grade amd bJuding equals to false
+            //bJudging is to prevent the sameNote being judge several times
             if (action == EFingerAction.DOWN && !bJudging) {
                 offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.startTime);
                 grade = GetGrade (offset);
@@ -224,6 +235,7 @@ namespace NoR2252.Models {
 
             //if player release finger before note end time
             //give it a grade
+            //if this note has bJuding about press down action and not get the result take the grade of it
             else if (action == EFingerAction.UP && bJudging && bHolding && !bGetResult) {
                 bGetResult = true;
                 bHolding = false;
@@ -250,6 +262,7 @@ namespace NoR2252.Models {
                 return grade;
             }
             float offset = Mathf.Abs (NoR2252Application.VideoTime - Note.Info.endTime);
+            //give the grade a factor make it much easier
             grade = GetGrade (offset, NoR2252Data.Instance.SlideChildGradeFactor);
             //if fingerID exist check if the same finger with pre note of slide
             if (Note.Controller.SlideFinger.ContainsKey (fingerId)) {

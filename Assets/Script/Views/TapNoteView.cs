@@ -32,6 +32,7 @@ namespace NoR2252.View.Note {
             rotAction = new RotationAction (Math.RandomBool ( ), IN_ROT_VELO, ref refs.MainTf);
             ppScale = new PingPongScale (OUTLINE_TRANS_VELO, BIGGEST_OUTLINE_SCALE, ref refs.OutLineTf);
         }
+        
         public override void Render ( ) {
             if (IsRendering) {
                 // note inside

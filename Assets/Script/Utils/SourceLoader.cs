@@ -10,11 +10,14 @@ using UnityEngine.Video;
 namespace NoR2252.Utils {
     public static class SourceLoader {
         #region ASSET_BUNDLE
+        /// <summary>convert the textasset to Sheet</summary>
         public static Sheet LoadSheetFromBundle (TextAsset textAsset) {
             string content = textAsset.text;
             Sheet s = JsonUtility.FromJson<Sheet> (content);
             return s;
         }
+
+        /// <summary>Call this to load all the assetbundle in Bundle folder</summary>
         public static List<AssetBundle> LoadAllAssetBundle ( ) {
             List<AssetBundle> bundles = new List<AssetBundle> ( );
             bundles.AddRange (AssetBundle.GetAllLoadedAssetBundles ( ));
@@ -23,8 +26,9 @@ namespace NoR2252.Utils {
             string [ ] allfile = Directory.GetFiles (path);
             foreach (string file in allfile) {
                 bool bLoaded = false;
-                //沒有副檔名是我們要讀取的file
+                //if the file doesn't have extension will be the assetbundle file
                 if (!Path.HasExtension (file)) {
+                    //make sure the bundle is already loaded or not
                     foreach (AssetBundle item in bundles) {
                         if (Path.GetFileNameWithoutExtension (file) == item.name) {
                             bLoaded = true;
@@ -44,6 +48,7 @@ namespace NoR2252.Utils {
             return bundles;
         }
 
+        /// <summary>get the gamesheet from assetBundle also set the texture and video url</summary>
         public static GameSheet ConvertBundleToGameSheet (AssetBundle bundle) {
             TextAsset sheetFile = bundle.LoadAsset<TextAsset> (bundle.name);
             Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
@@ -55,6 +60,8 @@ namespace NoR2252.Utils {
             }
             return gameSheet;
         }
+
+        /// <summary>call this method to load all the gamesheet in bundle folder</summary>
         public static List<GameSheet> LoadAllSheets ( ) {
             List<AssetBundle> bundles = new List<AssetBundle> ( );
             List<GameSheet> sheets = new List<GameSheet> ( );
@@ -66,10 +73,87 @@ namespace NoR2252.Utils {
         }
         #endregion
         #region CREATE_SHEET
+        /// <summary>create the sheet to the Sheet folder</summary>
         public static void CreateSheet (Sheet sheet) {
             string path = Application.persistentDataPath + "/Sheet/" + sheet.name + ".json";
             FileStream fs = new FileStream (path, FileMode.Create);
             string fileContext = JsonUtility.ToJson (sheet);
+            StreamWriter file = new StreamWriter (fs);
+            file.Write (fileContext);
+            file.Close ( );
+        }
+        #endregion
+        #region Utils
+
+        /// <summary>check directory exist if not create it</summary>
+        public static void CheckDirectory (string path) {
+            // Check if directory exists, if not create it
+            if (!Directory.Exists (path)) {
+                Directory.CreateDirectory (path);
+            }
+        }
+        #endregion
+        #region OPTION
+
+        /// <summary>load the option file from option folder</summary>
+        public static Option LoadOption ( ) {
+            string path = Application.persistentDataPath + "/Option";
+            SourceLoader.CheckDirectory (path);
+            path = Application.persistentDataPath + "/Option/option.json";
+            //option no
+            if (!File.Exists (path)) {
+                FileStream fs = new FileStream (path, FileMode.Create);
+                string fileContext = JsonUtility.ToJson (new Option ( ));
+                StreamWriter file = new StreamWriter (fs);
+                file.Write (fileContext);
+                file.Close ( );
+            }
+            return JsonUtility.FromJson<Option> (File.ReadAllText (path));
+
+        }
+
+        /// <summary>save the option file to option folder if there is an old version will override it</summary>
+        public static void SaveOption ( ) {
+            string path = Application.persistentDataPath + "/Option/option.json";
+            if (!File.Exists (path)) {
+                return;
+            }
+
+            FileStream fs = new FileStream (path, FileMode.Create);
+            string fileContext = JsonUtility.ToJson (NoR2252Application.Option);
+            StreamWriter file = new StreamWriter (fs);
+            file.Write (fileContext);
+            file.Close ( );
+        }
+        #endregion
+        #region SCORE_BOARD
+
+        /// <summary>load the scoreboard from option folder</summary>
+        /// <remarks>if the file is not exist will create a new one</remarks>
+        public static ScoreBoard LoadScoreBoard ( ) {
+            string path = Application.persistentDataPath + "/Option";
+            SourceLoader.CheckDirectory (path);
+            path = Application.persistentDataPath + "/Option/scoreBoard.json";
+            //option no
+            if (!File.Exists (path)) {
+                FileStream fs = new FileStream (path, FileMode.Create);
+                string fileContext = JsonUtility.ToJson (new ScoreBoard ( ));
+                StreamWriter file = new StreamWriter (fs);
+                file.Write (fileContext);
+                file.Close ( );
+            }
+            return JsonUtility.FromJson<ScoreBoard> (File.ReadAllText (path));
+        }
+
+        /// <summary>save the scoreboard to option folder</summary>
+        /// <remarks>if there is an old version will override it</remarks>
+        public static void SaveScoreBoard ( ) {
+            string path = Application.persistentDataPath + "/Option/scoreBoard.json";
+            if (!File.Exists (path)) {
+                return;
+            }
+            FileStream fs = new FileStream (path, FileMode.Create);
+            string fileContext = JsonUtility.ToJson (NoR2252Application.ScoreBoard);
             StreamWriter file = new StreamWriter (fs);
             file.Write (fileContext);
             file.Close ( );
@@ -126,72 +210,6 @@ namespace NoR2252.Utils {
         //     if (File.Exists (path)) return File.ReadAllText (path);
         //     else return " ";
         // }
-        #endregion
-        #region Utils
-        //check directory if exist
-        public static void CheckDirectory (string path) {
-            // Check if directory exists, if not create it
-            if (!Directory.Exists (path)) {
-                Directory.CreateDirectory (path);
-            }
-        }
-        #endregion
-        #region OPTION
-        public static Option LoadOption ( ) {
-            string path = Application.persistentDataPath + "/Option";
-            SourceLoader.CheckDirectory (path);
-            path = Application.persistentDataPath + "/Option/option.json";
-            //option no
-            if (!File.Exists (path)) {
-                FileStream fs = new FileStream (path, FileMode.Create);
-                string fileContext = JsonUtility.ToJson (new Option ( ));
-                StreamWriter file = new StreamWriter (fs);
-                file.Write (fileContext);
-                file.Close ( );
-            }
-            return JsonUtility.FromJson<Option> (File.ReadAllText (path));
-
-        }
-
-        public static void SaveOption ( ) {
-            string path = Application.persistentDataPath + "/Option/option.json";
-            if (!File.Exists (path)) {
-                return;
-            }
-            FileStream fs = new FileStream (path, FileMode.Create);
-            string fileContext = JsonUtility.ToJson (NoR2252Application.Option);
-            StreamWriter file = new StreamWriter (fs);
-            file.Write (fileContext);
-            file.Close ( );
-        }
-        #endregion
-        #region SCORE_BOARD
-        public static BestScore LoadScoreBoard ( ) {
-            string path = Application.persistentDataPath + "/Option";
-            SourceLoader.CheckDirectory (path);
-            path = Application.persistentDataPath + "/Option/scoreBoard.json";
-            //option no
-            if (!File.Exists (path)) {
-                FileStream fs = new FileStream (path, FileMode.Create);
-                string fileContext = JsonUtility.ToJson (new BestScore ( ));
-                StreamWriter file = new StreamWriter (fs);
-                file.Write (fileContext);
-                file.Close ( );
-            }
-            return JsonUtility.FromJson<BestScore> (File.ReadAllText (path));
-        }
-
-        public static void SaveScoreBoard ( ) {
-            string path = Application.persistentDataPath + "/Option/scoreBoard.json";
-            if (!File.Exists (path)) {
-                return;
-            }
-            FileStream fs = new FileStream (path, FileMode.Create);
-            string fileContext = JsonUtility.ToJson (NoR2252Application.ScoreBoard);
-            StreamWriter file = new StreamWriter (fs);
-            file.Write (fileContext);
-            file.Close ( );
-        }
         #endregion
 
     }

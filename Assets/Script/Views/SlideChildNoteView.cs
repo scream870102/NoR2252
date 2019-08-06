@@ -76,13 +76,14 @@ namespace NoR2252.View.Note {
             refS.LineBG.enabled = true;
             refS.Line.enabled = true;
             if (Note.Controller.SlidePos.ContainsKey (Note.Info.id)) {
+                //calculate the degree from this note to prev note
                 Vector2 tmp = Note.Controller.SlidePos [Note.Info.id] - refS.MainTf.position;
                 tmp.Normalize ( );
                 float degree = Mathf.Atan2 (tmp.y, tmp.x) * Mathf.Rad2Deg;
                 Vector3 oEuler = new Vector3 (0f, 0f, degree);
                 oEuler.z = degree - 90f;
                 refS.MainTf.rotation = Quaternion.Euler (oEuler);
-                //設定線段
+                //set the slide line position
                 Vector2 tp = Note.Controller.SlidePos [Note.Info.id] - refS.MainTf.position;
                 Vector2 size = new Vector2 (1f, Mathf.Ceil (tp.magnitude));
                 refS.Line.size = size;

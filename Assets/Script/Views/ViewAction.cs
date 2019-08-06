@@ -1,5 +1,7 @@
 using UnityEngine;
 namespace NoR2252.View.Action {
+    /// <summary>keep rotate the transform due to velocity</summary>
+    /// <remarks>call TickX/Y/Z to rotate in different coordinate</remarks>
     public class RotationAction {
         bool bClockWise;
         float velocity;

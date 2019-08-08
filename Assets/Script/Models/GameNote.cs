@@ -9,7 +9,6 @@ namespace NoR2252.Models {
     [RequireComponent (typeof (Collider2D))]
     public class GameNote : MonoBehaviour, IObjectPoolAble {
         //-------Ref
-        [SerializeField] NG.RefObject gRef = new NG.RefObject ( );
         //-------Field
         [SerializeField] SheetNote info;
         //define how this note Update and react with touch
@@ -35,18 +34,6 @@ namespace NoR2252.Models {
         void Awake ( ) {
             col = GetComponent<Collider2D> ( );
             controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
-            gRef.MainTf = this.transform;
-            gRef.LineTf = gRef.MainTf.Find ("Line");
-            gRef.LineBGTf = gRef.MainTf.Find ("LineBackground");
-            gRef.OutLineTf = gRef.MainTf.Find ("Outline");
-            gRef.MaskTf = gRef.MainTf.Find ("Mask");
-            gRef.PtcTf = gRef.MainTf.Find ("Ptc");
-            gRef.Main = GetComponent<SpriteRenderer> ( );
-            gRef.Line = gRef.LineTf.GetComponent<SpriteRenderer> ( );
-            gRef.LineBG = gRef.LineBGTf.GetComponent<SpriteRenderer> ( );
-            gRef.OutLine = gRef.OutLineTf.GetComponent<SpriteRenderer> ( );
-            gRef.Mask = gRef.MaskTf.GetComponent<SpriteMask> ( );
-            gRef.Ptc = gRef.PtcTf.GetComponent<ParticleSystem> ( );
         }
 
         /// <summary>when this note should be recycle call this method</summary>
@@ -64,23 +51,23 @@ namespace NoR2252.Models {
             //according to the type choose different strategy and view
             switch (info.type) {
                 case (int) ENoteType.TAP:
-                    view = new TapNoteView (this, gRef);
+                    view = new TapNoteView (this);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.FLICK:
-                    view = new FlickNoteView (this, gRef);
+                    view = new FlickNoteView (this);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.HOLD:
-                    view = new HoldNoteView (this, gRef);
+                    view = new HoldNoteView (this);
                     strategy = new HoldStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_HEAD:
-                    view = new SlideHeadNoteView (this, gRef);
+                    view = new SlideHeadNoteView (this);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_CHILD:
-                    view = new SlideChildNoteView (this, gRef);
+                    view = new SlideChildNoteView (this);
                     strategy = new SlideChildStrategy (this);
                     break;
             }

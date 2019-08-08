@@ -61,16 +61,16 @@ namespace NoR2252.Utils {
             return gameSheet;
         }
 
-        /// <summary>call this method to load all the gamesheet in bundle folder</summary>
-        public static List<GameSheet> LoadAllSheets ( ) {
-            List<AssetBundle> bundles = new List<AssetBundle> ( );
-            List<GameSheet> sheets = new List<GameSheet> ( );
-            bundles.AddRange (LoadAllAssetBundle ( ));
-            foreach (AssetBundle bundle in bundles) {
-                sheets.Add (ConvertBundleToGameSheet (bundle));
-            }
-            return sheets;
-        }
+        // /// <summary>call this method to load all the gamesheet in bundle folder</summary>
+        // public static List<GameSheet> LoadAllSheets ( ) {
+        //     List<AssetBundle> bundles = new List<AssetBundle> ( );
+        //     List<GameSheet> sheets = new List<GameSheet> ( );
+        //     bundles.AddRange (LoadAllAssetBundle ( ));
+        //     foreach (AssetBundle bundle in bundles) {
+        //         sheets.Add (ConvertBundleToGameSheet (bundle));
+        //     }
+        //     return sheets;
+        // }
         #endregion
         #region CREATE_SHEET
         /// <summary>create the sheet to the Sheet folder</summary>
@@ -160,7 +160,7 @@ namespace NoR2252.Utils {
         }
         #endregion
         #region FOR_EDITOR_TEST
-        public static GameSheet LoadSheet (TextAsset sheetFile,Texture2D cover) {
+        public static GameSheet LoadSheet (TextAsset sheetFile, Texture2D cover) {
             Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
             GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
             if (s != null) {
@@ -190,13 +190,14 @@ namespace NoR2252.Utils {
         //     return sheet;
         // }
 
-        // public static GameSheet LoadSheet (string content) {
-        //     Sheet s = JsonUtility.FromJson<Sheet> (content);
-        //     GameSheet sheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
-        //     //sheet.music = Resources.Load<VideoClip> (s.music);
-        //     sheet.cover = Resources.Load<Texture2D> (s.cover);
-        //     return sheet;
-        // }
+        public static GameSheet LoadSheet (string content) {
+            Debug.Log(content);
+            Sheet s = JsonUtility.FromJson<Sheet> (content);
+            GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
+            gameSheet.music = "file://" + Application.persistentDataPath + "/Editor/" + s.music + ".mp4";
+            gameSheet.cover = GameManager.Instance.tex;
+            return gameSheet;
+        }
 
         // public static Sheet LoadSheetToInspector (TextAsset asset) {
         //     string content = asset.text;
@@ -207,20 +208,20 @@ namespace NoR2252.Utils {
         //     s.cover = cover [1];
         //     return s;
         // }
-        // public static List<GameSheet> LoadAllSheets ( ) {
-        //     List<GameSheet> allSheets = new List<GameSheet> ( );
-        //     string path = Application.persistentDataPath + "/Sheet";
-        //     SourceLoader.CheckDirectory (path);
-        //     // Check Save Path
-        //     foreach (string fileFullPath in Directory.GetFiles (path)) {
-        //         allSheets.Add (LoadSheet (ConvertFileToString (fileFullPath)));
-        //     }
-        //     return allSheets;
-        // }
-        // public static string ConvertFileToString (string path) {
-        //     if (File.Exists (path)) return File.ReadAllText (path);
-        //     else return " ";
-        // }
+        public static List<GameSheet> LoadAllSheets ( ) {
+            List<GameSheet> allSheets = new List<GameSheet> ( );
+            string path = Application.persistentDataPath + "/Sheet";
+            SourceLoader.CheckDirectory (path);
+            // Check Save Path
+            foreach (string fileFullPath in Directory.GetFiles (path)) {
+                allSheets.Add (LoadSheet (ConvertFileToString (fileFullPath)));
+            }
+            return allSheets;
+        }
+        public static string ConvertFileToString (string path) {
+            if (File.Exists (path)) return File.ReadAllText (path);
+            else return " ";
+        }
         #endregion
 
     }

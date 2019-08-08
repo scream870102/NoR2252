@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour {
         currentSheet = NoR2252Application.CurrentSheet;
         InitRecord ( );
         foreach (SheetNote note in currentSheet.notes) queueNotes.Enqueue (note);
+        Debug.Log(currentSheet.music);
         video.url = currentSheet.music;
         title.text = currentSheet.name;
         author.text = currentSheet.author;

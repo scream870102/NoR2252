@@ -585,7 +585,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: keyakizaka46 feta.eccentric
+  m_Text: keyakizaka46
 --- !u!222 &50866192
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -726,21 +726,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5942393727281156929, guid: 0e91f2cc9f31f2c45b8cd3d9541c4ffc,
-        type: 3}
-      propertyPath: tex
-      value: 
-      objectReference: {fileID: 2800000, guid: 0c8805f1822ed634a85460dff833cb47, type: 3}
-    - target: {fileID: 5942393727281156929, guid: 0e91f2cc9f31f2c45b8cd3d9541c4ffc,
-        type: 3}
-      propertyPath: sheet
-      value: 
-      objectReference: {fileID: 4900000, guid: 33a414a0ff5a95844b0661e8411c463d, type: 3}
-    - target: {fileID: 5942393727281156929, guid: 0e91f2cc9f31f2c45b8cd3d9541c4ffc,
-        type: 3}
-      propertyPath: IsTest
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e91f2cc9f31f2c45b8cd3d9541c4ffc, type: 3}

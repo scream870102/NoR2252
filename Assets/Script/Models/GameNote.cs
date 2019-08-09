@@ -9,6 +9,7 @@ namespace NoR2252.Models {
     [RequireComponent (typeof (Collider2D))]
     public class GameNote : MonoBehaviour, IObjectPoolAble {
         //-------Ref
+        [SerializeField] NoteViewRef ViewRef;
         //-------Field
         [SerializeField] SheetNote info;
         //define how this note Update and react with touch
@@ -20,6 +21,8 @@ namespace NoR2252.Models {
         Collider2D col = null;
         GameController controller;
         bool bRendering = false;
+        bool bFindRef = false;
+
         //-------Property
         public AGameNoteStrategy Strategy { get { return strategy; } }
         public SheetNote Info { get { return info; } }
@@ -29,12 +32,7 @@ namespace NoR2252.Models {
         public ResultTextController ResultTextController { get { return controller.ResultTextController; } }
         public bool IsUsing { get { return bUsing; } }
         public bool IsRendering { get { return bRendering; } set { bRendering = value; } }
-
-        //get all the ref on this gameobject
-        void Awake ( ) {
-            col = GetComponent<Collider2D> ( );
-            controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
-        }
+        public RuntimeAnimatorController [ ] animControllers = new AnimatorOverrideController [System.Enum.GetNames (typeof (ENoteType)).Length];
 
         /// <summary>when this note should be recycle call this method</summary>
         public void Recycle ( ) {
@@ -48,26 +46,34 @@ namespace NoR2252.Models {
         public void Init<T> (T data) {
             this.info = data as SheetNote;
             bUsing = true;
+            if (!bFindRef) {
+                FindRef ( );
+            }
             //according to the type choose different strategy and view
             switch (info.type) {
                 case (int) ENoteType.TAP:
-                    view = new TapNoteView (this);
+                    ViewRef.animController = animControllers [(int) ENoteType.TAP];
+                    view = new TapNoteView (this, ViewRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.FLICK:
-                    view = new FlickNoteView (this);
+                    ViewRef.animController = animControllers [(int) ENoteType.FLICK];
+                    view = new FlickNoteView (this, ViewRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.HOLD:
-                    view = new HoldNoteView (this);
+                    ViewRef.animController = animControllers [(int) ENoteType.HOLD];
+                    view = new HoldNoteView (this, ViewRef);
                     strategy = new HoldStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_HEAD:
-                    view = new SlideHeadNoteView (this);
+                    ViewRef.animController = animControllers [(int) ENoteType.SLIDE_HEAD];
+                    view = new SlideHeadNoteView (this, ViewRef);
                     strategy = new BasicStrategy (this);
                     break;
                 case (int) ENoteType.SLIDE_CHILD:
-                    view = new SlideChildNoteView (this);
+                    ViewRef.animController = animControllers [(int) ENoteType.SLIDE_CHILD];
+                    view = new SlideChildNoteView (this, ViewRef);
                     strategy = new SlideChildStrategy (this);
                     break;
             }
@@ -99,6 +105,12 @@ namespace NoR2252.Models {
         public bool IsCollide (Vector2 fingerPos) {
             return col.OverlapPoint (fingerPos);
         }
+        void FindRef ( ) {
+            bFindRef = true;
+            col = GetComponent<Collider2D> ( );
+            controller = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController> ( );
+        }
+
     }
     public abstract class AGameNoteStrategy {
         //save the ref for GameNote

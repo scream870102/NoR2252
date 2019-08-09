@@ -34,7 +34,6 @@ public class ResultTextController : MonoBehaviour {
                 t.animation.Play ( );
                 return t;
             }
-            break;
         }
 #if (UNITY_EDITOR) 
         Debug.Log ("can't get result text");

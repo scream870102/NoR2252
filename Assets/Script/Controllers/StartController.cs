@@ -12,14 +12,19 @@ using UnityEngine.UI;
 public class StartController : MonoBehaviour {
     //UI REF
     [SerializeField] GameObject OptionMenu;
+    [SerializeField] Button OptionBtn;
     [SerializeField] Button CheckBtn;
     [SerializeField] Button BackBtn;
-    [SerializeField] Slider VolumeSlider;
-    [SerializeField] Slider OffsetSlider;
-    [SerializeField] Button OptionBtn;
     [SerializeField] LeanTouch touch;
-    [SerializeField] Text OffsetText;
+    [Header("Volume")]
+    [SerializeField] Slider VolumeSlider;
     [SerializeField] Text VolumeText;
+    [Header("Offset")]
+    [SerializeField] Slider OffsetSlider;
+    [SerializeField] Text OffsetText;
+    [Header("Opacity")]
+    [SerializeField] Slider OpacitySlider;
+    [SerializeField] Text OpacityText;
     bool bOptionClicked = false;
     Option options = null;
     void Awake ( ) {
@@ -31,6 +36,7 @@ public class StartController : MonoBehaviour {
         BackBtn.onClick.AddListener (OnBackClicked);
         VolumeSlider.onValueChanged.AddListener (OnVolumeValueChanged);
         OffsetSlider.onValueChanged.AddListener (OnOffsetValueChanged);
+        OpacitySlider.onValueChanged.AddListener(OnOpacityValueChanged);
     }
     void Start ( ) {
         NoR2252Application.Option = SourceLoader.LoadOption ( );
@@ -43,15 +49,17 @@ public class StartController : MonoBehaviour {
         UpdateOptionUI ( );
         OptionMenu.SetActive (true);
     }
-    
+
     //update all the ui on the option panel
     void UpdateOptionUI ( ) {
         VolumeSlider.value = options.Volume;
         OffsetSlider.value = options.Offset;
+        OpacitySlider.value = options.Opacity;
         VolumeText.text = options.Volume.ToString ( );
         OffsetText.text = options.Offset.ToString ( );
+        OpacityText.text = options.Opacity.ToString ( );
     }
-    
+
     void OnCheckClicked ( ) {
         NoR2252Application.Option = this.options;
         SourceLoader.SaveOption ( );
@@ -76,7 +84,10 @@ public class StartController : MonoBehaviour {
         this.options.Volume = value;
         UpdateOptionUI ( );
     }
-
+    void OnOpacityValueChanged (float value) {
+        this.options.Opacity = value;
+        UpdateOptionUI ( );
+    }
     //when first enter this scene clear all the finger remain from other scene
     //then enable ths scene
     void EnableTouch ( ) {
@@ -90,13 +101,13 @@ public class StartController : MonoBehaviour {
             SceneManager.LoadScene ("Select");
         }
     }
-    
+
     void OnEnable ( ) {
         LeanTouch.OnFingerTap += Tap;
         EnableTouch ( );
 
     }
-    
+
     void OnDisable ( ) {
         LeanTouch.OnFingerTap -= Tap;
     }

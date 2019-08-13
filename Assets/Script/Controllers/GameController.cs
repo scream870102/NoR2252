@@ -7,62 +7,70 @@ using Eccentric.Utils;
 using Lean.Touch;
 
 using NoR2252.Models;
-
+using UC = UnityEngine.Color;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 public class GameController : MonoBehaviour {
-    //-----------UI REF
+    //-----------CutScene Section UI
+    [Header ("Cut Scene")]
     [SerializeField] Text title;
     [SerializeField] Text author;
     [SerializeField] RawImage cover;
+    //use this to get the animation on canvas
+    [SerializeField] AnimationEventHandler uiAnimHandler;
+    //ref for uiFadeClip when this clip play finished start the game
+    [SerializeField] AnimationClip uiFadeClip;
+    [SerializeField]GlitchEffect glitchEffect;
+    //----------PlaySection UI
+    [Header ("Playing UI")]
     [SerializeField] Text scoreText;
     [SerializeField] Text comboText;
     [SerializeField] VideoPlayer video;
     [SerializeField] Slider progressBar;
     [SerializeField] Image progressBarUpper;
+    [SerializeField] RawImage videoRenderer;
+    [SerializeField] float colorTransVelocity;
+    //------------Pause Section UI
+    [Header ("PauseMenu")]
+    [SerializeField] Button pauseBtn;
     [SerializeField] GameObject pauseMenu;
     [SerializeField] Text pauseTitle;
     [SerializeField] Text pauseAuthor;
-    [SerializeField] float colorTransVelocity;
-    //---------Animation REF
-    //use this to get the animation on canvas
-    [SerializeField] AnimationEventHandler uiAnimHandler;
-    //ref for uiFadeClip when this clip play finished start the game
-    [SerializeField] AnimationClip uiFadeClip;
-    [SerializeField] Button pauseBtn;
     [SerializeField] Button menuBtn;
     [SerializeField] Button retryBtn;
     [SerializeField] Button continueBtn;
+    //---------Animation REF
+    [Header ("Other Ref")]
     [SerializeField] LeanTouch touch;
     //----------Ref
     new AudioSource audio;
     ResultTextController resultTextController;
     new Camera camera;
+    GameSheet currentSheet = null;
     //---------Property
     /// <summary>save the fingerIndex when there is a finger touch the slide key=fingerID value=the next id of this slide should touch</summary>
     public Dictionary<int, int> SlideFinger { get { return slideFinger; } }
     /// <summary>save the prePos of slideNote key=next slide-child id value = current slideNote position</summary>
     public Dictionary<int, Vector3> SlidePos { get { return slidePos; } }
-    public Dictionary<int, float> SlideEndTime {get{return slideEndTime;}}
+    /// <summary>store the endtime of slide child key = next note id value = current note endtime</summary>
+    public Dictionary<int, float> SlideEndTime { get { return slideEndTime; } }
     public ResultTextController ResultTextController { get { return resultTextController; } }
     //---------field
+    [Header ("Note Pool")]
     [SerializeField] ObjectPool notePool;
     //save all the gameNote on the scene
     List<GameNote> gameNotes = new List<GameNote> ( );
     //save the note information should be set into gameNote
     Queue<SheetNote> queueNotes = new Queue<SheetNote> ( );
-    GameSheet currentSheet = null;
-    bool bComboing;
     int combo;
     int score;
-    /// <summary>store current finger slide result key=fingerId value=next note id</summary>
     Dictionary<int, int> slideFinger = new Dictionary<int, int> ( );
-    /// <summary>store slide position key = next note id value = current note position</summary>
     Dictionary<int, Vector3> slidePos = new Dictionary<int, Vector3> ( );
     Dictionary<int, float> slideEndTime = new Dictionary<int, float> ( );
     float clipLength;
+    bool bComboing;
     bool bPausing = false;
     bool bAnimFin = false;
     void Awake ( ) {
@@ -90,6 +98,7 @@ public class GameController : MonoBehaviour {
     }
 
     void Start ( ) {
+        glitchEffect.enabled=true;
         //Load the sheet 
         currentSheet = NoR2252Application.CurrentSheet;
         InitRecord ( );
@@ -114,6 +123,9 @@ public class GameController : MonoBehaviour {
 
     //when video is ready set length and volume and then start to play the video
     void OnPrepared (UnityEngine.Video.VideoPlayer vPlayer) {
+        UC renderColor = UC.white;
+        renderColor.a = NoR2252Application.Option.Opacity;
+        videoRenderer.color = renderColor;
         clipLength = (float) video.length;
         for (int i = 0; i < video.audioTrackCount; i++) {
             video.SetDirectAudioVolume ((ushort) i, NoR2252Application.Option.Volume);
@@ -245,6 +257,7 @@ public class GameController : MonoBehaviour {
     //if animation already finished start to prepare video
     void UILoadFinished ( ) {
         bAnimFin = true;
+        glitchEffect.enabled=false;
         video.Prepare ( );
     }
 
@@ -267,11 +280,11 @@ public class GameController : MonoBehaviour {
             note.transform.position = tmp;
             //if current note is slideNote save next id and its position to slidePos
             if (note.Info.type == (int) ENoteType.SLIDE_HEAD || note.Info.type == (int) ENoteType.SLIDE_CHILD) {
-                if (note.Info.nextId != 0){
+                if (note.Info.nextId != 0) {
                     slidePos.Add (note.Info.nextId, tmp);
-                    slideEndTime.Add(note.Info.nextId,note.Info.endTime);
+                    slideEndTime.Add (note.Info.nextId, note.Info.endTime);
                 }
-                    
+
             }
             //處理最大基數的問題
             NoR2252Application.TotalCombo += 1;

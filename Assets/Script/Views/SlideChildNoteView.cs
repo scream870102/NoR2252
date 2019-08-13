@@ -8,27 +8,21 @@ using UnityEngine;
 namespace NoR2252.View.Note {
     [System.Serializable]
     public class SlideChildNoteView : TapNoteView {
-        readonly float LINE_WIDTH=0.5f;
+        readonly float LINE_WIDTH = 0.3f;
+        readonly float LINE_OFFSET=0.5f;
         float timeOffset;
         float lineHeight;
-        // SpriteRenderer lineRenderer;
-        // SpriteRenderer bgLineRenderer;
-        // Animator lineAnimator;
         public SlideChildNoteView (GameNote note, NoteViewRef VRef):
-            base (note, VRef) {
-                // this.lineRenderer = lineRenderer;
-                // this.bgLineRenderer = bgLineRenderer;
-                // this.lineAnimator = lineAnimator;
-            }
+            base (note, VRef) { }
         public override void Render ( ) {
             if (IsRendering) {
                 if (NoR2252Application.VideoTime <= Note.Info.startTime) {
                     float lineH = lineHeight * (Math.InverseProbability ((Note.Info.startTime - NoR2252Application.VideoTime) / NoR2252Application.PreLoad));
                     VRef.bgLineRenderer.size = new Vector2 (LINE_WIDTH, lineH);
                 }
-                float offset=Note.Info.endTime-NoR2252Application.VideoTime;
-                if(offset<=timeOffset&&offset>=0f){
-                    SetLine(offset);
+                float offset = Note.Info.endTime - NoR2252Application.VideoTime;
+                if (offset <= timeOffset && offset >= 0f) {
+                    SetLine (offset);
                 }
 
                 if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) { } else if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] <= NoR2252Application.VideoTime) { } else { }
@@ -66,10 +60,10 @@ namespace NoR2252.View.Note {
                 Vector3 oEuler = new Vector3 (0f, 0f, degree);
                 oEuler.z = degree - 90f;
                 Note.transform.rotation = Quaternion.Euler (oEuler);
-                timeOffset = Note.Info.endTime-Note.Controller.SlideEndTime [Note.Info.id];
+                timeOffset = Note.Info.endTime - Note.Controller.SlideEndTime [Note.Info.id];
                 //set the slide line position
                 Vector2 tp = Note.Controller.SlidePos [Note.Info.id] - Note.transform.position;
-                Vector2 size = new Vector2 (LINE_WIDTH, Mathf.Ceil (tp.magnitude));
+                Vector2 size = new Vector2 (LINE_WIDTH,Mathf.FloorToInt((tp.magnitude/NoR2252Application.Size)-LINE_OFFSET));
                 VRef.lineRenderer.size = size;
                 VRef.bgLineRenderer.size = size;
                 lineHeight = VRef.bgLineRenderer.size.y;

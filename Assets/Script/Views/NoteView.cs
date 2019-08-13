@@ -27,6 +27,7 @@ namespace NoR2252.View.Note {
             this.Note = note;
         }
         public virtual void OnSpawn ( ) {
+            Note.transform.localScale = initScale;
             VRef.renderer.enabled = true;
             VRef.animator.enabled=true;
             bRendering = true;
@@ -44,7 +45,6 @@ namespace NoR2252.View.Note {
             resultText = null;
             bRendering = false;
             bClearing = false;
-            Note.transform.localScale = initScale;
             VRef.SetDisable ( );
             Note.Recycle ( );
         }
@@ -54,6 +54,7 @@ namespace NoR2252.View.Note {
 
     [System.Serializable]
     public class NoteViewRef {
+        readonly Vector3 LINE_INIT_POS=new Vector3(0f,0.5f,0f);
         public RuntimeAnimatorController animController;
         public Animator animator;
         public SpriteRenderer renderer;
@@ -64,6 +65,8 @@ namespace NoR2252.View.Note {
             renderer.transform.rotation=Quaternion.identity;
             lineRenderer.transform.rotation=Quaternion.identity;
             bgLineRenderer.transform.rotation=Quaternion.identity;
+            bgLineRenderer.transform.localPosition=LINE_INIT_POS;
+            lineRenderer.transform.localPosition=LINE_INIT_POS;
             lineRenderer.enabled = false;
             bgLineRenderer.enabled = false;
             renderer.enabled = false;

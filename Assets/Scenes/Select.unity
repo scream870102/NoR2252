@@ -605,6 +605,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: f8e0a23d4103f5840b86028a47ce5d6c, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: f8e0a23d4103f5840b86028a47ce5d6c, type: 2}
+  - {fileID: 7400000, guid: 6b9f80b0971a3684586132dc1387cb3a, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -868,6 +869,9 @@ MonoBehaviour:
   - {fileID: 583539131}
   animation: {fileID: 636534631}
   AllSheet: []
+  NextAnim: {fileID: 7400000, guid: f8e0a23d4103f5840b86028a47ce5d6c, type: 2}
+  PrevAnim: {fileID: 7400000, guid: 6b9f80b0971a3684586132dc1387cb3a, type: 2}
+  cAs: 
 --- !u!82 &1100489595
 AudioSource:
   m_ObjectHideFlags: 0

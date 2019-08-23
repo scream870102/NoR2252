@@ -9,7 +9,7 @@ public class GameManager : Eccentric.Utils.TSingletonMonoBehavior<GameManager> {
     [SerializeField] Texture2D tex;
     private void Start ( ) {
         if (IsTest) {
-            NoR2252Application.Option = new Option ( );
+            NoR2252Application.Option = new Option (0f, 0.5f, 0.3f);
             GameSheet s = SourceLoader.LoadSheet (sheet, tex);
             NoR2252Application.CurrentSheet = s;
         }

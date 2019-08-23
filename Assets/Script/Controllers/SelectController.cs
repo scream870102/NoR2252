@@ -20,11 +20,13 @@ public class SelectController : MonoBehaviour {
     [SerializeField] List<RawImage> sprites;
     [SerializeField] new AnimationEventHandler animation;
     //store all the sheet from assetBundle
-    [SerializeField] List<GameSheet> AllSheet = new List<GameSheet> ( );
     [SerializeField] AnimationClip NextAnim;
     [SerializeField] AnimationClip PrevAnim;
+    List<GameSheet> AllSheet = new List<GameSheet> ( );
+    readonly float MIN_START_UP_PER = 0.05f;
+    readonly int MID_SPRITE_INDEX = 2;
     //store the sheet index for sprite should display
-    [SerializeField]List<int> cAs = new List<int> ( );
+    List<int> cAs = new List<int> ( );
     new AudioSource audio;
     bool bBackClicked = false;
     Vector2 startPos = new Vector2 ( );
@@ -54,6 +56,7 @@ public class SelectController : MonoBehaviour {
             else
                 cAs [i] = -1;
         }
+        GetNext ( );
         SetUI ( );
         direction = 0;
         fingerId = -1;
@@ -63,8 +66,8 @@ public class SelectController : MonoBehaviour {
     //set the current sheet to middle one and load game scene
     void Tap (LeanFinger finger) {
         audio.Play ( );
-        if (cAs [2] != -1) {
-            NoR2252Application.CurrentSheet = AllSheet [cAs [2]];
+        if (cAs [MID_SPRITE_INDEX] != -1) {
+            NoR2252Application.CurrentSheet = AllSheet [cAs [MID_SPRITE_INDEX]];
             if (!bBackClicked)
                 SceneManager.LoadSceneAsync ("Game");
         }
@@ -76,12 +79,13 @@ public class SelectController : MonoBehaviour {
         audio.Play ( );
     }
     void Set (LeanFinger finger) {
-        animation.Animation.Stop();
+        animation.Animation.Stop ( );
         if (finger.Index == fingerId) {
             currentPos = finger.ScreenPosition;
             Vector2 offset = currentPos - startPos;
             direction = offset.x > 0f?1: -1;
             float percentage = Mathf.Abs (offset.x) / screenSize.x;
+            if (percentage <= MIN_START_UP_PER) return;
             foreach (AnimationState state in animation.Animation) {
                 if (direction == 1)
                     animation.Animation.clip = NextAnim;
@@ -89,7 +93,7 @@ public class SelectController : MonoBehaviour {
                     animation.Animation.clip = PrevAnim;
                 state.time = state.length * percentage;
             }
-            animation.Animation.Play();
+            animation.Animation.Play ( );
 
         }
 
@@ -111,20 +115,20 @@ public class SelectController : MonoBehaviour {
     // if the value is equal to -1
     //then set title and cover to error
     void SetUI ( ) {
-        if (cAs [2] == -1) {
+        if (cAs [MID_SPRITE_INDEX] == -1) {
             title.text = "Can't get the song";
             author.text = "Error No2252X00";
         }
         else {
             //try to find the bestscore pair for the sheet in the middle
             ScorePair bestPair = null;
-            title.text = AllSheet [cAs [2]].name;
-            author.text = AllSheet [cAs [2]].author;
-            bestPair = NoR2252Application.ScoreBoard.Find (AllSheet [cAs [2]].name);
+            title.text = AllSheet [cAs [MID_SPRITE_INDEX]].name;
+            author.text = AllSheet [cAs [MID_SPRITE_INDEX]].author;
+            bestPair = NoR2252Application.ScoreBoard.Find (AllSheet [cAs [MID_SPRITE_INDEX]].name);
             if (bestPair != null)
                 bestScore.text = "Best Score\n" + bestPair.Score.ToString ( );
             else {
-                NoR2252Application.ScoreBoard.Add (AllSheet [cAs [2]].name);
+                NoR2252Application.ScoreBoard.Add (AllSheet [cAs [MID_SPRITE_INDEX]].name);
                 bestScore.text = "Best Score \n0";
             }
         }
@@ -137,38 +141,38 @@ public class SelectController : MonoBehaviour {
     }
 
     //calculate the index to find all the sprite value
-    void GetNext ( ) {
-        int next = cAs [0];
-        if (next + 1 >= AllSheet.Count) next = 0;
-        else next++;
-        cAs [0] = next;
-        for (int i = 1; i < sprites.Count; i++) {
-            if (next + i >= AllSheet.Count) {
-                int offset = next + i - AllSheet.Count;
-                if (offset >= AllSheet.Count) cAs [i] = -1;
-                else cAs [i] = 0 + offset;
-            }
-            else {
-                cAs [i] = next + i;
-            }
-
-        }
-    }
     void GetPrev ( ) {
-        int prev = cAs [0];
-        if (prev - 1 < 0) prev = AllSheet.Count - 1;
-        else prev--;
-        cAs [0] = prev;
-        for (int i = 1; i < sprites.Count; i++) {
-            if (prev - i < 0) {
-                int offset = Mathf.Abs (prev - i);
-                if (offset >= AllSheet.Count) cAs [i] = -1;
-                else cAs [i] = AllSheet.Count - offset;
-            }
-            else {
-                cAs [i] = prev - i;
-            }
+        int prev = cAs [MID_SPRITE_INDEX];
+        if (prev + 1 >= AllSheet.Count) prev = 0;
+        else prev++;
+        cAs [MID_SPRITE_INDEX] = prev;
+        CheckRange (prev);
+    }
+    void GetNext ( ) {
+        int next = cAs [MID_SPRITE_INDEX];
+        if (next - 1 < 0) next = AllSheet.Count - 1;
+        else next--;
+        cAs [MID_SPRITE_INDEX] = next;
+        CheckRange (next);
+    }
 
+    void CheckRange (int middle) {
+        for (int i = 0; i < sprites.Count; i++) {
+            if (i == MID_SPRITE_INDEX) continue;
+            cAs [i] = middle + MID_SPRITE_INDEX - i;
+            if (i < MID_SPRITE_INDEX) {
+                if (middle + MID_SPRITE_INDEX - i >= AllSheet.Count) {
+                    int offset = middle + MID_SPRITE_INDEX - i - AllSheet.Count;
+                    cAs [i] = offset;
+                }
+            }
+            else if (i > MID_SPRITE_INDEX) {
+                if (middle + MID_SPRITE_INDEX - i < 0) {
+                    int offset = AllSheet.Count - Mathf.Abs (middle + MID_SPRITE_INDEX - i);
+                    cAs [i] = offset;
+                }
+            }
+            if (cAs [i] < 0 || cAs [i] >= AllSheet.Count) cAs [i] = -1;
         }
     }
 

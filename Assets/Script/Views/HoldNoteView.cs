@@ -10,13 +10,12 @@ namespace NoR2252.View.Note {
         readonly float LINE_BASIC_HEIGHT = 1f;
         readonly float MAX_LINE_HEIGH = 5f;
         readonly float LINE_WIDTH = 0.3f;
-        readonly float LINE_OFFSET=0.5f;
+        readonly float LINE_OFFSET = 0.5f;
         float lineHeight = 0;
         public HoldNoteView (GameNote note, NoteViewRef VRef):
             base (note, VRef) {
-                VRef.lineRenderer.size = new Vector2 (LINE_WIDTH, 0f);
-                lineHeight = Mathf.CeilToInt (Note.Info.Duration) * LINE_HEIGHT_FACTOR + LINE_BASIC_HEIGHT-LINE_OFFSET;
-                lineHeight=Mathf.Clamp(lineHeight,1,MAX_LINE_HEIGH);
+                lineHeight = Mathf.CeilToInt (Note.Info.Duration) * LINE_HEIGHT_FACTOR + LINE_BASIC_HEIGHT - LINE_OFFSET;
+                lineHeight = Mathf.Clamp (lineHeight, 1, MAX_LINE_HEIGH);
                 //set position
                 Vector3 linePos = VRef.lineRenderer.transform.localPosition;
                 Vector3 lineRot = VRef.lineRenderer.transform.rotation.eulerAngles;
@@ -38,22 +37,19 @@ namespace NoR2252.View.Note {
             }
 
         public override void Render ( ) {
-            if (IsRendering) {
-                if (NoR2252Application.VideoTime <= Note.Info.startTime) {
-                    float lineH = lineHeight * (Math.InverseProbability ((Note.Info.startTime - NoR2252Application.VideoTime) / NoR2252Application.PreLoad));
-                    VRef.bgLineRenderer.size = new Vector2 (LINE_WIDTH, lineH);
-                }
-                if (NoR2252Application.VideoTime >= Note.Info.startTime && (Note.Strategy as HoldStrategy).IsHolding) {
-                    Vector2 size = new Vector2 (LINE_WIDTH, 0f);
-                    size.y = lineHeight * Math.InverseProbability ((Note.Info.endTime - NoR2252Application.VideoTime) / Note.Info.Duration);
-                    VRef.lineRenderer.size = size;
-                    VRef.bgLineRenderer.size = new Vector2 (LINE_WIDTH, lineHeight);
-                }
-                if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) { } else if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] <= NoR2252Application.VideoTime) { } else { }
-                if (bClearing) {
-                    if (timer.IsFinished)
-                        OnCleared ( );
-                }
+            if (NoR2252Application.VideoTime <= Note.Info.startTime) {
+                float lineH = lineHeight * (Math.InverseProbability ((Note.Info.startTime - NoR2252Application.VideoTime) / NoR2252Application.PreLoad));
+                VRef.bgLineRenderer.size = new Vector2 (LINE_WIDTH, lineH);
+            }
+            if (NoR2252Application.VideoTime >= Note.Info.startTime && (Note.Strategy as HoldStrategy).IsHolding) {
+                Vector2 size = new Vector2 (LINE_WIDTH, 0f);
+                size.y = lineHeight * Math.InverseProbability ((Note.Info.endTime - NoR2252Application.VideoTime) / Note.Info.Duration);
+                VRef.lineRenderer.size = size;
+                VRef.bgLineRenderer.size = new Vector2 (LINE_WIDTH, lineHeight);
+            }
+            if (bClearing) {
+                if (timer.IsFinished)
+                    OnCleared ( );
             }
 
         }

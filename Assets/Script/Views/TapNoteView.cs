@@ -1,8 +1,4 @@
-using Eccentric;
-using EU = Eccentric.Utils;
 using NoR2252.Models;
-using NG = NoR2252.Models.Graphics;
-using NoR2252.View.Action;
 
 using UnityEngine;
 namespace NoR2252.View.Note {
@@ -14,15 +10,9 @@ namespace NoR2252.View.Note {
             }
 
         public override void Render ( ) {
-            if (IsRendering) {
-                // note inside
-                //note outside
-                //about color
-                if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.GOOD] <= NoR2252Application.VideoTime) { } else if (Note.Info.endTime - NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS] <= NoR2252Application.VideoTime) { } else { }
-                if (bClearing) {
-                    if (timer.IsFinished)
-                        OnCleared ( );
-                }
+            if (bClearing) {
+                if (timer.IsFinished)
+                    OnCleared ( );
             }
 
         }

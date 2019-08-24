@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3787833256766880645}
   - component: {fileID: 3787833256766880640}
   m_Layer: 0
-  m_Name: TestGameObject
+  m_Name: EditorTestGameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,6 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf7f5b9715657047bb24507d449e165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  bundles: []
+  sheets: []
 --- !u!114 &3787833256766880640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,38 +74,1529 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   t:
-    name: "\u4E8C\u4EBA\u30BB\u30BE\u30F3Slide"
-    author: "\u6B05\u574246 feat.Eccentric"
-    music: MusicVideo/MusicVideo/season
-    cover: Cover/Cover/3rd
+    name: Pretender easy
+    author: Anonymous
+    music: Pretender by Anonymous2 minver
+    cover: Pretender
     bpm: 0
     notes:
-    - type: 2
+    - type: 1
       id: 0
-      nextId: 1
-      startTime: 2.835
-      endTime: 2.835
-      pos: {x: 1748, y: 528, z: 0}
-      endPos: {x: 1748, y: 528, z: 0}
-    - type: 3
+      nextId: 0
+      startTime: 1.45
+      endTime: 1.45
+      pos: {x: 1320, y: 540, z: 0}
+      endPos: {x: 1320, y: 540, z: 0}
+    - type: 1
       id: 1
-      nextId: 2
-      startTime: 2.835
-      endTime: 3.32
-      pos: {x: 1060, y: 522, z: 0}
-      endPos: {x: 1060, y: 522, z: 0}
-    - type: 3
+      nextId: 0
+      startTime: 1.45
+      endTime: 1.45
+      pos: {x: 510, y: 540, z: 0}
+      endPos: {x: 510, y: 540, z: 0}
+    - type: 0
       id: 2
       nextId: 0
-      startTime: 2.835
-      endTime: 3.57
-      pos: {x: 418, y: 516, z: 0}
-      endPos: {x: 418, y: 516, z: 0}
+      startTime: 2.1200001
+      endTime: 2.1200001
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 3
+      nextId: 0
+      startTime: 2.78
+      endTime: 2.78
+      pos: {x: 420, y: 360, z: 0}
+      endPos: {x: 420, y: 360, z: 0}
+    - type: 0
+      id: 4
+      nextId: 0
+      startTime: 3.45
+      endTime: 3.45
+      pos: {x: 1410, y: 180, z: 0}
+      endPos: {x: 1410, y: 180, z: 0}
+    - type: 2
+      id: 5
+      nextId: 6
+      startTime: 4.7799997
+      endTime: 4.7799997
+      pos: {x: 420, y: 540, z: 0}
+      endPos: {x: 420, y: 540, z: 0}
+    - type: 3
+      id: 6
+      nextId: 7
+      startTime: 4.7799997
+      endTime: 5.66
+      pos: {x: 960, y: 900, z: 0}
+      endPos: {x: 960, y: 900, z: 0}
+    - type: 3
+      id: 7
+      nextId: 0
+      startTime: 4.7799997
+      endTime: 6.25
+      pos: {x: 1545, y: 470, z: 0}
+      endPos: {x: 1545, y: 470, z: 0}
+    - type: 0
+      id: 8
+      nextId: 0
+      startTime: 6.7799997
+      endTime: 6.7799997
+      pos: {x: 780, y: 900, z: 0}
+      endPos: {x: 780, y: 900, z: 0}
+    - type: 0
+      id: 9
+      nextId: 0
+      startTime: 6.7799997
+      endTime: 6.7799997
+      pos: {x: 1140, y: 900, z: 0}
+      endPos: {x: 1140, y: 900, z: 0}
+    - type: 0
+      id: 10
+      nextId: 0
+      startTime: 7.45
+      endTime: 7.45
+      pos: {x: 420, y: 540, z: 0}
+      endPos: {x: 420, y: 540, z: 0}
+    - type: 0
+      id: 11
+      nextId: 0
+      startTime: 7.45
+      endTime: 7.45
+      pos: {x: 1500, y: 540, z: 0}
+      endPos: {x: 1500, y: 540, z: 0}
+    - type: 4
+      id: 12
+      nextId: 0
+      startTime: 8.42
+      endTime: 9.08
+      pos: {x: 600, y: 270, z: 0}
+      endPos: {x: 600, y: 270, z: 0}
+    - type: 4
+      id: 13
+      nextId: 0
+      startTime: 8.42
+      endTime: 9.08
+      pos: {x: 1320, y: 270, z: 0}
+      endPos: {x: 1320, y: 270, z: 0}
+    - type: 1
+      id: 14
+      nextId: 0
+      startTime: 10.12
+      endTime: 10.12
+      pos: {x: 1320, y: 900, z: 0}
+      endPos: {x: 1320, y: 900, z: 0}
+    - type: 1
+      id: 15
+      nextId: 0
+      startTime: 10.78
+      endTime: 10.78
+      pos: {x: 960, y: 180, z: 0}
+      endPos: {x: 960, y: 180, z: 0}
+    - type: 1
+      id: 16
+      nextId: 0
+      startTime: 11.45
+      endTime: 11.45
+      pos: {x: 600, y: 900, z: 0}
+      endPos: {x: 600, y: 900, z: 0}
+    - type: 0
+      id: 17
+      nextId: 0
+      startTime: 12.45
+      endTime: 12.45
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 0
+      id: 18
+      nextId: 0
+      startTime: 13.12
+      endTime: 13.12
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 4
+      id: 19
+      nextId: 0
+      startTime: 14.42
+      endTime: 15.08
+      pos: {x: 1320, y: 900, z: 0}
+      endPos: {x: 1320, y: 900, z: 0}
+    - type: 4
+      id: 20
+      nextId: 0
+      startTime: 14.42
+      endTime: 15.08
+      pos: {x: 600, y: 180, z: 0}
+      endPos: {x: 600, y: 180, z: 0}
+    - type: 0
+      id: 21
+      nextId: 0
+      startTime: 15.45
+      endTime: 15.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 22
+      nextId: 0
+      startTime: 16.119999
+      endTime: 16.119999
+      pos: {x: 510, y: 540, z: 0}
+      endPos: {x: 510, y: 540, z: 0}
+    - type: 0
+      id: 23
+      nextId: 0
+      startTime: 16.45
+      endTime: 16.45
+      pos: {x: 960, y: 900, z: 0}
+      endPos: {x: 960, y: 900, z: 0}
+    - type: 0
+      id: 24
+      nextId: 0
+      startTime: 16.779999
+      endTime: 16.779999
+      pos: {x: 1410, y: 540, z: 0}
+      endPos: {x: 1410, y: 540, z: 0}
+    - type: 0
+      id: 25
+      nextId: 0
+      startTime: 17.119999
+      endTime: 17.119999
+      pos: {x: 960, y: 180, z: 0}
+      endPos: {x: 960, y: 180, z: 0}
+    - type: 1
+      id: 26
+      nextId: 0
+      startTime: 17.779999
+      endTime: 17.779999
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 4
+      id: 27
+      nextId: 0
+      startTime: 18.75
+      endTime: 19.41
+      pos: {x: 420, y: 270, z: 0}
+      endPos: {x: 420, y: 270, z: 0}
+    - type: 4
+      id: 28
+      nextId: 0
+      startTime: 18.75
+      endTime: 19.41
+      pos: {x: 1500, y: 270, z: 0}
+      endPos: {x: 1500, y: 270, z: 0}
+    - type: 2
+      id: 29
+      nextId: 30
+      startTime: 20.119999
+      endTime: 20.119999
+      pos: {x: 510, y: 540, z: 0}
+      endPos: {x: 510, y: 540, z: 0}
+    - type: 3
+      id: 30
+      nextId: 31
+      startTime: 20.119999
+      endTime: 20.64
+      pos: {x: 960, y: 630, z: 0}
+      endPos: {x: 960, y: 630, z: 0}
+    - type: 3
+      id: 31
+      nextId: 32
+      startTime: 20.119999
+      endTime: 20.86
+      pos: {x: 960, y: 630, z: 0}
+      endPos: {x: 960, y: 630, z: 0}
+    - type: 3
+      id: 32
+      nextId: 0
+      startTime: 20.119999
+      endTime: 21.08
+      pos: {x: 1410, y: 540, z: 0}
+      endPos: {x: 1410, y: 540, z: 0}
+    - type: 0
+      id: 33
+      nextId: 0
+      startTime: 21.45
+      endTime: 21.45
+      pos: {x: 1410, y: 900, z: 0}
+      endPos: {x: 1410, y: 900, z: 0}
+    - type: 0
+      id: 34
+      nextId: 0
+      startTime: 21.45
+      endTime: 21.45
+      pos: {x: 510, y: 900, z: 0}
+      endPos: {x: 510, y: 900, z: 0}
+    - type: 0
+      id: 35
+      nextId: 0
+      startTime: 22.119999
+      endTime: 22.119999
+      pos: {x: 1410, y: 540, z: 0}
+      endPos: {x: 1410, y: 540, z: 0}
+    - type: 0
+      id: 36
+      nextId: 0
+      startTime: 22.119999
+      endTime: 22.119999
+      pos: {x: 510, y: 540, z: 0}
+      endPos: {x: 510, y: 540, z: 0}
+    - type: 1
+      id: 37
+      nextId: 0
+      startTime: 23.45
+      endTime: 23.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 1
+      id: 38
+      nextId: 0
+      startTime: 24.119999
+      endTime: 24.119999
+      pos: {x: 1230, y: 540, z: 0}
+      endPos: {x: 1230, y: 540, z: 0}
+    - type: 1
+      id: 39
+      nextId: 0
+      startTime: 24.779999
+      endTime: 24.779999
+      pos: {x: 690, y: 540, z: 0}
+      endPos: {x: 690, y: 540, z: 0}
+    - type: 1
+      id: 40
+      nextId: 0
+      startTime: 25.45
+      endTime: 25.45
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 1
+      id: 41
+      nextId: 0
+      startTime: 26.119999
+      endTime: 26.119999
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 42
+      nextId: 0
+      startTime: 26.779999
+      endTime: 26.779999
+      pos: {x: 1320, y: 810, z: 0}
+      endPos: {x: 1320, y: 810, z: 0}
+    - type: 0
+      id: 43
+      nextId: 0
+      startTime: 26.779999
+      endTime: 26.779999
+      pos: {x: 600, y: 810, z: 0}
+      endPos: {x: 600, y: 810, z: 0}
+    - type: 0
+      id: 44
+      nextId: 0
+      startTime: 27.45
+      endTime: 27.45
+      pos: {x: 1320, y: 270, z: 0}
+      endPos: {x: 1320, y: 270, z: 0}
+    - type: 0
+      id: 45
+      nextId: 0
+      startTime: 27.45
+      endTime: 27.45
+      pos: {x: 600, y: 270, z: 0}
+      endPos: {x: 600, y: 270, z: 0}
+    - type: 4
+      id: 46
+      nextId: 0
+      startTime: 28.42
+      endTime: 29.42
+      pos: {x: 1320, y: 900, z: 0}
+      endPos: {x: 1320, y: 900, z: 0}
+    - type: 4
+      id: 47
+      nextId: 0
+      startTime: 28.42
+      endTime: 29.42
+      pos: {x: 600, y: 180, z: 0}
+      endPos: {x: 600, y: 180, z: 0}
+    - type: 0
+      id: 48
+      nextId: 0
+      startTime: 30.119999
+      endTime: 30.119999
+      pos: {x: 1320, y: 810, z: 0}
+      endPos: {x: 1320, y: 810, z: 0}
+    - type: 0
+      id: 49
+      nextId: 0
+      startTime: 30.119999
+      endTime: 30.119999
+      pos: {x: 600, y: 810, z: 0}
+      endPos: {x: 600, y: 810, z: 0}
+    - type: 0
+      id: 50
+      nextId: 0
+      startTime: 30.779999
+      endTime: 30.779999
+      pos: {x: 600, y: 270, z: 0}
+      endPos: {x: 600, y: 270, z: 0}
+    - type: 0
+      id: 51
+      nextId: 0
+      startTime: 30.779999
+      endTime: 30.779999
+      pos: {x: 1320, y: 270, z: 0}
+      endPos: {x: 1320, y: 270, z: 0}
+    - type: 0
+      id: 52
+      nextId: 0
+      startTime: 32.12
+      endTime: 32.12
+      pos: {x: 600, y: 540, z: 0}
+      endPos: {x: 600, y: 540, z: 0}
+    - type: 0
+      id: 53
+      nextId: 0
+      startTime: 32.45
+      endTime: 32.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 54
+      nextId: 0
+      startTime: 32.78
+      endTime: 32.78
+      pos: {x: 1320, y: 540, z: 0}
+      endPos: {x: 1320, y: 540, z: 0}
+    - type: 2
+      id: 55
+      nextId: 56
+      startTime: 33.45
+      endTime: 33.45
+      pos: {x: 600, y: 540, z: 0}
+      endPos: {x: 600, y: 540, z: 0}
+    - type: 3
+      id: 56
+      nextId: 57
+      startTime: 33.45
+      endTime: 34.08
+      pos: {x: 960, y: 360, z: 0}
+      endPos: {x: 960, y: 360, z: 0}
+    - type: 3
+      id: 57
+      nextId: 0
+      startTime: 33.45
+      endTime: 34.41
+      pos: {x: 1320, y: 540, z: 0}
+      endPos: {x: 1320, y: 540, z: 0}
+    - type: 0
+      id: 58
+      nextId: 0
+      startTime: 35.45
+      endTime: 35.45
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 59
+      nextId: 0
+      startTime: 35.78
+      endTime: 35.78
+      pos: {x: 1320, y: 810, z: 0}
+      endPos: {x: 1320, y: 810, z: 0}
+    - type: 0
+      id: 60
+      nextId: 0
+      startTime: 36.12
+      endTime: 36.12
+      pos: {x: 1320, y: 270, z: 0}
+      endPos: {x: 1320, y: 270, z: 0}
+    - type: 0
+      id: 61
+      nextId: 0
+      startTime: 36.78
+      endTime: 36.78
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 0
+      id: 62
+      nextId: 0
+      startTime: 37.45
+      endTime: 37.45
+      pos: {x: 690, y: 540, z: 0}
+      endPos: {x: 690, y: 540, z: 0}
+    - type: 0
+      id: 63
+      nextId: 0
+      startTime: 38.12
+      endTime: 38.12
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 64
+      nextId: 0
+      startTime: 38.78
+      endTime: 38.78
+      pos: {x: 510, y: 810, z: 0}
+      endPos: {x: 510, y: 810, z: 0}
+    - type: 0
+      id: 65
+      nextId: 0
+      startTime: 38.78
+      endTime: 38.78
+      pos: {x: 510, y: 270, z: 0}
+      endPos: {x: 510, y: 270, z: 0}
+    - type: 0
+      id: 66
+      nextId: 0
+      startTime: 39.45
+      endTime: 39.45
+      pos: {x: 780, y: 810, z: 0}
+      endPos: {x: 780, y: 810, z: 0}
+    - type: 0
+      id: 67
+      nextId: 0
+      startTime: 39.45
+      endTime: 39.45
+      pos: {x: 780, y: 270, z: 0}
+      endPos: {x: 780, y: 270, z: 0}
+    - type: 0
+      id: 68
+      nextId: 0
+      startTime: 40.12
+      endTime: 40.12
+      pos: {x: 1140, y: 270, z: 0}
+      endPos: {x: 1140, y: 270, z: 0}
+    - type: 0
+      id: 69
+      nextId: 0
+      startTime: 40.12
+      endTime: 40.12
+      pos: {x: 1140, y: 810, z: 0}
+      endPos: {x: 1140, y: 810, z: 0}
+    - type: 0
+      id: 70
+      nextId: 0
+      startTime: 40.78
+      endTime: 40.78
+      pos: {x: 1500, y: 810, z: 0}
+      endPos: {x: 1500, y: 810, z: 0}
+    - type: 0
+      id: 71
+      nextId: 0
+      startTime: 40.78
+      endTime: 40.78
+      pos: {x: 1500, y: 270, z: 0}
+      endPos: {x: 1500, y: 270, z: 0}
+    - type: 1
+      id: 72
+      nextId: 0
+      startTime: 41.45
+      endTime: 41.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 4
+      id: 73
+      nextId: 0
+      startTime: 42.42
+      endTime: 43.08
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 4
+      id: 74
+      nextId: 0
+      startTime: 42.42
+      endTime: 43.08
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 0
+      id: 75
+      nextId: 0
+      startTime: 43.45
+      endTime: 43.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 76
+      nextId: 0
+      startTime: 44.78
+      endTime: 44.78
+      pos: {x: 600, y: 540, z: 0}
+      endPos: {x: 600, y: 540, z: 0}
+    - type: 0
+      id: 77
+      nextId: 0
+      startTime: 46.12
+      endTime: 46.12
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 78
+      nextId: 0
+      startTime: 47.45
+      endTime: 47.45
+      pos: {x: 1320, y: 540, z: 0}
+      endPos: {x: 1320, y: 540, z: 0}
+    - type: 0
+      id: 79
+      nextId: 0
+      startTime: 48.12
+      endTime: 48.12
+      pos: {x: 1140, y: 810, z: 0}
+      endPos: {x: 1140, y: 810, z: 0}
+    - type: 0
+      id: 80
+      nextId: 0
+      startTime: 48.12
+      endTime: 48.12
+      pos: {x: 780, y: 810, z: 0}
+      endPos: {x: 780, y: 810, z: 0}
+    - type: 0
+      id: 81
+      nextId: 0
+      startTime: 48.45
+      endTime: 48.45
+      pos: {x: 1140, y: 540, z: 0}
+      endPos: {x: 1140, y: 540, z: 0}
+    - type: 0
+      id: 82
+      nextId: 0
+      startTime: 48.78
+      endTime: 48.78
+      pos: {x: 780, y: 270, z: 0}
+      endPos: {x: 780, y: 270, z: 0}
+    - type: 0
+      id: 83
+      nextId: 0
+      startTime: 48.78
+      endTime: 48.78
+      pos: {x: 1140, y: 270, z: 0}
+      endPos: {x: 1140, y: 270, z: 0}
+    - type: 2
+      id: 84
+      nextId: 85
+      startTime: 49.45
+      endTime: 49.45
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 3
+      id: 85
+      nextId: 0
+      startTime: 49.45
+      endTime: 50.41
+      pos: {x: 1320, y: 810, z: 0}
+      endPos: {x: 1320, y: 810, z: 0}
+    - type: 2
+      id: 86
+      nextId: 87
+      startTime: 50.78
+      endTime: 50.78
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 3
+      id: 87
+      nextId: 0
+      startTime: 50.78
+      endTime: 51.75
+      pos: {x: 600, y: 810, z: 0}
+      endPos: {x: 600, y: 810, z: 0}
+    - type: 0
+      id: 88
+      nextId: 0
+      startTime: 52.12
+      endTime: 52.12
+      pos: {x: 1320, y: 720, z: 0}
+      endPos: {x: 1320, y: 720, z: 0}
+    - type: 0
+      id: 89
+      nextId: 0
+      startTime: 52.45
+      endTime: 52.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 90
+      nextId: 0
+      startTime: 52.78
+      endTime: 52.78
+      pos: {x: 600, y: 270, z: 0}
+      endPos: {x: 600, y: 270, z: 0}
+    - type: 0
+      id: 91
+      nextId: 0
+      startTime: 53.45
+      endTime: 53.45
+      pos: {x: 600, y: 720, z: 0}
+      endPos: {x: 600, y: 720, z: 0}
+    - type: 0
+      id: 92
+      nextId: 0
+      startTime: 54.12
+      endTime: 54.12
+      pos: {x: 960, y: 900, z: 0}
+      endPos: {x: 960, y: 900, z: 0}
+    - type: 0
+      id: 93
+      nextId: 0
+      startTime: 54.78
+      endTime: 54.78
+      pos: {x: 780, y: 540, z: 0}
+      endPos: {x: 780, y: 540, z: 0}
+    - type: 0
+      id: 94
+      nextId: 0
+      startTime: 55.78
+      endTime: 55.78
+      pos: {x: 960, y: 900, z: 0}
+      endPos: {x: 960, y: 900, z: 0}
+    - type: 0
+      id: 95
+      nextId: 0
+      startTime: 57.45
+      endTime: 57.45
+      pos: {x: 1050, y: 900, z: 0}
+      endPos: {x: 1050, y: 900, z: 0}
+    - type: 0
+      id: 96
+      nextId: 0
+      startTime: 57.62
+      endTime: 57.62
+      pos: {x: 780, y: 810, z: 0}
+      endPos: {x: 780, y: 810, z: 0}
+    - type: 0
+      id: 97
+      nextId: 0
+      startTime: 57.78
+      endTime: 57.78
+      pos: {x: 1140, y: 720, z: 0}
+      endPos: {x: 1140, y: 720, z: 0}
+    - type: 0
+      id: 98
+      nextId: 0
+      startTime: 57.95
+      endTime: 57.95
+      pos: {x: 690, y: 630, z: 0}
+      endPos: {x: 690, y: 630, z: 0}
+    - type: 0
+      id: 99
+      nextId: 0
+      startTime: 58.12
+      endTime: 58.12
+      pos: {x: 1230, y: 540, z: 0}
+      endPos: {x: 1230, y: 540, z: 0}
+    - type: 0
+      id: 100
+      nextId: 0
+      startTime: 58.28
+      endTime: 58.28
+      pos: {x: 600, y: 450, z: 0}
+      endPos: {x: 600, y: 450, z: 0}
+    - type: 0
+      id: 101
+      nextId: 0
+      startTime: 58.45
+      endTime: 58.45
+      pos: {x: 1140, y: 360, z: 0}
+      endPos: {x: 1140, y: 360, z: 0}
+    - type: 0
+      id: 102
+      nextId: 0
+      startTime: 58.62
+      endTime: 58.62
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 103
+      nextId: 0
+      startTime: 58.78
+      endTime: 58.78
+      pos: {x: 780, y: 90, z: 0}
+      endPos: {x: 780, y: 90, z: 0}
+    - type: 0
+      id: 104
+      nextId: 0
+      startTime: 58.95
+      endTime: 58.95
+      pos: {x: 1050, y: 180, z: 0}
+      endPos: {x: 1050, y: 180, z: 0}
+    - type: 0
+      id: 105
+      nextId: 0
+      startTime: 60.12
+      endTime: 60.12
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 106
+      nextId: 0
+      startTime: 60.45
+      endTime: 60.45
+      pos: {x: 780, y: 270, z: 0}
+      endPos: {x: 780, y: 270, z: 0}
+    - type: 0
+      id: 107
+      nextId: 0
+      startTime: 60.45
+      endTime: 60.45
+      pos: {x: 1140, y: 720, z: 0}
+      endPos: {x: 1140, y: 720, z: 0}
+    - type: 0
+      id: 108
+      nextId: 0
+      startTime: 61.12
+      endTime: 61.12
+      pos: {x: 240, y: 270, z: 0}
+      endPos: {x: 240, y: 270, z: 0}
+    - type: 0
+      id: 109
+      nextId: 0
+      startTime: 61.12
+      endTime: 61.12
+      pos: {x: 1680, y: 720, z: 0}
+      endPos: {x: 1680, y: 720, z: 0}
+    - type: 4
+      id: 110
+      nextId: 0
+      startTime: 62.08
+      endTime: 62.41
+      pos: {x: 600, y: 720, z: 0}
+      endPos: {x: 600, y: 720, z: 0}
+    - type: 4
+      id: 111
+      nextId: 0
+      startTime: 62.08
+      endTime: 62.41
+      pos: {x: 1320, y: 720, z: 0}
+      endPos: {x: 1320, y: 720, z: 0}
+    - type: 0
+      id: 112
+      nextId: 0
+      startTime: 62.78
+      endTime: 62.78
+      pos: {x: 960, y: 90, z: 0}
+      endPos: {x: 960, y: 90, z: 0}
+    - type: 0
+      id: 113
+      nextId: 0
+      startTime: 63.45
+      endTime: 63.45
+      pos: {x: 780, y: 180, z: 0}
+      endPos: {x: 780, y: 180, z: 0}
+    - type: 0
+      id: 114
+      nextId: 0
+      startTime: 64.119995
+      endTime: 64.119995
+      pos: {x: 1140, y: 180, z: 0}
+      endPos: {x: 1140, y: 180, z: 0}
+    - type: 0
+      id: 115
+      nextId: 0
+      startTime: 64.78
+      endTime: 64.78
+      pos: {x: 870, y: 360, z: 0}
+      endPos: {x: 870, y: 360, z: 0}
+    - type: 0
+      id: 116
+      nextId: 0
+      startTime: 64.95
+      endTime: 64.95
+      pos: {x: 1050, y: 450, z: 0}
+      endPos: {x: 1050, y: 450, z: 0}
+    - type: 0
+      id: 117
+      nextId: 0
+      startTime: 65.119995
+      endTime: 65.119995
+      pos: {x: 690, y: 540, z: 0}
+      endPos: {x: 690, y: 540, z: 0}
+    - type: 0
+      id: 118
+      nextId: 0
+      startTime: 65.28
+      endTime: 65.28
+      pos: {x: 1140, y: 630, z: 0}
+      endPos: {x: 1140, y: 630, z: 0}
+    - type: 0
+      id: 119
+      nextId: 0
+      startTime: 65.45
+      endTime: 65.45
+      pos: {x: 600, y: 720, z: 0}
+      endPos: {x: 600, y: 720, z: 0}
+    - type: 1
+      id: 120
+      nextId: 0
+      startTime: 66.119995
+      endTime: 66.119995
+      pos: {x: 1320, y: 810, z: 0}
+      endPos: {x: 1320, y: 810, z: 0}
+    - type: 1
+      id: 121
+      nextId: 0
+      startTime: 66.78
+      endTime: 66.78
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 1
+      id: 122
+      nextId: 0
+      startTime: 67.45
+      endTime: 67.45
+      pos: {x: 600, y: 810, z: 0}
+      endPos: {x: 600, y: 810, z: 0}
+    - type: 0
+      id: 123
+      nextId: 0
+      startTime: 68.119995
+      endTime: 68.119995
+      pos: {x: 1230, y: 720, z: 0}
+      endPos: {x: 1230, y: 720, z: 0}
+    - type: 0
+      id: 124
+      nextId: 0
+      startTime: 68.119995
+      endTime: 68.119995
+      pos: {x: 1230, y: 360, z: 0}
+      endPos: {x: 1230, y: 360, z: 0}
+    - type: 0
+      id: 125
+      nextId: 0
+      startTime: 68.78
+      endTime: 68.78
+      pos: {x: 690, y: 360, z: 0}
+      endPos: {x: 690, y: 360, z: 0}
+    - type: 0
+      id: 126
+      nextId: 0
+      startTime: 68.78
+      endTime: 68.78
+      pos: {x: 690, y: 720, z: 0}
+      endPos: {x: 690, y: 720, z: 0}
+    - type: 0
+      id: 127
+      nextId: 0
+      startTime: 69.45
+      endTime: 69.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 128
+      nextId: 0
+      startTime: 70.119995
+      endTime: 70.119995
+      pos: {x: 1500, y: 540, z: 0}
+      endPos: {x: 1500, y: 540, z: 0}
+    - type: 0
+      id: 129
+      nextId: 0
+      startTime: 70.78
+      endTime: 70.78
+      pos: {x: 1230, y: 810, z: 0}
+      endPos: {x: 1230, y: 810, z: 0}
+    - type: 0
+      id: 130
+      nextId: 0
+      startTime: 70.78
+      endTime: 70.78
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 0
+      id: 131
+      nextId: 0
+      startTime: 71.119995
+      endTime: 71.119995
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 0
+      id: 132
+      nextId: 0
+      startTime: 71.119995
+      endTime: 71.119995
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 133
+      nextId: 0
+      startTime: 71.45
+      endTime: 71.45
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 134
+      nextId: 0
+      startTime: 71.45
+      endTime: 71.45
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 2
+      id: 135
+      nextId: 136
+      startTime: 72.119995
+      endTime: 72.119995
+      pos: {x: 1230, y: 360, z: 0}
+      endPos: {x: 1230, y: 360, z: 0}
+    - type: 3
+      id: 136
+      nextId: 0
+      startTime: 72.119995
+      endTime: 73.08
+      pos: {x: 330, y: 360, z: 0}
+      endPos: {x: 330, y: 360, z: 0}
+    - type: 2
+      id: 137
+      nextId: 138
+      startTime: 73.45
+      endTime: 73.45
+      pos: {x: 690, y: 720, z: 0}
+      endPos: {x: 690, y: 720, z: 0}
+    - type: 3
+      id: 138
+      nextId: 0
+      startTime: 73.45
+      endTime: 74.41
+      pos: {x: 1500, y: 720, z: 0}
+      endPos: {x: 1500, y: 720, z: 0}
+    - type: 0
+      id: 139
+      nextId: 0
+      startTime: 74.78
+      endTime: 74.78
+      pos: {x: 1320, y: 540, z: 0}
+      endPos: {x: 1320, y: 540, z: 0}
+    - type: 0
+      id: 140
+      nextId: 0
+      startTime: 75.45
+      endTime: 75.45
+      pos: {x: 600, y: 540, z: 0}
+      endPos: {x: 600, y: 540, z: 0}
+    - type: 0
+      id: 141
+      nextId: 0
+      startTime: 76.119995
+      endTime: 76.119995
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 0
+      id: 142
+      nextId: 0
+      startTime: 76.119995
+      endTime: 76.119995
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 143
+      nextId: 0
+      startTime: 76.78
+      endTime: 76.78
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 0
+      id: 144
+      nextId: 0
+      startTime: 76.78
+      endTime: 76.78
+      pos: {x: 1230, y: 810, z: 0}
+      endPos: {x: 1230, y: 810, z: 0}
+    - type: 0
+      id: 145
+      nextId: 0
+      startTime: 77.45
+      endTime: 77.45
+      pos: {x: 1500, y: 810, z: 0}
+      endPos: {x: 1500, y: 810, z: 0}
+    - type: 0
+      id: 146
+      nextId: 0
+      startTime: 78.119995
+      endTime: 78.119995
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 147
+      nextId: 0
+      startTime: 78.78
+      endTime: 78.78
+      pos: {x: 420, y: 810, z: 0}
+      endPos: {x: 420, y: 810, z: 0}
+    - type: 0
+      id: 148
+      nextId: 0
+      startTime: 79.45
+      endTime: 79.45
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 149
+      nextId: 0
+      startTime: 80.119995
+      endTime: 80.119995
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 0
+      id: 150
+      nextId: 0
+      startTime: 80.78
+      endTime: 80.78
+      pos: {x: 1500, y: 540, z: 0}
+      endPos: {x: 1500, y: 540, z: 0}
+    - type: 0
+      id: 151
+      nextId: 0
+      startTime: 80.78
+      endTime: 80.78
+      pos: {x: 420, y: 540, z: 0}
+      endPos: {x: 420, y: 540, z: 0}
+    - type: 0
+      id: 152
+      nextId: 0
+      startTime: 81.45
+      endTime: 81.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 1
+      id: 153
+      nextId: 0
+      startTime: 82.78
+      endTime: 82.78
+      pos: {x: 960, y: 360, z: 0}
+      endPos: {x: 960, y: 360, z: 0}
+    - type: 1
+      id: 154
+      nextId: 0
+      startTime: 83.45
+      endTime: 83.45
+      pos: {x: 1230, y: 720, z: 0}
+      endPos: {x: 1230, y: 720, z: 0}
+    - type: 1
+      id: 155
+      nextId: 0
+      startTime: 84.119995
+      endTime: 84.119995
+      pos: {x: 1230, y: 360, z: 0}
+      endPos: {x: 1230, y: 360, z: 0}
+    - type: 1
+      id: 156
+      nextId: 0
+      startTime: 84.78
+      endTime: 84.78
+      pos: {x: 690, y: 360, z: 0}
+      endPos: {x: 690, y: 360, z: 0}
+    - type: 1
+      id: 157
+      nextId: 0
+      startTime: 85.45
+      endTime: 85.45
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 4
+      id: 158
+      nextId: 0
+      startTime: 87.08
+      endTime: 87.75
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 4
+      id: 159
+      nextId: 0
+      startTime: 87.08
+      endTime: 87.75
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 2
+      id: 160
+      nextId: 161
+      startTime: 88.78
+      endTime: 88.78
+      pos: {x: 600, y: 810, z: 0}
+      endPos: {x: 600, y: 810, z: 0}
+    - type: 3
+      id: 161
+      nextId: 0
+      startTime: 88.78
+      endTime: 89.75
+      pos: {x: 1410, y: 810, z: 0}
+      endPos: {x: 1410, y: 810, z: 0}
+    - type: 0
+      id: 162
+      nextId: 0
+      startTime: 90.119995
+      endTime: 90.119995
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 2
+      id: 163
+      nextId: 164
+      startTime: 90.78
+      endTime: 90.78
+      pos: {x: 600, y: 360, z: 0}
+      endPos: {x: 600, y: 360, z: 0}
+    - type: 3
+      id: 164
+      nextId: 0
+      startTime: 90.78
+      endTime: 91.75
+      pos: {x: 1410, y: 360, z: 0}
+      endPos: {x: 1410, y: 360, z: 0}
+    - type: 4
+      id: 165
+      nextId: 0
+      startTime: 93.08
+      endTime: 93.75
+      pos: {x: 600, y: 360, z: 0}
+      endPos: {x: 600, y: 360, z: 0}
+    - type: 4
+      id: 166
+      nextId: 0
+      startTime: 93.08
+      endTime: 93.75
+      pos: {x: 1320, y: 360, z: 0}
+      endPos: {x: 1320, y: 360, z: 0}
+    - type: 4
+      id: 167
+      nextId: 0
+      startTime: 94.42
+      endTime: 95.08
+      pos: {x: 1140, y: 810, z: 0}
+      endPos: {x: 1140, y: 810, z: 0}
+    - type: 4
+      id: 168
+      nextId: 0
+      startTime: 94.42
+      endTime: 95.08
+      pos: {x: 780, y: 810, z: 0}
+      endPos: {x: 780, y: 810, z: 0}
+    - type: 0
+      id: 169
+      nextId: 0
+      startTime: 95.45
+      endTime: 95.45
+      pos: {x: 780, y: 540, z: 0}
+      endPos: {x: 780, y: 540, z: 0}
+    - type: 0
+      id: 170
+      nextId: 0
+      startTime: 95.45
+      endTime: 95.45
+      pos: {x: 1140, y: 540, z: 0}
+      endPos: {x: 1140, y: 540, z: 0}
+    - type: 0
+      id: 171
+      nextId: 0
+      startTime: 96.119995
+      endTime: 96.119995
+      pos: {x: 1320, y: 360, z: 0}
+      endPos: {x: 1320, y: 360, z: 0}
+    - type: 0
+      id: 172
+      nextId: 0
+      startTime: 96.119995
+      endTime: 96.119995
+      pos: {x: 600, y: 360, z: 0}
+      endPos: {x: 600, y: 360, z: 0}
+    - type: 0
+      id: 173
+      nextId: 0
+      startTime: 96.78
+      endTime: 96.78
+      pos: {x: 1320, y: 720, z: 0}
+      endPos: {x: 1320, y: 720, z: 0}
+    - type: 0
+      id: 174
+      nextId: 0
+      startTime: 96.78
+      endTime: 96.78
+      pos: {x: 600, y: 720, z: 0}
+      endPos: {x: 600, y: 720, z: 0}
+    - type: 0
+      id: 175
+      nextId: 0
+      startTime: 98.119995
+      endTime: 98.119995
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 176
+      nextId: 0
+      startTime: 98.119995
+      endTime: 98.119995
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 0
+      id: 177
+      nextId: 0
+      startTime: 98.78
+      endTime: 98.78
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 0
+      id: 178
+      nextId: 0
+      startTime: 98.78
+      endTime: 98.78
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 179
+      nextId: 0
+      startTime: 99.45
+      endTime: 99.45
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 0
+      id: 180
+      nextId: 0
+      startTime: 99.45
+      endTime: 99.45
+      pos: {x: 1230, y: 810, z: 0}
+      endPos: {x: 1230, y: 810, z: 0}
+    - type: 0
+      id: 181
+      nextId: 0
+      startTime: 100.119995
+      endTime: 100.119995
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 182
+      nextId: 0
+      startTime: 100.119995
+      endTime: 100.119995
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 0
+      id: 183
+      nextId: 0
+      startTime: 100.78
+      endTime: 100.78
+      pos: {x: 690, y: 810, z: 0}
+      endPos: {x: 690, y: 810, z: 0}
+    - type: 0
+      id: 184
+      nextId: 0
+      startTime: 100.78
+      endTime: 100.78
+      pos: {x: 690, y: 270, z: 0}
+      endPos: {x: 690, y: 270, z: 0}
+    - type: 0
+      id: 185
+      nextId: 0
+      startTime: 102.119995
+      endTime: 102.119995
+      pos: {x: 510, y: 270, z: 0}
+      endPos: {x: 510, y: 270, z: 0}
+    - type: 0
+      id: 186
+      nextId: 0
+      startTime: 102.119995
+      endTime: 102.119995
+      pos: {x: 1410, y: 270, z: 0}
+      endPos: {x: 1410, y: 270, z: 0}
+    - type: 4
+      id: 187
+      nextId: 0
+      startTime: 103.08
+      endTime: 103.75
+      pos: {x: 1230, y: 270, z: 0}
+      endPos: {x: 1230, y: 270, z: 0}
+    - type: 4
+      id: 188
+      nextId: 0
+      startTime: 103.08
+      endTime: 103.75
+      pos: {x: 690, y: 900, z: 0}
+      endPos: {x: 690, y: 900, z: 0}
+    - type: 4
+      id: 189
+      nextId: 0
+      startTime: 104.42
+      endTime: 105.08
+      pos: {x: 870, y: 180, z: 0}
+      endPos: {x: 870, y: 180, z: 0}
+    - type: 4
+      id: 190
+      nextId: 0
+      startTime: 104.42
+      endTime: 105.08
+      pos: {x: 1050, y: 900, z: 0}
+      endPos: {x: 1050, y: 900, z: 0}
+    - type: 1
+      id: 191
+      nextId: 0
+      startTime: 105.45
+      endTime: 105.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
+    - type: 0
+      id: 192
+      nextId: 0
+      startTime: 106.119995
+      endTime: 106.119995
+      pos: {x: 690, y: 540, z: 0}
+      endPos: {x: 690, y: 540, z: 0}
+    - type: 0
+      id: 193
+      nextId: 0
+      startTime: 106.45
+      endTime: 106.45
+      pos: {x: 960, y: 810, z: 0}
+      endPos: {x: 960, y: 810, z: 0}
+    - type: 0
+      id: 194
+      nextId: 0
+      startTime: 106.78
+      endTime: 106.78
+      pos: {x: 1230, y: 540, z: 0}
+      endPos: {x: 1230, y: 540, z: 0}
+    - type: 0
+      id: 195
+      nextId: 0
+      startTime: 107.119995
+      endTime: 107.119995
+      pos: {x: 960, y: 270, z: 0}
+      endPos: {x: 960, y: 270, z: 0}
+    - type: 0
+      id: 196
+      nextId: 0
+      startTime: 107.78
+      endTime: 107.78
+      pos: {x: 510, y: 180, z: 0}
+      endPos: {x: 510, y: 180, z: 0}
+    - type: 0
+      id: 197
+      nextId: 0
+      startTime: 107.78
+      endTime: 107.78
+      pos: {x: 1410, y: 180, z: 0}
+      endPos: {x: 1410, y: 180, z: 0}
+    - type: 0
+      id: 198
+      nextId: 0
+      startTime: 108.119995
+      endTime: 108.119995
+      pos: {x: 510, y: 900, z: 0}
+      endPos: {x: 510, y: 900, z: 0}
+    - type: 0
+      id: 199
+      nextId: 0
+      startTime: 108.119995
+      endTime: 108.119995
+      pos: {x: 1410, y: 900, z: 0}
+      endPos: {x: 1410, y: 900, z: 0}
+    - type: 0
+      id: 200
+      nextId: 0
+      startTime: 108.78
+      endTime: 108.78
+      pos: {x: 600, y: 540, z: 0}
+      endPos: {x: 600, y: 540, z: 0}
+    - type: 0
+      id: 201
+      nextId: 0
+      startTime: 109.45
+      endTime: 109.45
+      pos: {x: 960, y: 540, z: 0}
+      endPos: {x: 960, y: 540, z: 0}
     musicOffset: 0
-    size: 1.5
-    notePreload: 2
+    size: 1.75
+    notePreload: 1.25
     screenSize: {x: 1920, y: 1080}
-  NoteString: "Dialogue: 0,0:00:02.51,0:00:03.16,SLIDE-HEAD,,0,0,0,fx,{\\pos(1748,552)}\u4E8C\r\nDialogue:
-    0,0:00:02.96,0:00:03.32,SLIDE-CHILD,,0,0,0,fx,{\\pos(1060,558)}\u4EBA\r\nDialogue:
-    0,0:00:03.12,0:00:03.57,SLIDE-CHILD,,0,0,0,fx,{\\pos(418,564)}\u30BB"
-  SheetToLoad: {fileID: 4900000, guid: 93f64b1303a0f5945b0bcaa3fb63073d, type: 3}
+  NoteString: "Dialogue: 0,0:00:01.15,0:00:01.75,FLICK,,0,0,0,,{\\pos(1320,540)}O\r\nDialogue:
+    0,0:00:01.15,0:00:01.75,FLICK,,0,0,0,,{\\pos(510,540)}O\r\nDialogue: 0,0:00:01.82,0:00:02.42,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue:
+    0,0:00:02.48,0:00:03.08,TAP,,0,0,0,,{\\pos(420,720)}O\r\nDialogue: 0,0:00:03.15,0:00:03.75,TAP,,0,0,0,,{\\pos(1410,900)}O\r\nDialogue:
+    0,0:00:04.48,0:00:05.08,SLIDE-HEAD,,0,0,0,,{\\pos(420,540)}O\r\nDialogue: 0,0:00:05.06,0:00:05.66,SLIDE-CHILD,,0,0,0,,{\\pos(960,180)}O\r\nDialogue:
+    0,0:00:05.65,0:00:06.25,SLIDE-CHILD,,0,0,0,,{\\pos(1545,610)}O\r\nDialogue: 0,0:00:06.48,0:00:07.08,TAP,,0,0,0,,{\\pos(780,180)}O\r\nDialogue:
+    0,0:00:06.48,0:00:07.08,TAP,,0,0,0,,{\\pos(1140,180)}O\r\nDialogue: 0,0:00:07.15,0:00:07.75,TAP,,0,0,0,,{\\pos(420,540)}O\r\nDialogue:
+    0,0:00:07.15,0:00:07.75,TAP,,0,0,0,,{\\pos(1500,540)}O\r\nDialogue: 0,0:00:08.42,0:00:09.08,HOLD,,0,0,0,,{\\pos(600,810)}O\r\nDialogue:
+    0,0:00:08.42,0:00:09.08,HOLD,,0,0,0,,{\\pos(1320,810)}O\r\nDialogue: 0,0:00:09.82,0:00:10.42,FLICK,,0,0,0,,{\\pos(1320,180)}O\r\nDialogue:
+    0,0:00:10.48,0:00:11.08,FLICK,,0,0,0,,{\\pos(960,900)}O\r\nDialogue: 0,0:00:11.15,0:00:11.75,FLICK,,0,0,0,,{\\pos(600,180)}O\r\nDialogue:
+    0,0:00:12.15,0:00:12.75,TAP,,0,0,0,,{\\pos(690,270)}O\r\nDialogue: 0,0:00:12.82,0:00:13.42,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:00:14.42,0:00:15.08,HOLD,,0,0,0,,{\\pos(1320,180)}O\r\nDialogue: 0,0:00:14.42,0:00:15.08,HOLD,,0,0,0,,{\\pos(600,900)}O\r\nDialogue:
+    0,0:00:15.15,0:00:15.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:15.82,0:00:16.42,TAP,,0,0,0,,{\\pos(510,540)}O\r\nDialogue:
+    0,0:00:16.15,0:00:16.75,TAP,,0,0,0,,{\\pos(960,180)}O\r\nDialogue: 0,0:00:16.48,0:00:17.08,TAP,,0,0,0,,{\\pos(1410,540)}O\r\nDialogue:
+    0,0:00:16.82,0:00:17.42,TAP,,0,0,0,,{\\pos(960,900)}O\r\nDialogue: 0,0:00:17.48,0:00:18.08,FLICK,,0,0,0,,{\\pos(960,540)}O\r\nDialogue:
+    0,0:00:18.75,0:00:19.41,HOLD,,0,0,0,,{\\pos(420,810)}O\r\nDialogue: 0,0:00:18.75,0:00:19.41,HOLD,,0,0,0,,{\\pos(1500,810)}O\r\nDialogue:
+    0,0:00:19.82,0:00:20.42,SLIDE-HEAD,,0,0,0,,{\\pos(510,540)}O\r\nDialogue: 0,0:00:20.04,0:00:20.64,SLIDE-CHILD,,0,0,0,,{\\pos(960,450)}O\r\nDialogue:
+    0,0:00:20.26,0:00:20.86,SLIDE-CHILD,,0,0,0,,{\\pos(960,450)}O\r\nDialogue: 0,0:00:20.48,0:00:21.08,SLIDE-CHILD,,0,0,0,,{\\pos(1410,540)}O\r\nDialogue:
+    0,0:00:21.15,0:00:21.75,TAP,,0,0,0,,{\\pos(1410,180)}O\r\nDialogue: 0,0:00:21.15,0:00:21.75,TAP,,0,0,0,,{\\pos(510,180)}O\r\nDialogue:
+    0,0:00:21.82,0:00:22.42,TAP,,0,0,0,,{\\pos(1410,540)}O\r\nDialogue: 0,0:00:21.82,0:00:22.42,TAP,,0,0,0,,{\\pos(510,540)}O\r\nDialogue:
+    0,0:00:23.15,0:00:23.75,FLICK,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:23.82,0:00:24.42,FLICK,,0,0,0,,{\\pos(1230,540)}O\r\nDialogue:
+    0,0:00:24.48,0:00:25.08,FLICK,,0,0,0,,{\\pos(690,540)}O\r\nDialogue: 0,0:00:25.15,0:00:25.75,FLICK,,0,0,0,,{\\pos(960,810)}O\r\nDialogue:
+    0,0:00:25.82,0:00:26.42,FLICK,,0,0,0,,{\\pos(960,270)}O\r\nDialogue: 0,0:00:26.48,0:00:27.08,TAP,,0,0,0,,{\\pos(1320,270)}O\r\nDialogue:
+    0,0:00:26.48,0:00:27.08,TAP,,0,0,0,,{\\pos(600,270)}O\r\nDialogue: 0,0:00:27.15,0:00:27.75,TAP,,0,0,0,,{\\pos(1320,810)}O\r\nDialogue:
+    0,0:00:27.15,0:00:27.75,TAP,,0,0,0,,{\\pos(600,810)}O\r\nDialogue: 0,0:00:28.42,0:00:29.42,HOLD,,0,0,0,,{\\pos(1320,180)}O\r\nDialogue:
+    0,0:00:28.42,0:00:29.42,HOLD,,0,0,0,,{\\pos(600,900)}O\r\nDialogue: 0,0:00:29.82,0:00:30.42,TAP,,0,0,0,,{\\pos(1320,270)}O\r\nDialogue:
+    0,0:00:29.82,0:00:30.42,TAP,,0,0,0,,{\\pos(600,270)}O\r\nDialogue: 0,0:00:30.48,0:00:31.08,TAP,,0,0,0,,{\\pos(600,810)}O\r\nDialogue:
+    0,0:00:30.48,0:00:31.08,TAP,,0,0,0,,{\\pos(1320,810)}O\r\nDialogue: 0,0:00:31.82,0:00:32.42,TAP,,0,0,0,,{\\pos(600,540)}O\r\nDialogue:
+    0,0:00:32.15,0:00:32.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:32.48,0:00:33.08,TAP,,0,0,0,,{\\pos(1320,540)}O\r\nDialogue:
+    0,0:00:33.15,0:00:33.75,SLIDE-HEAD,,0,0,0,,{\\pos(600,540)}O\r\nDialogue: 0,0:00:33.48,0:00:34.08,SLIDE-CHILD,,0,0,0,,{\\pos(960,720)}O\r\nDialogue:
+    0,0:00:33.81,0:00:34.41,SLIDE-CHILD,,0,0,0,,{\\pos(1320,540)}O\r\nDialogue: 0,0:00:35.15,0:00:35.75,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue:
+    0,0:00:35.48,0:00:36.08,TAP,,0,0,0,,{\\pos(1320,270)}O\r\nDialogue: 0,0:00:35.82,0:00:36.42,TAP,,0,0,0,,{\\pos(1320,810)}O\r\nDialogue:
+    0,0:00:36.48,0:00:37.08,TAP,,0,0,0,,{\\pos(960,810)}O\r\nDialogue: 0,0:00:37.15,0:00:37.75,TAP,,0,0,0,,{\\pos(690,540)}O\r\nDialogue:
+    0,0:00:37.82,0:00:38.42,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue: 0,0:00:38.48,0:00:39.08,TAP,,0,0,0,,{\\pos(510,270)}O\r\nDialogue:
+    0,0:00:38.48,0:00:39.08,TAP,,0,0,0,,{\\pos(510,810)}O\r\nDialogue: 0,0:00:39.15,0:00:39.75,TAP,,0,0,0,,{\\pos(780,270)}O\r\nDialogue:
+    0,0:00:39.15,0:00:39.75,TAP,,0,0,0,,{\\pos(780,810)}O\r\nDialogue: 0,0:00:39.82,0:00:40.42,TAP,,0,0,0,,{\\pos(1140,810)}O\r\nDialogue:
+    0,0:00:39.82,0:00:40.42,TAP,,0,0,0,,{\\pos(1140,270)}O\r\nDialogue: 0,0:00:40.48,0:00:41.08,TAP,,0,0,0,,{\\pos(1500,270)}O\r\nDialogue:
+    0,0:00:40.48,0:00:41.08,TAP,,0,0,0,,{\\pos(1500,810)}O\r\nDialogue: 0,0:00:41.15,0:00:41.75,FLICK,,0,0,0,,{\\pos(960,540)}O\r\nDialogue:
+    0,0:00:42.42,0:00:43.08,HOLD,,0,0,0,,{\\pos(690,270)}O\r\nDialogue: 0,0:00:42.42,0:00:43.08,HOLD,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue:
+    0,0:00:43.15,0:00:43.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:44.48,0:00:45.08,TAP,,0,0,0,,{\\pos(600,540)}O\r\nDialogue:
+    0,0:00:45.82,0:00:46.42,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:47.15,0:00:47.75,TAP,,0,0,0,,{\\pos(1320,540)}O\r\nDialogue:
+    0,0:00:47.82,0:00:48.42,TAP,,0,0,0,,{\\pos(1140,270)}O\r\nDialogue: 0,0:00:47.82,0:00:48.42,TAP,,0,0,0,,{\\pos(780,270)}O\r\nDialogue:
+    0,0:00:48.15,0:00:48.75,TAP,,0,0,0,,{\\pos(1140,540)}O\r\nDialogue: 0,0:00:48.48,0:00:49.08,TAP,,0,0,0,,{\\pos(780,810)}O\r\nDialogue:
+    0,0:00:48.48,0:00:49.08,TAP,,0,0,0,,{\\pos(1140,810)}O\r\nDialogue: 0,0:00:49.15,0:00:49.75,SLIDE-HEAD,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:00:49.81,0:00:50.41,SLIDE-CHILD,,0,0,0,,{\\pos(1320,270)}O\r\nDialogue: 0,0:00:50.48,0:00:51.08,SLIDE-HEAD,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue:
+    0,0:00:51.15,0:00:51.75,SLIDE-CHILD,,0,0,0,,{\\pos(600,270)}O\r\nDialogue: 0,0:00:51.82,0:00:52.42,TAP,,0,0,0,,{\\pos(1320,360)}O\r\nDialogue:
+    0,0:00:52.15,0:00:52.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:00:52.48,0:00:53.08,TAP,,0,0,0,,{\\pos(600,810)}O\r\nDialogue:
+    0,0:00:53.15,0:00:53.75,TAP,,0,0,0,,{\\pos(600,360)}O\r\nDialogue: 0,0:00:53.82,0:00:54.42,TAP,,0,0,0,,{\\pos(960,180)}O\r\nDialogue:
+    0,0:00:54.48,0:00:55.08,TAP,,0,0,0,,{\\pos(780,540)}O\r\nDialogue: 0,0:00:55.48,0:00:56.08,TAP,,0,0,0,,{\\pos(960,180)}O\r\nDialogue:
+    0,0:00:57.15,0:00:57.75,TAP,,0,0,0,,{\\pos(1050,180)}O\r\nDialogue: 0,0:00:57.32,0:00:57.92,TAP,,0,0,0,,{\\pos(780,270)}O\r\nDialogue:
+    0,0:00:57.48,0:00:58.08,TAP,,0,0,0,,{\\pos(1140,360)}O\r\nDialogue: 0,0:00:57.65,0:00:58.25,TAP,,0,0,0,,{\\pos(690,450)}O\r\nDialogue:
+    0,0:00:57.82,0:00:58.42,TAP,,0,0,0,,{\\pos(1230,540)}O\r\nDialogue: 0,0:00:57.98,0:00:58.58,TAP,,0,0,0,,{\\pos(600,630)}O\r\nDialogue:
+    0,0:00:58.15,0:00:58.75,TAP,,0,0,0,,{\\pos(1140,720)}O\r\nDialogue: 0,0:00:58.32,0:00:58.92,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:00:58.48,0:00:59.08,TAP,,0,0,0,,{\\pos(780,990)}O\r\nDialogue: 0,0:00:58.65,0:00:59.25,TAP,,0,0,0,,{\\pos(1050,900)}O\r\nDialogue:
+    0,0:00:59.82,0:01:00.42,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:01:00.15,0:01:00.75,TAP,,0,0,0,,{\\pos(780,810)}O\r\nDialogue:
+    0,0:01:00.15,0:01:00.75,TAP,,0,0,0,,{\\pos(1140,360)}O\r\nDialogue: 0,0:01:00.82,0:01:01.42,TAP,,0,0,0,,{\\pos(240,810)}O\r\nDialogue:
+    0,0:01:00.82,0:01:01.42,TAP,,0,0,0,,{\\pos(1680,360)}O\r\nDialogue: 0,0:01:02.08,0:01:02.41,HOLD,,0,0,0,,{\\pos(600,360)}O\r\nDialogue:
+    0,0:01:02.08,0:01:02.41,HOLD,,0,0,0,,{\\pos(1320,360)}O\r\nDialogue: 0,0:01:02.48,0:01:03.08,TAP,,0,0,0,,{\\pos(960,990)}O\r\nDialogue:
+    0,0:01:03.15,0:01:03.75,TAP,,0,0,0,,{\\pos(780,900)}O\r\nDialogue: 0,0:01:03.82,0:01:04.42,TAP,,0,0,0,,{\\pos(1140,900)}O\r\nDialogue:
+    0,0:01:04.48,0:01:05.08,TAP,,0,0,0,,{\\pos(870,720)}O\r\nDialogue: 0,0:01:04.65,0:01:05.25,TAP,,0,0,0,,{\\pos(1050,630)}O\r\nDialogue:
+    0,0:01:04.82,0:01:05.42,TAP,,0,0,0,,{\\pos(690,540)}O\r\nDialogue: 0,0:01:04.98,0:01:05.58,TAP,,0,0,0,,{\\pos(1140,450)}O\r\nDialogue:
+    0,0:01:05.15,0:01:05.75,TAP,,0,0,0,,{\\pos(600,360)}O\r\nDialogue: 0,0:01:05.82,0:01:06.42,FLICK,,0,0,0,,{\\pos(1320,270)}O\r\nDialogue:
+    0,0:01:06.48,0:01:07.08,FLICK,,0,0,0,,{\\pos(960,270)}O\r\nDialogue: 0,0:01:07.15,0:01:07.75,FLICK,,0,0,0,,{\\pos(600,270)}O\r\nDialogue:
+    0,0:01:07.82,0:01:08.42,TAP,,0,0,0,,{\\pos(1230,360)}O\r\nDialogue: 0,0:01:07.82,0:01:08.42,TAP,,0,0,0,,{\\pos(1230,720)}O\r\nDialogue:
+    0,0:01:08.48,0:01:09.08,TAP,,0,0,0,,{\\pos(690,720)}O\r\nDialogue: 0,0:01:08.48,0:01:09.08,TAP,,0,0,0,,{\\pos(690,360)}O\r\nDialogue:
+    0,0:01:09.15,0:01:09.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:01:09.82,0:01:10.42,TAP,,0,0,0,,{\\pos(1500,540)}O\r\nDialogue:
+    0,0:01:10.48,0:01:11.08,TAP,,0,0,0,,{\\pos(1230,270)}O\r\nDialogue: 0,0:01:10.48,0:01:11.08,TAP,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue:
+    0,0:01:10.82,0:01:11.42,TAP,,0,0,0,,{\\pos(960,810)}O\r\nDialogue: 0,0:01:10.82,0:01:11.42,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue:
+    0,0:01:11.15,0:01:11.75,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue: 0,0:01:11.15,0:01:11.75,TAP,,0,0,0,,{\\pos(690,270)}O\r\nDialogue:
+    0,0:01:11.82,0:01:12.42,SLIDE-HEAD,,0,0,0,,{\\pos(1230,720)}O\r\nDialogue: 0,0:01:12.48,0:01:13.08,SLIDE-CHILD,,0,0,0,,{\\pos(330,720)}O\r\nDialogue:
+    0,0:01:13.15,0:01:13.75,SLIDE-HEAD,,0,0,0,,{\\pos(690,360)}O\r\nDialogue: 0,0:01:13.81,0:01:14.41,SLIDE-CHILD,,0,0,0,,{\\pos(1500,360)}O\r\nDialogue:
+    0,0:01:14.48,0:01:15.08,TAP,,0,0,0,,{\\pos(1320,540)}O\r\nDialogue: 0,0:01:15.15,0:01:15.75,TAP,,0,0,0,,{\\pos(600,540)}O\r\nDialogue:
+    0,0:01:15.82,0:01:16.42,TAP,,0,0,0,,{\\pos(690,270)}O\r\nDialogue: 0,0:01:15.82,0:01:16.42,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:01:16.48,0:01:17.08,TAP,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue: 0,0:01:16.48,0:01:17.08,TAP,,0,0,0,,{\\pos(1230,270)}O\r\nDialogue:
+    0,0:01:17.15,0:01:17.75,TAP,,0,0,0,,{\\pos(1500,270)}O\r\nDialogue: 0,0:01:17.82,0:01:18.42,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue:
+    0,0:01:18.48,0:01:19.08,TAP,,0,0,0,,{\\pos(420,270)}O\r\nDialogue: 0,0:01:19.15,0:01:19.75,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:01:19.82,0:01:20.42,TAP,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue: 0,0:01:20.48,0:01:21.08,TAP,,0,0,0,,{\\pos(1500,540)}O\r\nDialogue:
+    0,0:01:20.48,0:01:21.08,TAP,,0,0,0,,{\\pos(420,540)}O\r\nDialogue: 0,0:01:21.15,0:01:21.75,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue:
+    0,0:01:22.48,0:01:23.08,FLICK,,0,0,0,,{\\pos(960,720)}O\r\nDialogue: 0,0:01:23.15,0:01:23.75,FLICK,,0,0,0,,{\\pos(1230,360)}O\r\nDialogue:
+    0,0:01:23.82,0:01:24.42,FLICK,,0,0,0,,{\\pos(1230,720)}O\r\nDialogue: 0,0:01:24.48,0:01:25.08,FLICK,,0,0,0,,{\\pos(690,720)}O\r\nDialogue:
+    0,0:01:25.15,0:01:25.75,FLICK,,0,0,0,,{\\pos(690,270)}O\r\nDialogue: 0,0:01:27.08,0:01:27.75,HOLD,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:01:27.08,0:01:27.75,HOLD,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue: 0,0:01:28.48,0:01:29.08,SLIDE-HEAD,,0,0,0,,{\\pos(600,270)}O\r\nDialogue:
+    0,0:01:29.15,0:01:29.75,SLIDE-CHILD,,0,0,0,,{\\pos(1410,270)}O\r\nDialogue: 0,0:01:29.82,0:01:30.42,TAP,,0,0,0,,{\\pos(960,540)}O\r\nDialogue:
+    0,0:01:30.48,0:01:31.08,SLIDE-HEAD,,0,0,0,,{\\pos(600,720)}O\r\nDialogue: 0,0:01:31.15,0:01:31.75,SLIDE-CHILD,,0,0,0,,{\\pos(1410,720)}O\r\nDialogue:
+    0,0:01:33.08,0:01:33.75,HOLD,,0,0,0,,{\\pos(600,720)}O\r\nDialogue: 0,0:01:33.08,0:01:33.75,HOLD,,0,0,0,,{\\pos(1320,720)}O\r\nDialogue:
+    0,0:01:34.42,0:01:35.08,HOLD,,0,0,0,,{\\pos(1140,270)}O\r\nDialogue: 0,0:01:34.42,0:01:35.08,HOLD,,0,0,0,,{\\pos(780,270)}O\r\nDialogue:
+    0,0:01:35.15,0:01:35.75,TAP,,0,0,0,,{\\pos(780,540)}O\r\nDialogue: 0,0:01:35.15,0:01:35.75,TAP,,0,0,0,,{\\pos(1140,540)}O\r\nDialogue:
+    0,0:01:35.82,0:01:36.42,TAP,,0,0,0,,{\\pos(1320,720)}O\r\nDialogue: 0,0:01:35.82,0:01:36.42,TAP,,0,0,0,,{\\pos(600,720)}O\r\nDialogue:
+    0,0:01:36.48,0:01:37.08,TAP,,0,0,0,,{\\pos(1320,360)}O\r\nDialogue: 0,0:01:36.48,0:01:37.08,TAP,,0,0,0,,{\\pos(600,360)}O\r\nDialogue:
+    0,0:01:37.82,0:01:38.42,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue: 0,0:01:37.82,0:01:38.42,TAP,,0,0,0,,{\\pos(690,270)}O\r\nDialogue:
+    0,0:01:38.48,0:01:39.08,TAP,,0,0,0,,{\\pos(960,810)}O\r\nDialogue: 0,0:01:38.48,0:01:39.08,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue:
+    0,0:01:39.15,0:01:39.75,TAP,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue: 0,0:01:39.15,0:01:39.75,TAP,,0,0,0,,{\\pos(1230,270)}O\r\nDialogue:
+    0,0:01:39.82,0:01:40.42,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue: 0,0:01:39.82,0:01:40.42,TAP,,0,0,0,,{\\pos(960,810)}O\r\nDialogue:
+    0,0:01:40.48,0:01:41.08,TAP,,0,0,0,,{\\pos(690,270)}O\r\nDialogue: 0,0:01:40.48,0:01:41.08,TAP,,0,0,0,,{\\pos(690,810)}O\r\nDialogue:
+    0,0:01:41.82,0:01:42.42,TAP,,0,0,0,,{\\pos(510,810)}O\r\nDialogue: 0,0:01:41.82,0:01:42.42,TAP,,0,0,0,,{\\pos(1410,810)}O\r\nDialogue:
+    0,0:01:43.08,0:01:43.75,HOLD,,0,0,0,,{\\pos(1230,810)}O\r\nDialogue: 0,0:01:43.08,0:01:43.75,HOLD,,0,0,0,,{\\pos(690,180)}O\r\nDialogue:
+    0,0:01:44.42,0:01:45.08,HOLD,,0,0,0,,{\\pos(870,900)}O\r\nDialogue: 0,0:01:44.42,0:01:45.08,HOLD,,0,0,0,,{\\pos(1050,180)}O\r\nDialogue:
+    0,0:01:45.15,0:01:45.75,FLICK,,0,0,0,,{\\pos(960,540)}O\r\nDialogue: 0,0:01:45.82,0:01:46.42,TAP,,0,0,0,,{\\pos(690,540)}O\r\nDialogue:
+    0,0:01:46.15,0:01:46.75,TAP,,0,0,0,,{\\pos(960,270)}O\r\nDialogue: 0,0:01:46.48,0:01:47.08,TAP,,0,0,0,,{\\pos(1230,540)}O\r\nDialogue:
+    0,0:01:46.82,0:01:47.42,TAP,,0,0,0,,{\\pos(960,810)}O\r\nDialogue: 0,0:01:47.48,0:01:48.08,TAP,,0,0,0,,{\\pos(510,900)}O\r\nDialogue:
+    0,0:01:47.48,0:01:48.08,TAP,,0,0,0,,{\\pos(1410,900)}O\r\nDialogue: 0,0:01:47.82,0:01:48.42,TAP,,0,0,0,,{\\pos(510,180)}O\r\nDialogue:
+    0,0:01:47.82,0:01:48.42,TAP,,0,0,0,,{\\pos(1410,180)}O\r\nDialogue: 0,0:01:48.48,0:01:49.08,TAP,,0,0,0,,{\\pos(600,540)}O\r\nDialogue:
+    0,0:01:49.15,0:01:49.75,TAP,,0,0,0,,{\\pos(960,540)}O\r"

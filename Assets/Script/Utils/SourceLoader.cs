@@ -72,6 +72,7 @@ namespace NoR2252.Utils {
             return sheets;
         }
         #endregion
+        #if (UNITY_EDITOR) 
         #region CREATE_SHEET
         /// <summary>create the sheet to the Sheet folder</summary>
         public static void CreateSheet (Sheet sheet) {
@@ -83,6 +84,7 @@ namespace NoR2252.Utils {
             file.Close ( );
         }
         #endregion
+        #endif
         #region Utils
 
         /// <summary>check directory exist if not create it</summary>
@@ -159,6 +161,7 @@ namespace NoR2252.Utils {
             file.Close ( );
         }
         #endregion
+        #if (UNITY_EDITOR) 
         #region FOR_EDITOR_TEST
         public static GameSheet LoadSheet (TextAsset sheetFile,Texture2D cover) {
             Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
@@ -170,6 +173,7 @@ namespace NoR2252.Utils {
             return gameSheet;
         }
         #endregion
+        #endif
         #region OLD_VER
         //     public static void CreateSheet (Sheet sheet) {
         // sheet.music = "MusicVideo/" + sheet.music;

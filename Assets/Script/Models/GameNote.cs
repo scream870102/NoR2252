@@ -1,7 +1,5 @@
 using Eccentric.Collections;
-using NG = NoR2252.Models.Graphics;
 
-using NoR2252.Models;
 using NoR2252.View.Note;
 
 using UnityEngine;
@@ -158,7 +156,8 @@ namespace NoR2252.Models {
                 Note.IsRendering = true;
                 Note.View.OnSpawn ( );
             }
-            Note.View.Render ( );
+            if(Note.IsRendering)
+                Note.View.Render ( );
             //if video time is over the judge time recycle self and set result to miss
             if (!bGetResult && NoR2252Application.VideoTime >= Note.Info.endTime + NoR2252Data.Instance.TimeGrade [(int) ENoteGrade.MISS]) {
                 grade = ENoteGrade.MISS;

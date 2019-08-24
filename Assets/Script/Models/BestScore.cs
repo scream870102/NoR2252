@@ -2,8 +2,6 @@ using System.Collections.Generic;
 
 using NoR2252.Utils;
 
-using UnityEngine;
-using UnityEngine.Video;
 namespace NoR2252.Models {
     [System.Serializable]
     public class ScoreBoard {

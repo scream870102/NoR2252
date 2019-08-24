@@ -3,14 +3,11 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-Assets/AssetStoreTools*
 Assets/Sprite/
-Assets/Sheets/
 Assets/UIElement/
 Assets/Fonts/
-Assets/Resources/
 Assets/Test/
-SheetMaker/
+Assets/SFX/
 
 # Visual Studio cache directory
 .vs/

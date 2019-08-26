@@ -26,5 +26,6 @@ public static class NoR2252Application {
     public static Option Option { get; set; }
     /// <summary>this record the best score player get on each song</summary>
     public static ScoreBoard ScoreBoard { get; set; }
+    public static TextAsset SheetList{get;set;}
 
 }

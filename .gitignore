@@ -8,6 +8,12 @@ Assets/UIElement/
 Assets/Fonts/
 Assets/Test/
 Assets/SFX/
+Assets/Firebase/
+Assets/StreamingAssets/
+Assets/Plugins/
+Assets/Parse/
+Assets/PlayServicesResolver/
+Assets/Editor Default Resources/
 
 # Visual Studio cache directory
 .vs/

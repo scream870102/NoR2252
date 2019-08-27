@@ -16,31 +16,48 @@ public class StartController : MonoBehaviour {
     [SerializeField] Button CheckBtn;
     [SerializeField] Button BackBtn;
     [SerializeField] LeanTouch touch;
-    [Header("Volume")]
+    [SerializeField] Text ProgressText;
+    [Header ("Volume")]
     [SerializeField] Slider VolumeSlider;
     [SerializeField] Text VolumeText;
-    [Header("Offset")]
+    [Header ("Offset")]
     [SerializeField] Slider OffsetSlider;
     [SerializeField] Text OffsetText;
-    [Header("Opacity")]
+    [Header ("Opacity")]
     [SerializeField] Slider OpacitySlider;
     [SerializeField] Text OpacityText;
     bool bOptionClicked = false;
+    bool bBundleDownFined = false;
     Option options = null;
+    List<string> bundles = new List<string> ( );
     void Awake ( ) {
         //subscribe ui event
         bOptionClicked = false;
+        bBundleDownFined = false;
         touch.enabled = false;
         OptionBtn.onClick.AddListener (OnOptionClicked);
         CheckBtn.onClick.AddListener (OnCheckClicked);
         BackBtn.onClick.AddListener (OnBackClicked);
         VolumeSlider.onValueChanged.AddListener (OnVolumeValueChanged);
         OffsetSlider.onValueChanged.AddListener (OnOffsetValueChanged);
-        OpacitySlider.onValueChanged.AddListener(OnOpacityValueChanged);
+        OpacitySlider.onValueChanged.AddListener (OnOpacityValueChanged);
     }
-    void Start ( ) {
+    async void Start ( ) {
         NoR2252Application.Option = SourceLoader.LoadOption ( );
         OptionMenu.SetActive (false);
+        ProgressText.text = "Updating SheetList ...";
+        await SourceLoader.LoadBundleList ( ).ContinueWith (
+            (task) => {
+                bundles.AddRange (task.Result);
+            }
+        );
+        ProgressText.text = "Downloading All Sheets";
+        await SourceLoader.DownloadAllBundles (bundles).ContinueWith (
+            (task) => {
+                bBundleDownFined = true;
+            }
+        );
+        ProgressText.text = "Already Downloaded All Sheets";
     }
 
     void OnOptionClicked ( ) {
@@ -97,7 +114,7 @@ public class StartController : MonoBehaviour {
 
     //if option panel is off then load the select scene
     void Tap (LeanFinger finger) {
-        if (!bOptionClicked) {
+        if (!bOptionClicked && bBundleDownFined) {
             SceneManager.LoadScene ("Select");
         }
     }

@@ -1,14 +1,88 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+
+using Firebase.Storage;
 
 using NoR2252.Models;
 
 using UnityEngine;
-using UnityEngine.Video;
 
 namespace NoR2252.Utils {
     public static class SourceLoader {
+        #region FIREBASE
+        /// <summary>Call this method to load bundleList from firebase</summary>
+        /// <example><code>
+        /// await SourceLoader.LoadBundleList ( ).ContinueWith (
+        ///         (task) => {
+        ///             Debug.Log ("LoadBundleListfinish");
+        ///             bundles.AddRange (task.Result);
+        ///         }
+        /// );
+        /// SourceLoader.DownloadAllBundles (bundles);
+        ///</code></example>
+        public async static Task<List<string>> LoadBundleList ( ) {
+            List<string> bundleList = new List<string> ( );
+            FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+            StorageReference reference = storage.GetReferenceFromUrl (FirebaseConst.SheetListPath);
+            //check local path
+            string path = Application.persistentDataPath + "/Option";
+            if (!Directory.Exists (path)) Directory.CreateDirectory (path);
+            path = Application.persistentDataPath + "/Option/SheetList.json";
+            //download json file
+            Task operation = reference.GetFileAsync (path);
+            while (!operation.IsCompleted) {
+                await Task.Delay (1);
+            }
+            //load file from local
+            BundleList textFile = JsonUtility.FromJson<BundleList> (File.ReadAllText (path));
+            bundleList.AddRange (textFile.bundles);
+            return bundleList;
+        }
+        /// <summary>Call this method to download all bundle from firebase</summary>
+        /// <param name="bundleList">list of bundle should load</param>
+        public async static Task DownloadAllBundles (List<string> bundleList) {
+            List<string> netBundles = bundleList;
+            List<string> localBundles = new List<string> ( );
+            string path = Application.persistentDataPath + "/Bundle";
+            if (!Directory.Exists (path)) Directory.CreateDirectory (path);
+            string [ ] allfile = Directory.GetFiles (path);
+            //Find all the bundle already downloaded in the local storage
+            foreach (string file in allfile) {
+                //if the file doesn't have extension will be the assetbundle file
+                if (!Path.HasExtension (file)) {
+                    localBundles.Add (file);
+                }
+            }
+            //delete the bundle already downloaded from bundleList
+            foreach (string bundle in localBundles) {
+                int index;
+                if ((index = netBundles.FindIndex (s => s == bundle)) != -1) {
+                    netBundles.RemoveAt (index);
+                }
+            }
+            //Download other netbundles to local
+            FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+            List<Task> downTasks = new List<Task> ( );
+            //check local path
+            path = Application.persistentDataPath + "/Bundle";
+            foreach (string bundle in netBundles) {
+                StorageReference reference = storage.GetReferenceFromUrl (FirebaseConst.SheetFolderPath + "/" + bundle);
+                path = Application.persistentDataPath + "/Bundle/" + bundle;
+                downTasks.Add (reference.GetFileAsync (path));
+            }
+            await Task.WhenAll (downTasks.ToArray ( ));
+
+        }
+        public async static Task DownloadVideo(string netPath,string fileName){
+            string localPath=Application.persistentDataPath+"/Bundle/"+fileName;
+            FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+            StorageReference reference = storage.GetReferenceFromUrl (netPath);
+            await reference.GetFileAsync (localPath);
+            Debug.Log("download fin at"+localPath );
+
+        }
+        #endregion
         #region ASSET_BUNDLE
         /// <summary>convert the textasset to Sheet</summary>
         public static Sheet LoadSheetFromBundle (TextAsset textAsset) {
@@ -72,7 +146,7 @@ namespace NoR2252.Utils {
             return sheets;
         }
         #endregion
-        #if (UNITY_EDITOR) 
+#if (UNITY_EDITOR) 
         #region CREATE_SHEET
         /// <summary>create the sheet to the Sheet folder</summary>
         public static void CreateSheet (Sheet sheet) {
@@ -84,7 +158,7 @@ namespace NoR2252.Utils {
             file.Close ( );
         }
         #endregion
-        #endif
+#endif
         #region Utils
 
         /// <summary>check directory exist if not create it</summary>
@@ -161,9 +235,9 @@ namespace NoR2252.Utils {
             file.Close ( );
         }
         #endregion
-        #if (UNITY_EDITOR) 
+#if (UNITY_EDITOR) 
         #region FOR_EDITOR_TEST
-        public static GameSheet LoadSheet (TextAsset sheetFile,Texture2D cover) {
+        public static GameSheet LoadSheet (TextAsset sheetFile, Texture2D cover) {
             Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
             GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
             if (s != null) {
@@ -173,7 +247,7 @@ namespace NoR2252.Utils {
             return gameSheet;
         }
         #endregion
-        #endif
+#endif
         #region OLD_VER
         //     public static void CreateSheet (Sheet sheet) {
         // sheet.music = "MusicVideo/" + sheet.music;

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 using Eccentric.Utils;
 
@@ -15,6 +17,7 @@ public class SelectController : MonoBehaviour {
     [SerializeField] Text title;
     [SerializeField] Text author;
     [SerializeField] Text bestScore;
+    [SerializeField] Text downText;
     [SerializeField] Texture2D errorTex;
     [SerializeField] Button backBtn;
     [SerializeField] List<RawImage> sprites;
@@ -29,11 +32,13 @@ public class SelectController : MonoBehaviour {
     List<int> cAs = new List<int> ( );
     new AudioSource audio;
     bool bBackClicked = false;
+    bool bVideoExist = false;
     Vector2 startPos = new Vector2 ( );
     Vector2 currentPos = new Vector2 ( );
     int fingerId = -1;
     int direction = 0;
     Vector2 screenSize = new Vector2 ( );
+    bool bSelecting = false;
 
     void Awake ( ) {
         audio = GetComponent<AudioSource> ( );
@@ -68,7 +73,10 @@ public class SelectController : MonoBehaviour {
         audio.Play ( );
         if (cAs [MID_SPRITE_INDEX] != -1) {
             NoR2252Application.CurrentSheet = AllSheet [cAs [MID_SPRITE_INDEX]];
-            if (!bBackClicked)
+            if (!bVideoExist) {
+                DownloadVideo (Path.GetFileName (AllSheet [cAs [MID_SPRITE_INDEX]].music));
+            }
+            else if (!bBackClicked)
                 SceneManager.LoadSceneAsync ("Game");
         }
     }
@@ -86,6 +94,7 @@ public class SelectController : MonoBehaviour {
             direction = offset.x > 0f?1: -1;
             float percentage = Mathf.Abs (offset.x) / screenSize.x;
             if (percentage <= MIN_START_UP_PER) return;
+            bSelecting = true;
             foreach (AnimationState state in animation.Animation) {
                 if (direction == 1)
                     animation.Animation.clip = NextAnim;
@@ -99,7 +108,9 @@ public class SelectController : MonoBehaviour {
 
     }
     void Up (LeanFinger finger) {
-        animation.Animation.Play ( );
+        if (bSelecting)
+            animation.Animation.Play ( );
+        bSelecting = false;
     }
 
     //if fade animation fin get the next sheet
@@ -109,6 +120,7 @@ public class SelectController : MonoBehaviour {
             GetNext ( );
         else
             GetPrev ( );
+
         SetUI ( );
     }
 
@@ -120,6 +132,7 @@ public class SelectController : MonoBehaviour {
             author.text = "Error No2252X00";
         }
         else {
+            CheckVideoExist ( );
             //try to find the bestscore pair for the sheet in the middle
             ScorePair bestPair = null;
             title.text = AllSheet [cAs [MID_SPRITE_INDEX]].name;
@@ -192,5 +205,30 @@ public class SelectController : MonoBehaviour {
         LeanTouch.OnFingerSet += Set;
         LeanTouch.OnFingerUp += Up;
     }
-
+    void CheckVideoExist ( ) {
+        string path = Application.persistentDataPath + "/Bundle/" + Path.GetFileName (AllSheet [cAs [MID_SPRITE_INDEX]].music);
+        if (!File.Exists (path)) {
+            bVideoExist = false;
+            downText.text = "Music not exist tap to download";
+        }
+        else {
+            bVideoExist = true;
+            downText.text = "Music exist";
+        }
+    }
+    async void DownloadVideo (string fileName) {
+        string netPath = FirebaseConst.VideoFolderPath + "/" + fileName;
+        Debug.Log ("Downding" + netPath);
+        Task downTask = SourceLoader.DownloadVideo (netPath, fileName);
+        if (!downTask.IsCompleted) {
+            downText.text = "Downloading ...";
+            await Task.Delay (1000 / 30);
+        }
+        //await SourceLoader.DownloadVideo (netPath, fileName);
+        Debug.Log ("Already download" + fileName);
+        if (AllSheet [cAs [MID_SPRITE_INDEX]].music == fileName) {
+            downText.text = "Music exist";
+            bVideoExist = true;
+        }
+    }
 }

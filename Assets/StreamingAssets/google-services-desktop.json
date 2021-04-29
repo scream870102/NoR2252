@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "793175650285",
+    "firebase_url": "https://nor2252-e2840.firebaseio.com",
+    "project_id": "nor2252-e2840",
+    "storage_bucket": "nor2252-e2840.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793175650285:android:a054365df824b660",
+        "android_client_info": {
+          "package_name": "com.CJStudio.NoR2252"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793175650285-p3h283hlfbg35k1118qra9gb145tjs0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3UN7rvrf3E3H6WGFpuZ7NXHZGqqBp6I8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793175650285-p3h283hlfbg35k1118qra9gb145tjs0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -129,7 +129,7 @@ namespace NoR2252.Utils {
             GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
             if (s != null) {
                 Texture2D tex = bundle.LoadAsset<Texture2D> (s.cover);
-                gameSheet.music = "file://" + Application.persistentDataPath + "/Bundle/" + s.music + ".mp4";
+                gameSheet.music = Application.persistentDataPath + "/Bundle/" + s.music + ".mp4";
                 gameSheet.cover = tex;
             }
             return gameSheet;
@@ -241,7 +241,7 @@ namespace NoR2252.Utils {
             Sheet s = SourceLoader.LoadSheetFromBundle (sheetFile);
             GameSheet gameSheet = new GameSheet (s.name, s.author, s.bpm, s.notes, s.musicOffset, s.size, s.notePreload, s.screenSize);
             if (s != null) {
-                gameSheet.music = "file://" + Application.persistentDataPath + "/Editor/" + s.music + ".mp4";
+                gameSheet.music = Application.persistentDataPath + "/Editor/" + s.music + ".mp4";
                 gameSheet.cover = cover;
             }
             return gameSheet;

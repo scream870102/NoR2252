@@ -3,17 +3,19 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
-Assets/Sprite/
-Assets/UIElement/
-Assets/Fonts/
-Assets/Test/
-Assets/SFX/
+# Assets/Sprite/
+# Assets/UIElement/
+# Assets/Fonts/
+# Assets/Test/
+# Assets/SFX/
 Assets/Firebase/
-Assets/StreamingAssets/
-Assets/Plugins/
-Assets/Parse/
-Assets/PlayServicesResolver/
-Assets/Editor Default Resources/
+**/google-services.xml*
+
+# Assets/StreamingAssets/
+# Assets/Plugins/
+# Assets/Parse/
+# Assets/PlayServicesResolver/
+# Assets/Editor Default Resources/
 
 # Visual Studio cache directory
 .vs/
